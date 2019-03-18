@@ -17,15 +17,12 @@
 
         [Display(Name = "Start Date")]
         [Required]
-        public DateTime? StartDate { get; set; }
+        public DateTime StartDate { get; set; }
 
         [Display(Name = "Finish Date")]
         [Required]
-        public DateTime? FinishDate { get; set; }
-
-        [Required]
-        public Candidate Candidate { get; set; }
-
+        public DateTime FinishDate { get; set; }
+        
         public User User { get; set; }
     }
 }

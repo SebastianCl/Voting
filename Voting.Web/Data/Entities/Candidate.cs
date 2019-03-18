@@ -19,6 +19,8 @@
         [Required]
         public string ImageUrl { get; set; }
 
+        [Required]
+        public Event Event { get; set; }
 
         public string ImageFullPath
         {
