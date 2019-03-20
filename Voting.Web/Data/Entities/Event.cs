@@ -7,11 +7,12 @@
     {
         public int Id { get; set; }
 
-        [MaxLength(150, ErrorMessage = "The field {0} only can contain {1} characters length.")]
+        [MaxLength(100, ErrorMessage = "The field {0} only can contain {1} characters length.")]
         [Display(Name = "Event Name")]
         [Required]
         public string Name { get; set; }
 
+        [MaxLength(150, ErrorMessage = "The field {0} only can contain {1} characters length.")]
         [Required]
         public string Description { get; set; }
 

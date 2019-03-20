@@ -2,7 +2,7 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    public class Candidate : IEntity
+    public class Candidate //: IEntity
     {
         public int Id { get; set; }
 
@@ -19,8 +19,8 @@
         [Required]
         public string ImageUrl { get; set; }
 
-        [Required]
-        public Event Event { get; set; }
+        /*[Required]
+        public Event Event { get; set; }*/
 
         public string ImageFullPath
         {

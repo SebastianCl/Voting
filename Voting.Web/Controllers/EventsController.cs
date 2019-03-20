@@ -1,37 +1,39 @@
 ﻿namespace Voting.Web.Controllers
 {
-    using System.Linq;
-    using System.Threading.Tasks;
     using Data;
     using Data.Entities;
+    using Helpers;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
-    
+    using System.Threading.Tasks;
+
 
     public class EventsController : Controller
     {
-        private readonly IRepository repository;
+        private readonly IEventRepository eventRepository;
+        private readonly IUserHelper userHelper;
 
-        public EventsController(IRepository repository)
+        public EventsController(IEventRepository eventRepository, IUserHelper userHelper)
         {
-            this.repository = repository;
+            this.eventRepository = eventRepository;
+            this.userHelper = userHelper;
         }
 
         // GET: Events
         public IActionResult Index()
         {
-            return View(this.repository.GetEvents());
+            return View(this.eventRepository.GetAll());
         }
 
         // GET: Events/Details/5
-        public IActionResult Details(int? id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var @event = this.repository.GetEvent(id.Value);
+            var @event = await this.eventRepository.GetByIdAsync(id.Value);
             if (@event == null)
             {
                 return NotFound();
@@ -53,22 +55,23 @@
         {
             if (ModelState.IsValid)
             {
-                this.repository.AddEvent(@event);
-                await this.repository.SaveAllAsync();
+                //TODO: Change for the logged user
+                @event.User = await this.userHelper.GetUserByEmailAsync("cardonaloaizasebastian112@gmail.com");
+                await this.eventRepository.CreateAsync(@event);
                 return RedirectToAction(nameof(Index));
             }
             return View(@event);
         }
 
         // GET: Events/Edit/5
-        public IActionResult Edit(int? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var @event = this.repository.GetEvent(id.Value);    
+            var @event = await this.eventRepository.GetByIdAsync(id.Value);
             if (@event == null)
             {
                 return NotFound();
@@ -80,17 +83,18 @@
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Event @event)
-        {            
+        {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    this.repository.UpdateEvent(@event);
-                    await this.repository.SaveAllAsync();
+                    //TODO: Change for the logged user
+                    @event.User = await this.userHelper.GetUserByEmailAsync("cardonaloaizasebastian112@gmail.com");
+                    await this.eventRepository.UpdateAsync(@event);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!this.repository.EventExists(@event.Id))
+                    if (!await this.eventRepository.ExistAsync(@event.Id))
                     {
                         return NotFound();
                     }
@@ -105,14 +109,14 @@
         }
 
         // GET: Events/Delete/5
-        public IActionResult Delete(int? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var @event = this.repository.GetEvent(id.Value);
+            var @event = await this.eventRepository.GetByIdAsync(id.Value);
             if (@event == null)
             {
                 return NotFound();
@@ -126,10 +130,8 @@
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var @event = this.repository.GetEvent(id);
-
-            this.repository.RemoveEvent(@event);
-            await this.repository.SaveAllAsync();
+            var @event = await this.eventRepository.GetByIdAsync(id);
+            await this.eventRepository.DeleteAsync(@event);
             return RedirectToAction(nameof(Index));
         }
 
