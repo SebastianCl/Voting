@@ -27,6 +27,10 @@
                 {
                     FirstName = "Sebastian",
                     LastName = "Cardona",
+                    Occupation = "Coder",
+                    Stratum = 3,
+                    Gender = "Male",
+                    Birthdate = DateTime.Now,
                     Email = "cardonaloaizasebastian112@gmail.com",
                     UserName = "cardonaloaizasebastian112@gmail.com"
                 };
