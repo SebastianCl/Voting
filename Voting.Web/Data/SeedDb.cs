@@ -1,6 +1,7 @@
 ﻿namespace Voting.Web.Data
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
     using Entities;
@@ -20,6 +21,21 @@
         public async Task SeedAsync()
         {
             await this.context.Database.EnsureCreatedAsync();
+
+            if (!this.context.Countries.Any())
+            {
+                var cities = new List<City>();
+                cities.Add(new City { Name = "Medellín" });
+                cities.Add(new City { Name = "Bogotá" });
+                cities.Add(new City { Name = "Calí" });
+                this.context.Countries.Add(new Country
+                {
+                    Cities = cities,
+                    Name = "Colombia"
+                });                
+                await this.context.SaveChangesAsync();
+            }
+
             var user = await this.userHelper.GetUserByEmailAsync("cardonaloaizasebastian112@gmail.com");
             if (user == null)
             {
@@ -32,7 +48,9 @@
                     Gender = "Male",
                     Birthdate = DateTime.Now,
                     Email = "cardonaloaizasebastian112@gmail.com",
-                    UserName = "cardonaloaizasebastian112@gmail.com"
+                    UserName = "cardonaloaizasebastian112@gmail.com",
+                    CityId = this.context.Countries.FirstOrDefault().Cities.FirstOrDefault().Id,
+                    City = this.context.Countries.FirstOrDefault().Cities.FirstOrDefault()
                 };
                 var result = await this.userHelper.AddUserAsync(user, "123456");
                 if (result != IdentityResult.Success)

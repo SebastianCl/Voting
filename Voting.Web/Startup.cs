@@ -1,5 +1,9 @@
 ﻿namespace Voting.Web
 {
+    using Data;
+    using Data.Entities;
+    using Data.Repositories;
+    using Helpers;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -8,9 +12,6 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
-    using Data;
-    using Data.Entities;
-    using Helpers;
 
     public class Startup
     {
@@ -43,6 +44,7 @@
 
             services.AddTransient<SeedDb>();
             services.AddScoped<IEventRepository, EventRepository>();
+            services.AddScoped<ICountryRepository, CountryRepository>();
             services.AddScoped<IUserHelper, UserHelper>();
 
             services.Configure<CookiePolicyOptions>(options =>

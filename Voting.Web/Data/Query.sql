@@ -2,4 +2,4 @@
 USE [Voting]
 GO
 select * from AspNetUsers
-select * from Events
+select * from cities
