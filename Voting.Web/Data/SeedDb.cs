@@ -24,10 +24,12 @@
 
             if (!this.context.Countries.Any())
             {
-                var cities = new List<City>();
-                cities.Add(new City { Name = "Medellín" });
-                cities.Add(new City { Name = "Bogotá" });
-                cities.Add(new City { Name = "Calí" });
+                var cities = new List<City>
+                {
+                    new City { Name = "Medellín" },
+                    new City { Name = "Bogotá" },
+                    new City { Name = "Calí" }
+                };
                 this.context.Countries.Add(new Country
                 {
                     Cities = cities,
@@ -58,15 +60,52 @@
                     throw new InvalidOperationException("Could not create the user in seeder");
                 }
             }
-            if (!this.context.Events.Any())
+            /*if (!this.context.Events.Any())
             {
                 this.AddEvent("Election of student representative", user);
                 this.AddEvent("Do you agree with the new metro line?", user);
                 this.AddEvent("Do you prefer Rock or Reggaeton?", user);
                 await this.context.SaveChangesAsync();
+            }*/
+
+            if (!this.context.Events.Any())
+            {
+                var candidates = new List<Candidate>
+                {
+                    new Candidate
+                    {
+                        Name = "Medellín",
+                        Proposal = "Proposal of Medellin",
+                        ImageUrl = "url/medellin"
+
+                    },
+                    new Candidate
+                    {
+                        Name = "Bogotá",
+                        Proposal = "Proposal of Bogota",
+                        ImageUrl = "url/bogota",
+                    },
+                    new Candidate
+                    {
+                        Name = "Calí",
+                        Proposal = "Proposal of Cali",
+                        ImageUrl = "url/cali"
+                    }
+                };
+
+                this.context.Events.Add(new Event
+                {
+                    Name = "What is the best city?",
+                    Description = "Description to event ",
+                    StartDate = DateTime.Now,
+                    FinishDate = DateTime.Now,
+                    User = user,
+                    Candidates = candidates
+                });
+                await this.context.SaveChangesAsync();
             }
         }
-        private void AddEvent(string name, User user)
+        /*private void AddEvent(string name, User user)
         {
             this.context.Events.Add(new Event
             {
@@ -76,6 +115,6 @@
                 FinishDate = DateTime.Now,
                 User = user
             });
-        }
+        }*/
     }
 }

@@ -69,24 +69,30 @@ else
         </div>
     </div>
 </div>
-@section Scripts {
+
+
+
+
+
+
+
+
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script type="text/javascript">
         $(document).ready(function () {
-        var id = 0;
-        $('a[id*=btnDelete]').click(function () {
-        debugger;
-        id = $(this).parent()[0].id;
-        $("#deleteDialog").modal('show');
-        return false;
-        });
-        $("#btnNoDelete").click(function () {
-        $("#deleteDialog").modal('hide');
-        return false;
-        });
-        $("#btnYesDelete").click(function () {
-        window.location.href = '/Countries/DeleteCity/' + id;
-        });
+            var id = 0;
+            $('a[id*=btnDelete]').click(function () {
+                debugger;
+                id = $(this).parent()[0].id;
+                $("#deleteDialog").modal('show');
+                return false;
+            });
+            $("#btnNoDelete").click(function () {
+                $("#deleteDialog").modal('hide');
+                return false;
+            });
+            $("#btnYesDelete").click(function () {
+                window.location.href = '/Countries/DeleteCity/' + id;
+            });
         });
     </script>
-}

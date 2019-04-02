@@ -1,12 +1,12 @@
 ﻿namespace Voting.Web.Controllers
 {
+    using System.Threading.Tasks;
     using Data;
     using Data.Entities;
     using Helpers;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
-    using System.Threading.Tasks;
-
+    using Models;
 
     public class EventsController : Controller
     {
@@ -19,10 +19,80 @@
             this.userHelper = userHelper;
         }
 
+        public async Task<IActionResult> DeleteCandidate(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var candidate = await this.eventRepository.GetCandidateAsync(id.Value);
+            if (candidate == null)
+            {
+                return NotFound();
+            }
+            var eventId = await this.eventRepository.DeleteCandidateAsync(candidate);
+            return this.RedirectToAction($"Details/{eventId}");
+        }
+
+        public async Task<IActionResult> EditCandidate(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var candidate = await this.eventRepository.GetCandidateAsync(id.Value);
+            if (candidate == null)
+            {
+                return NotFound();
+            }
+            return View(candidate);
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditCity(Candidate candidate)
+        {
+            if (this.ModelState.IsValid)
+            {
+                var eventId = await this.eventRepository.UpdateCandidateAsync(candidate);
+                if (eventId != 0)
+                {
+                    return this.RedirectToAction($"Details/{eventId}");
+                }
+            }
+            return this.View(candidate);
+        }
+
+        public async Task<IActionResult> AddCandidate(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var @event = await this.eventRepository.GetByIdAsync(id.Value);
+            if (@event == null)
+            {
+                return NotFound();
+            }
+            var model = new CandidateViewModel { EventId = @event.Id };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddCandidate(CandidateViewModel model)
+        {
+            if (this.ModelState.IsValid)
+            {
+                await this.eventRepository.AddCandidateAsync(model);
+                return this.RedirectToAction($"Details/{model.EventId}");
+            }
+            return this.View(model);
+        }
         // GET: Events
         public IActionResult Index()
         {
-            return View(this.eventRepository.GetAll());
+            return View(this.eventRepository.GetEventsWithCandidates());
         }
 
         // GET: Events/Details/5
@@ -33,7 +103,7 @@
                 return NotFound();
             }
 
-            var @event = await this.eventRepository.GetByIdAsync(id.Value);
+            var @event = await this.eventRepository.GetEventWithCandidatesAsync(id.Value);
             if (@event == null)
             {
                 return NotFound();

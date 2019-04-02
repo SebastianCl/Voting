@@ -1,7 +1,22 @@
 ﻿namespace Voting.Web.Data
 {
+    using System.Linq;
+    using System.Threading.Tasks;
     using Entities;
-    public interface IEventRepository : IGenericRepository <Event>
+    using Models;    
+
+    public interface IEventRepository : IGenericRepository<Event>
     {
+        IQueryable GetEventsWithCandidates();
+
+        Task<Event> GetEventWithCandidatesAsync(int id);
+
+        Task<Candidate> GetCandidateAsync(int id);
+
+        Task AddCandidateAsync(CandidateViewModel model);
+
+        Task<int> UpdateCandidateAsync(Candidate candidate);
+
+        Task<int> DeleteCandidateAsync(Candidate candidate);
     }
 }

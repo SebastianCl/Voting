@@ -3,11 +3,9 @@
     using System.Threading.Tasks;
     using Data.Entities;
     using Data.Repositories;
-    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Models;
-    
-    
+
     public class CountriesController : Controller
     {
         private readonly ICountryRepository countryRepository;
@@ -164,6 +162,7 @@
             await this.countryRepository.DeleteAsync(country);
             return RedirectToAction(nameof(Index));
         }
+
     }
 
 }

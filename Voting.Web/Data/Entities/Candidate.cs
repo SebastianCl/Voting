@@ -6,22 +6,19 @@
     {
         public int Id { get; set; }
 
-        [MaxLength(50, ErrorMessage = "The field {0} only can contain {1} characters length.")]
-        [Display(Name = "Option Name")]
         [Required]
+        [Display(Name = "Candidate")]
+        [MaxLength(50, ErrorMessage = "The field {0} only can contain {1} characters length.")]               
         public string Name { get; set; }
 
-        [MaxLength(100, ErrorMessage = "The field {0} only can contain {1} characters length.")]
         [Required]
+        [MaxLength(100, ErrorMessage = "The field {0} only can contain {1} characters length.")]        
         public string Proposal { get; set; }
 
-        [Display(Name = "Image")]
         [Required]
+        [Display(Name = "Image")]        
         public string ImageUrl { get; set; }
-
-        [Required]
-        public Event Event { get; set; }
-
+        
         public string ImageFullPath
         {
             get

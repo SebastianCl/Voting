@@ -10,8 +10,8 @@ using Voting.Web.Data;
 namespace Voting.Web.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20190324042103_City")]
-    partial class City
+    [Migration("20190329131533_InitialDB")]
+    partial class InitialDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -137,7 +137,7 @@ namespace Voting.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("EventId");
+                    b.Property<int?>("EventId");
 
                     b.Property<string>("ImageUrl")
                         .IsRequired();
@@ -340,10 +340,9 @@ namespace Voting.Web.Migrations
 
             modelBuilder.Entity("Voting.Web.Data.Entities.Candidate", b =>
                 {
-                    b.HasOne("Voting.Web.Data.Entities.Event", "Event")
-                        .WithMany()
-                        .HasForeignKey("EventId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                    b.HasOne("Voting.Web.Data.Entities.Event")
+                        .WithMany("Candidates")
+                        .HasForeignKey("EventId");
                 });
 
             modelBuilder.Entity("Voting.Web.Data.Entities.City", b =>

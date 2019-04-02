@@ -36,16 +36,16 @@
         }
         public IQueryable GetCountriesWithCities()
         {
-            return this.context.Countries
-            .Include(c => c.Cities)
-            .OrderBy(c => c.Name);
+            var t = this.context.Countries.Include(c => c.Cities).OrderBy(c => c.Name);
+            return t;
         }
         public async Task<Country> GetCountryWithCitiesAsync(int id)
         {
-            return await this.context.Countries
+            var t = await this.context.Countries
             .Include(c => c.Cities)
             .Where(c => c.Id == id)
             .FirstOrDefaultAsync();
+            return t;
         }
         public async Task<int> UpdateCityAsync(City city)
         {

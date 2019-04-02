@@ -1,29 +1,35 @@
 ﻿namespace Voting.Web.Data.Entities
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     public class Event : IEntity
     {
         public int Id { get; set; }
 
-        [MaxLength(100, ErrorMessage = "The field {0} only can contain {1} characters length.")]
+        [Required]        
         [Display(Name = "Event Name")]
-        [Required]
+        [MaxLength(100, ErrorMessage = "The field {0} only can contain {1} characters length.")]
         public string Name { get; set; }
 
-        [MaxLength(150, ErrorMessage = "The field {0} only can contain {1} characters length.")]
         [Required]
+        [MaxLength(150, ErrorMessage = "The field {0} only can contain {1} characters length.")]        
         public string Description { get; set; }
 
-        [Display(Name = "Start Date")]
         [Required]
+        [Display(Name = "Start Date")]        
         public DateTime StartDate { get; set; }
 
-        [Display(Name = "Finish Date")]
         [Required]
+        [Display(Name = "Finish Date")]        
         public DateTime FinishDate { get; set; }
         
         public User User { get; set; }
+
+        public ICollection<Candidate> Candidates { get; set; }
+
+        [Display(Name = "# Candidates")]
+        public int NumberCandidates { get { return this.Candidates == null ? 0 : this.Candidates.Count; } }
     }
 }

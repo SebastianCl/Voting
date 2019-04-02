@@ -17,5 +17,6 @@
         Task<int> UpdateCityAsync(City city);
 
         Task<int> DeleteCityAsync(City city);
-    }
+    }
+
 }
