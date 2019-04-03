@@ -31,6 +31,18 @@
             await this.context.SaveChangesAsync();
         }
 
+        public async Task<int> UpdateCandidateAsync(Candidate candidate)
+        {
+            var @event = await this.context.Events.Where(c => c.Candidates.Any(ca => ca.Id == candidate.Id)).FirstOrDefaultAsync();
+            if (@event == null)
+            {
+                return 0;
+            }
+            this.context.Candidates.Update(candidate);
+            await this.context.SaveChangesAsync();
+            return @event.Id;
+        }
+
         public async Task<int> DeleteCandidateAsync(Candidate candidate)
         {
             var @event = await this.context.Events.Where(c => c.Candidates.Any(ca => ca.Id == candidate.Id)).FirstOrDefaultAsync();
@@ -48,19 +60,7 @@
             return this.context.Events
             .Include(c => c.Candidates);            
         }
-        
-        public async Task<int> UpdateCandidateAsync(CandidateViewModel model)
-        {
-            var @event = await this.context.Events.Where(c => c.Candidates.Any(ca => ca.Id == model.Id)).FirstOrDefaultAsync();
-            if (@event == null)
-            {
-                return 0;
-            }
-
-            this.context.Candidates.Update(model);
-            await this.context.SaveChangesAsync();
-            return @event.Id;
-        }
+                
         public async Task<Candidate> GetCandidateAsync(int id)
         {
             return await this.context.Candidates.FindAsync(id);

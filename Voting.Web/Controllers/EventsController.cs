@@ -1,5 +1,6 @@
 ﻿namespace Voting.Web.Controllers
 {
+    using System;
     using System.IO;
     using System.Threading.Tasks;
     using Data;
@@ -46,22 +47,78 @@
             {
                 return NotFound();
             }
-            return View(candidate);
+            var view = this.ToCandidateViewModel(candidate);
+            return View(view);
 
+        }
+
+        private CandidateViewModel ToCandidateViewModel(Candidate candidate)
+        {
+            return new CandidateViewModel
+            {
+                Id = candidate.Id,
+                Name = candidate.Name,
+                Proposal = candidate.Proposal,
+                ImageUrl = candidate.ImageUrl
+            };
+        }
+
+        private Candidate ToCandidate(CandidateViewModel candidate, string path)
+        {
+            return new Candidate
+            {
+                Id = candidate.Id,
+                Name = candidate.Name,
+                Proposal = candidate.Proposal,
+                ImageUrl = path
+            };
         }
 
         [HttpPost]
         public async Task<IActionResult> EditCandidate(CandidateViewModel view)
         {
-            if (this.ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                var eventId = await this.eventRepository.UpdateCandidateAsync(view);
-                if (eventId != 0)
+                try
                 {
-                    return this.RedirectToAction($"Details/{eventId}");
+                    var path = view.ImageUrl;
+
+                    if (view.ImageFile != null && view.ImageFile.Length > 0)
+                    {
+                        var guid = Guid.NewGuid().ToString();
+                        var file = $"{guid}.jpg";
+
+                        path = Path.Combine(
+                            Directory.GetCurrentDirectory(),
+                            "wwwroot\\images\\Candidates",
+                            file);
+
+                        using (var stream = new FileStream(path, FileMode.Create))
+                        {
+                            await view.ImageFile.CopyToAsync(stream);
+                        }
+
+                        path = $"~/images/Candidates/{file}";
+                    }
+
+                    var candidate = this.ToCandidate(view, path);
+                    await this.eventRepository.UpdateCandidateAsync(candidate);
                 }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!await this.eventRepository.ExistAsync(view.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
             }
-            return this.View(view);
+
+            return View(view);
         }
 
         public async Task<IActionResult> AddCandidate(int? id)
@@ -88,16 +145,19 @@
                 var path = string.Empty;
                 if (view.ImageFile != null && view.ImageFile.Length > 0)
                 {
+                    var guid = Guid.NewGuid().ToString();
+                    var file = $"{guid}.jpg";
+
                     path = Path.Combine(
                         Directory.GetCurrentDirectory(), 
                         "wwwroot\\images\\Candidates", 
-                        view.ImageFile.FileName);                               
+                        file);                               
                 
                     using (var stream = new FileStream(path, FileMode.Create))
                     {
                         await view.ImageFile.CopyToAsync(stream);
                     }
-                    path = $"~/images/Candidates/{view.ImageFile.FileName}";
+                    path = $"~/images/Candidates/{file}";
                     view.ImageUrl = path;
                 }
                 // TODO: Pending to change to: this.User.Identity.Name

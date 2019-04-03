@@ -4,9 +4,6 @@ select * from Products
 select * from Cities
 
 
-
-
-
 select * from AspNetUsers
 select * from Cities
 
