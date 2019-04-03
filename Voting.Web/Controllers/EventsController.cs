@@ -1,5 +1,6 @@
 ﻿namespace Voting.Web.Controllers
 {
+    using System.IO;
     using System.Threading.Tasks;
     using Data;
     using Data.Entities;
@@ -50,17 +51,17 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditCity(Candidate candidate)
+        public async Task<IActionResult> EditCandidate(CandidateViewModel view)
         {
             if (this.ModelState.IsValid)
             {
-                var eventId = await this.eventRepository.UpdateCandidateAsync(candidate);
+                var eventId = await this.eventRepository.UpdateCandidateAsync(view);
                 if (eventId != 0)
                 {
                     return this.RedirectToAction($"Details/{eventId}");
                 }
             }
-            return this.View(candidate);
+            return this.View(view);
         }
 
         public async Task<IActionResult> AddCandidate(int? id)
@@ -80,17 +81,34 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddCandidate(CandidateViewModel model)
+        public async Task<IActionResult> AddCandidate(CandidateViewModel view)
         {
             if (this.ModelState.IsValid)
             {
-                await this.eventRepository.AddCandidateAsync(model);
-                return this.RedirectToAction($"Details/{model.EventId}");
+                var path = string.Empty;
+                if (view.ImageFile != null && view.ImageFile.Length > 0)
+                {
+                    path = Path.Combine(
+                        Directory.GetCurrentDirectory(), 
+                        "wwwroot\\images\\Candidates", 
+                        view.ImageFile.FileName);                               
+                
+                    using (var stream = new FileStream(path, FileMode.Create))
+                    {
+                        await view.ImageFile.CopyToAsync(stream);
+                    }
+                    path = $"~/images/Candidates/{view.ImageFile.FileName}";
+                    view.ImageUrl = path;
+                }
+                // TODO: Pending to change to: this.User.Identity.Name
+                await this.eventRepository.AddCandidateAsync(view);
+                return RedirectToAction(nameof(Index));
             }
-            return this.View(model);
+            return View(view);
         }
+        
         // GET: Events
-        public IActionResult Index()
+            public IActionResult Index()
         {
             return View(this.eventRepository.GetEventsWithCandidates());
         }
@@ -111,6 +129,12 @@
 
             return View(@event);
         }
+
+
+
+
+
+
 
         // GET: Events/Create
         public IActionResult Create()

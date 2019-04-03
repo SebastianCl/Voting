@@ -49,15 +49,15 @@
             .Include(c => c.Candidates);            
         }
         
-        public async Task<int> UpdateCandidateAsync(Candidate candidate)
+        public async Task<int> UpdateCandidateAsync(CandidateViewModel model)
         {
-            var @event = await this.context.Events.Where(c => c.Candidates.Any(ca => ca.Id == candidate.Id)).FirstOrDefaultAsync();
+            var @event = await this.context.Events.Where(c => c.Candidates.Any(ca => ca.Id == model.Id)).FirstOrDefaultAsync();
             if (@event == null)
             {
                 return 0;
             }
 
-            this.context.Candidates.Update(candidate);
+            this.context.Candidates.Update(model);
             await this.context.SaveChangesAsync();
             return @event.Id;
         }

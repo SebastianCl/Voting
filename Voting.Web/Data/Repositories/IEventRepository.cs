@@ -15,7 +15,7 @@
 
         Task AddCandidateAsync(CandidateViewModel model);
 
-        Task<int> UpdateCandidateAsync(Candidate candidate);
+        Task<int> UpdateCandidateAsync(CandidateViewModel model);
 
         Task<int> DeleteCandidateAsync(Candidate candidate);
     }

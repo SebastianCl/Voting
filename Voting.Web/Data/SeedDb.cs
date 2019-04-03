@@ -76,20 +76,26 @@
                     {
                         Name = "Medellín",
                         Proposal = "Proposal of Medellin",
-                        ImageUrl = "url/medellin"
+                        ImageUrl = "~/images/Candidates/Medellin.jpg"
 
                     },
                     new Candidate
                     {
                         Name = "Bogotá",
                         Proposal = "Proposal of Bogota",
-                        ImageUrl = "url/bogota",
+                        ImageUrl = "~/images/Candidates/Bogota.jpg",
                     },
                     new Candidate
                     {
                         Name = "Calí",
                         Proposal = "Proposal of Cali",
-                        ImageUrl = "url/cali"
+                        ImageUrl = "~/images/Candidates/Cali.jpg"
+                    },
+                    new Candidate
+                    {
+                        Name = "Pereira",
+                        Proposal = "Proposal of Pereira",
+                        ImageUrl = "~/images/Candidates/Pereira.jpg"
                     }
                 };
 
