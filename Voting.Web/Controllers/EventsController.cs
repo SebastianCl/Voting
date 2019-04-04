@@ -2,6 +2,7 @@
 {
     using System;
     using System.IO;
+    using System.Linq;
     using System.Threading.Tasks;
     using Data;
     using Data.Entities;
@@ -149,10 +150,10 @@
                     var file = $"{guid}.jpg";
 
                     path = Path.Combine(
-                        Directory.GetCurrentDirectory(), 
-                        "wwwroot\\images\\Candidates", 
-                        file);                               
-                
+                        Directory.GetCurrentDirectory(),
+                        "wwwroot\\images\\Candidates",
+                        file);
+
                     using (var stream = new FileStream(path, FileMode.Create))
                     {
                         await view.ImageFile.CopyToAsync(stream);
@@ -166,11 +167,11 @@
             }
             return View(view);
         }
-        
+
         // GET: Events
-            public IActionResult Index()
+        public IActionResult Index()
         {
-            return View(this.eventRepository.GetEventsWithCandidates());
+            return View(this.eventRepository.GetAll().OrderBy(e => e.FinishDate));
         }
 
         // GET: Events/Details/5
