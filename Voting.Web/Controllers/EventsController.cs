@@ -83,25 +83,10 @@
                 try
                 {
                     var path = view.ImageUrl;
-
                     if (view.ImageFile != null && view.ImageFile.Length > 0)
                     {
-                        var guid = Guid.NewGuid().ToString();
-                        var file = $"{guid}.jpg";
-
-                        path = Path.Combine(
-                            Directory.GetCurrentDirectory(),
-                            "wwwroot\\images\\Candidates",
-                            file);
-
-                        using (var stream = new FileStream(path, FileMode.Create))
-                        {
-                            await view.ImageFile.CopyToAsync(stream);
-                        }
-
-                        path = $"~/images/Candidates/{file}";
+                        path = await this.PathImage(view);
                     }
-
                     var candidate = this.ToCandidate(view, path);
                     await this.eventRepository.UpdateCandidateAsync(candidate);
                 }
@@ -146,20 +131,7 @@
                 var path = string.Empty;
                 if (view.ImageFile != null && view.ImageFile.Length > 0)
                 {
-                    var guid = Guid.NewGuid().ToString();
-                    var file = $"{guid}.jpg";
-
-                    path = Path.Combine(
-                        Directory.GetCurrentDirectory(),
-                        "wwwroot\\images\\Candidates",
-                        file);
-
-                    using (var stream = new FileStream(path, FileMode.Create))
-                    {
-                        await view.ImageFile.CopyToAsync(stream);
-                    }
-                    path = $"~/images/Candidates/{file}";
-                    view.ImageUrl = path;
+                    view.ImageUrl = await this.PathImage(view);
                 }
                 // TODO: Pending to change to: this.User.Identity.Name
                 await this.eventRepository.AddCandidateAsync(view);
@@ -191,12 +163,6 @@
             return View(@event);
         }
 
-
-
-
-
-
-
         // GET: Events/Create
         public IActionResult Create()
         {
@@ -205,7 +171,6 @@
 
         // POST: Events/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Event @event)
         {
             if (ModelState.IsValid)
@@ -236,7 +201,6 @@
 
         // POST: Events/Edit/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Event @event)
         {
             if (ModelState.IsValid)
@@ -282,7 +246,6 @@
 
         // POST: Events/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var @event = await this.eventRepository.GetByIdAsync(id);
@@ -290,5 +253,26 @@
             return RedirectToAction(nameof(Index));
         }
 
+        private async Task<string> PathImage(CandidateViewModel view)
+        {
+            if (view != null)
+            {
+                var guid = Guid.NewGuid().ToString();
+                var file = $"{guid}.jpg";
+
+                var path = Path.Combine(
+                    Directory.GetCurrentDirectory(),
+                    "wwwroot\\images\\Candidates",
+                    file);
+
+                using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    await view.ImageFile.CopyToAsync(stream);
+                }
+
+                return $"~/images/Candidates/{file}";
+            }
+            return null;
+        }
     }
 }

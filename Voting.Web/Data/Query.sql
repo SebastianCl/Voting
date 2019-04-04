@@ -6,9 +6,9 @@ select * from Cities
 
 select * from AspNetUsers
 select * from Cities
-
-select * from Events
 use Voting
+select * from Events
+
 select * from Candidates
 
 SELECT *

@@ -58,7 +58,8 @@
         public IQueryable GetEventsWithCandidates()
         {
             return this.context.Events
-            .Include(c => c.Candidates);            
+            .Include(c => c.Candidates)
+            .Include(u => u.User);
         }
                 
         public async Task<Candidate> GetCandidateAsync(int id)
@@ -69,8 +70,9 @@
         public async Task<Event> GetEventWithCandidatesAsync(int id)
         {
             return await this.context.Events
-            .Include(c => c.Candidates)
+            .Include(c => c.Candidates)            
             .Where(c => c.Id == id)
+            .Include(u => u.User)
             .FirstOrDefaultAsync();
         }
         
