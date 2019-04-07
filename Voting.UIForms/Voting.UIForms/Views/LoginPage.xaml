@@ -8,7 +8,7 @@
         <ScrollView
             BindingContext="{Binding Login}">
             <StackLayout
-                Padding="8,10">
+                Padding="8">
                 <Label
                     Text="Email">
                 </Label>

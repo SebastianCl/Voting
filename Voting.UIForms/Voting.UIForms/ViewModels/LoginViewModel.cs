@@ -1,7 +1,8 @@
 ﻿namespace Voting.UIForms.ViewModels
 {
     using System.Windows.Input;
-    using GalaSoft.MvvmLight.Command;    
+    using GalaSoft.MvvmLight.Command;
+    using Views;
     using Xamarin.Forms;
 
     public class LoginViewModel
@@ -37,12 +38,8 @@
                 return;
             }
 
-            await Application.Current.MainPage.DisplayAlert(
-                "OK",
-                "Working man",
-                "Accept");
-
-
+            MainViewModel.GetInstance().Events = new EventsViewModel();
+            await Application.Current.MainPage.Navigation.PushAsync(new EventsPage());
         }
     }
 }
