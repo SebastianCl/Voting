@@ -13,14 +13,14 @@
 
         public IActionResult About()
         {
-            ViewData["Message"] = "Your application description page.";
+            ViewData["Message"] = "Voting+";
 
             return View();
         }
 
-        public IActionResult Contact()
+        public IActionResult Download()
         {
-            ViewData["Message"] = "Your contact page.";
+            ViewData["Message"] = "Download app.";
 
             return View();
         }

@@ -10,8 +10,8 @@ select * from AspNetUsers
 select * from AspNetUsers
 select * from Cities
 select * from Events
-use Voting
 select * from Candidates
+use Voting
 
 SELECT *
 FROM Events

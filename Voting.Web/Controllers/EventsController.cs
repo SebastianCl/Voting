@@ -2,7 +2,6 @@
 {
     using System;
     using System.IO;
-    using System.Linq;
     using System.Threading.Tasks;
     using Data;
     using Data.Entities;
@@ -144,7 +143,7 @@
         // GET: Events
         public IActionResult Index()
         {
-            return View(this.eventRepository.GetAll().OrderBy(e => e.FinishDate));
+            return View(this.eventRepository.GetEventsWithCandidates());
         }
 
         // GET: Events/Details/5

@@ -59,7 +59,8 @@
         {
             return this.context.Events
             .Include(c => c.Candidates)
-            .Include(u => u.User);
+            .Include(u => u.User)
+            .OrderBy(e => e.FinishDate);
         }
                 
         public async Task<Candidate> GetCandidateAsync(int id)
