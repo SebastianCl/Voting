@@ -6,11 +6,11 @@ select * from Cities
 
 select * from AspNetUsers
 
-use Voting
+
 select * from AspNetUsers
 select * from Cities
 select * from Events
-
+use Voting
 select * from Candidates
 
 SELECT *
