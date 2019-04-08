@@ -5,8 +5,10 @@ select * from Cities
 
 
 select * from AspNetUsers
-select * from Cities
+
 use Voting
+select * from AspNetUsers
+select * from Cities
 select * from Events
 
 select * from Candidates

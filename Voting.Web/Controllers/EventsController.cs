@@ -133,7 +133,6 @@
                 {
                     view.ImageUrl = await this.PathImage(view);
                 }
-                // TODO: Pending to change to: this.User.Identity.Name
                 await this.eventRepository.AddCandidateAsync(view);
                 return RedirectToAction(nameof(Index));
             }
@@ -175,8 +174,7 @@
         {
             if (ModelState.IsValid)
             {
-                //TODO: Change for the logged user
-                @event.User = await this.userHelper.GetUserByEmailAsync("cardonaloaizasebastian112@gmail.com");
+                @event.User = await this.userHelper.GetUserByEmailAsync(this.User.Identity.Name);
                 await this.eventRepository.CreateAsync(@event);
                 return RedirectToAction(nameof(Index));
             }
@@ -207,8 +205,7 @@
             {
                 try
                 {
-                    //TODO: Change for the logged user
-                    @event.User = await this.userHelper.GetUserByEmailAsync("cardonaloaizasebastian112@gmail.com");
+                    @event.User = await this.userHelper.GetUserByEmailAsync(this.User.Identity.Name);
                     await this.eventRepository.UpdateAsync(@event);
                 }
                 catch (DbUpdateConcurrencyException)
