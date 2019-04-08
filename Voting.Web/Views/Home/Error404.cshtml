@@ -1,6 +1,9 @@
 ﻿@{
-    ViewData["Title"] = "NotAuthorized";
+    ViewData["Title"] = "Error404";
 }
+
+<h2>Error 404</h2>
+
 <head>
     <title>Event Not Found</title>
     <!-- Google font -->
@@ -10,12 +13,16 @@
 </head>
 
 <body>
+
     <div id="notfound">
         <div class="notfound">
-            <img src="~/images/cry.png" alt="Not Authorized" style="width:300px;height:450px;max-width: 100%; height: auto;"/>
-            <h2>Oops! Not Authorized</h2>
-            <p>You are not authorized to perfom this action</p>
+            <div class="notfound-404">
+                <h1>404</h1>
+            </div>
+            <h2>Oops! Error 404</h2>
+            <p>Sorry but the page you are looking for does not exist, have been removed. name changed or is temporarily unavailable</p>
             <a asp-area="" asp-controller="Home" asp-action="Index">Back to homepage</a>
         </div>
     </div>
+
 </body>

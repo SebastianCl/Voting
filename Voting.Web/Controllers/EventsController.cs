@@ -27,12 +27,12 @@
         {
             if (id == null)
             {
-                return NotFound();
+                return new NotFoundViewResult("EventNotFound");
             }
             var candidate = await this.eventRepository.GetCandidateAsync(id.Value);
             if (candidate == null)
             {
-                return NotFound();
+                return new NotFoundViewResult("EventNotFound");
             }
             var eventId = await this.eventRepository.DeleteCandidateAsync(candidate);
             return this.RedirectToAction($"Details/{eventId}");
@@ -42,12 +42,12 @@
         {
             if (id == null)
             {
-                return NotFound();
+                return new NotFoundViewResult("EventNotFound");
             }
             var candidate = await this.eventRepository.GetCandidateAsync(id.Value);
             if (candidate == null)
             {
-                return NotFound();
+                return new NotFoundViewResult("EventNotFound");
             }
             var view = this.ToCandidateViewModel(candidate);
             return View(view);
@@ -95,7 +95,7 @@
                 {
                     if (!await this.eventRepository.ExistAsync(view.Id))
                     {
-                        return NotFound();
+                        return new NotFoundViewResult("EventNotFound");
                     }
                     else
                     {
@@ -112,12 +112,12 @@
         {
             if (id == null)
             {
-                return NotFound();
+                return new NotFoundViewResult("EventNotFound");
             }
             var @event = await this.eventRepository.GetByIdAsync(id.Value);
             if (@event == null)
             {
-                return NotFound();
+                return new NotFoundViewResult("EventNotFound");
             }
             var model = new CandidateViewModel { EventId = @event.Id };
 
@@ -151,13 +151,13 @@
         {
             if (id == null)
             {
-                return NotFound();
+                return new NotFoundViewResult("EventNotFound");
             }
 
             var @event = await this.eventRepository.GetEventWithCandidatesAsync(id.Value);
             if (@event == null)
             {
-                return NotFound();
+                return new NotFoundViewResult("EventNotFound");
             }
 
             return View(@event);
@@ -187,13 +187,13 @@
         {
             if (id == null)
             {
-                return NotFound();
+                return new NotFoundViewResult("EventNotFound");
             }
 
             var @event = await this.eventRepository.GetByIdAsync(id.Value);
             if (@event == null)
             {
-                return NotFound();
+                return new NotFoundViewResult("EventNotFound");
             }
             return View(@event);
         }
@@ -213,7 +213,7 @@
                 {
                     if (!await this.eventRepository.ExistAsync(@event.Id))
                     {
-                        return NotFound();
+                        return new NotFoundViewResult("EventNotFound");
                     }
                     else
                     {
@@ -230,13 +230,13 @@
         {
             if (id == null)
             {
-                return NotFound();
+                return new NotFoundViewResult("EventNotFound");
             }
 
             var @event = await this.eventRepository.GetByIdAsync(id.Value);
             if (@event == null)
             {
-                return NotFound();
+                return new NotFoundViewResult("EventNotFound");
             }
 
             return View(@event);
@@ -273,5 +273,9 @@
             return null;
         }
 
+        public IActionResult EventNotFound()
+        {
+            return this.View();
+        }
     }
 }
