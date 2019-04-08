@@ -34,9 +34,9 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a> 
-    <a asp-action="AddCandidate" asp-route-id="@Model.Id" class="btn btn-info">Add Candidate</a>
-    <a asp-action="Index" class="btn btn-success">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning"><i class="glyphicon glyphicon-pencil"></i> Edit Event</a> 
+    <a asp-action="AddCandidate" asp-route-id="@Model.Id" class="btn btn-info"><i class="glyphicon glyphicon-plus"></i>  Add Candidate</a>
+    <a asp-action="Index" class="btn btn-success"><i class="fa fa-chevron-left"></i>  Back to List</a>
 </div>
 <h4>Candidates</h4>
 @if (Model.Candidates == null || Model.Candidates.Count == 0)
@@ -68,8 +68,11 @@ else
                 }
                 </td>
                 <td id="@item.Id">
-                    <a asp-action="EditCandidate" asp-route-id="@item.Id" class="btn btn-warning">Edit</a>
-                    <a asp-action="DeleteCandidate" asp-route-id="@item.Id" class="btn btn-danger" id="btnDelete">Delete</a>
+                    <a asp-action="EditCandidate" asp-route-id="@item.Id" class="btn btn-warning"><i class="glyphicon glyphicon-pencil"></i> Edit</a>
+                    <a asp-action="DeleteCandidate" asp-route-id="@item.Id" class="btn btn-danger" id="btnDelete">
+                        <i class="fa fa-trash"></i>
+                        Delete
+                    </a>
                 </td>
             </tr>
             }
