@@ -7,10 +7,12 @@
     using Data;
     using Data.Entities;
     using Helpers;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using Models;
 
+    [Authorize]
     public class EventsController : Controller
     {
         private readonly IEventRepository eventRepository;
