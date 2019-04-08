@@ -12,7 +12,7 @@
     using Microsoft.EntityFrameworkCore;
     using Models;
 
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class EventsController : Controller
     {
         private readonly IEventRepository eventRepository;
@@ -273,5 +273,6 @@
             }
             return null;
         }
+
     }
 }

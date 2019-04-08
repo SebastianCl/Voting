@@ -22,6 +22,9 @@
         {
             await this.context.Database.EnsureCreatedAsync();
 
+            await this.userHelper.CheckRoleAsync("Admin");
+            await this.userHelper.CheckRoleAsync("Customer");
+
             if (!this.context.Countries.Any())
             {
                 var cities = new List<City>
@@ -52,21 +55,22 @@
                     Email = "cardonaloaizasebastian112@gmail.com",
                     UserName = "cardonaloaizasebastian112@gmail.com",
                     CityId = this.context.Countries.FirstOrDefault().Cities.FirstOrDefault().Id,
-                    City = this.context.Countries.FirstOrDefault().Cities.FirstOrDefault()
+                    City = this.context.Countries.FirstOrDefault().Cities.FirstOrDefault()
+
                 };
                 var result = await this.userHelper.AddUserAsync(user, "123456");
                 if (result != IdentityResult.Success)
                 {
                     throw new InvalidOperationException("Could not create the user in seeder");
                 }
-            }
-            /*if (!this.context.Events.Any())
+                await this.userHelper.AddUserToRoleAsync(user,"Admin");
+            }
+
+            var isInRole = await this.userHelper.IsUserInRoleAsync(user, "Admin");
+            if (!isInRole)
             {
-                this.AddEvent("Election of student representative", user);
-                this.AddEvent("Do you agree with the new metro line?", user);
-                this.AddEvent("Do you prefer Rock or Reggaeton?", user);
-                await this.context.SaveChangesAsync();
-            }*/
+                await this.userHelper.AddUserToRoleAsync(user, "Admin");
+            }
 
             if (!this.context.Events.Any())
             {
@@ -111,16 +115,6 @@
                 await this.context.SaveChangesAsync();
             }
         }
-        /*private void AddEvent(string name, User user)
-        {
-            this.context.Events.Add(new Event
-            {
-                Name = name,
-                Description = "Description to event " + name,
-                StartDate = DateTime.Now,
-                FinishDate = DateTime.Now,
-                User = user
-            });
-        }*/
-    }
+    }
+
 }
