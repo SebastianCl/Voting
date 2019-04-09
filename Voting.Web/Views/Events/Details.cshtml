@@ -34,7 +34,7 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning"><i class="glyphicon glyphicon-pencil"></i> Edit Event</a> 
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning"><i class="glyphicon glyphicon-pencil"></i> Edit Event</a>
     <a asp-action="AddCandidate" asp-route-id="@Model.Id" class="btn btn-info"><i class="glyphicon glyphicon-plus"></i>  Add Candidate</a>
     <a asp-action="Index" class="btn btn-success"><i class="fa fa-chevron-left"></i>  Back to List</a>
 </div>
@@ -57,28 +57,30 @@ else
         <tbody>
             @foreach (var item in Model.Candidates.OrderBy(c => c.Name))
             {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                @if (!string.IsNullOrEmpty(item.ImageUrl))
-                {
-                    <img src="@Url.Content(item.ImageUrl)" alt="Image" style="width:100px;height:150px;max-width: 100%; height: auto;" />
-                }
-                </td>
-                <td id="@item.Id">
-                    <a asp-action="EditCandidate" asp-route-id="@item.Id" class="btn btn-warning"><i class="glyphicon glyphicon-pencil"></i> Edit</a>
-                    <a asp-action="DeleteCandidate" asp-route-id="@item.Id" class="btn btn-danger" id="btnDelete">
-                        <i class="fa fa-trash"></i>
-                        Delete
-                    </a>
-                </td>
-            </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(item.ImageUrl))
+                        {
+                            <img src="@Url.Content(item.ImageUrl)" alt="Image" style="width:100px;height:150px;max-width: 100%; height: auto;" />
+                        }
+                    </td>
+                    <td id="@item.Id">
+                        <a asp-action="EditCandidate" asp-route-id="@item.Id" class="btn btn-warning"><i class="glyphicon glyphicon-pencil"></i> Edit</a>
+                        <a asp-action="DeleteCandidate" asp-route-id="@item.Id" class="btn btn-danger" id="btnDelete">
+                            <i class="fa fa-trash"></i>
+                            Delete
+                        </a>
+                    </td>
+                </tr>
             }
         </tbody>
     </table>
 }
+
+
 <div id="deleteDialog" class="modal fade">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
@@ -87,7 +89,7 @@ else
                 <h4 class="modal-title">Delete</h4>
             </div>
             <div class="modal-body">
-                <p>Do you want to delete the candidate?</p>
+                <p>Do you want to delete the Event?</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" id="btnYesDelete">Delete</button>
@@ -96,3 +98,37 @@ else
         </div>
     </div>
 </div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            var id = 0;
+            $('a[id*=btnDelete]').click(function () {
+                debugger;
+                id = $(this).parent()[0].id; //buscar el id del padre del elemento, su contenedor
+                $("#deleteDialog").modal('show');
+                return false;//cancelar accion del controlador
+            });
+
+            $("#btnNoDelete").click(function () {
+                debugger;
+                $("#deleteDialog").modal('hide');
+                return false;
+            });
+
+            $("#btnYesDelete").click(function () {
+                debugger;
+                window.location.href = '/Events/DeleteCandidate/' + id;
+            });
+
+        });
+
+    </script>
+}
+
+
+

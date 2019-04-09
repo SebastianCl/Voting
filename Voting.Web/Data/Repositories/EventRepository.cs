@@ -55,6 +55,33 @@
             return @event.Id;
         }
 
+        public async Task<int> DeleteEventAsync(Event @event)
+        {            
+            var candidates = @event.Candidates.Select(c => new Candidate
+            {
+                Id = c.Id,
+                Name = c.Name,
+                Proposal = c.Proposal,
+                ImageUrl = c.ImageUrl
+            }).ToList(); 
+
+            foreach (var item in candidates)
+            {
+                Candidate candidate = new Candidate
+                {
+                    Id = item.Id,
+                    Name = item.Name,
+                    Proposal = item.Proposal,
+                    ImageUrl = item.ImageUrl
+                };
+                this.context.Candidates.Remove(candidate);
+            }
+
+            this.context.Events.Remove(@event);
+            await this.context.SaveChangesAsync();
+            return @event.Id;
+        }
+
         public IQueryable GetEventsWithCandidates()
         {
             return this.context.Events

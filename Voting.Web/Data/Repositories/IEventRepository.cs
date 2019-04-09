@@ -18,5 +18,7 @@
         Task<int> UpdateCandidateAsync(Candidate candidate);
 
         Task<int> DeleteCandidateAsync(Candidate candidate);
+
+        Task<int> DeleteEventAsync(Event @event);
     }
 }

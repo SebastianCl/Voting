@@ -243,11 +243,13 @@
         }
 
         // POST: Events/Delete/5
-        [HttpPost, ActionName("Delete")]
+        //[HttpPost, ActionName("Delete")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var @event = await this.eventRepository.GetByIdAsync(id);
+            var @event = await this.eventRepository.GetEventWithCandidatesAsync(id);
             await this.eventRepository.DeleteAsync(@event);
+            //TODO: Fix cascade drop 
+            //await this.eventRepository.DeleteEventAsync(@event);
             return RedirectToAction(nameof(Index));
         }
 

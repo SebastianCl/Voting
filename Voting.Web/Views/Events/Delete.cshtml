@@ -36,10 +36,64 @@
             @Html.DisplayFor(model => model.FinishDate)
         </dd>
     </dl>
-    
+
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
-        <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i> Delete</button>
-        <a asp-action="Index" class="btn btn-success"><i class="fa fa-chevron-left"></i> Back to List</a>             
-    </form>
+        <a asp-action="DeleteCandidate" asp-route-id="@Html.DisplayFor(model => model.FinishDate)" class="btn btn-danger" id="btnDelete">
+            <i class="fa fa-trash"></i> Delete
+        </a>
+        <a asp-action="Index" class="btn btn-success"><i class="fa fa-chevron-left"></i> Back to List</a>
+</form>
 </div>
+
+
+<div id="deleteDialog" class="modal fade">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><i class="fa fa-window-close"></i></button>
+                <h4 class="modal-title">Delete</h4>
+            </div>
+            <div class="modal-body">
+                <p>Do you want to delete the Event?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="btnYesDelete">Delete</button>
+                <button type="button" class="btn btn-success" id="btnNoDelete">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            var id = @Html.DisplayFor(model => model.Id);
+
+            $('#btnDelete').click(function () {
+                debugger;
+                $("#deleteDialog").modal('show');
+                return false;//cancelar accion del controlador
+            });
+
+            $("#btnNoDelete").click(function () {
+                debugger;
+                $("#deleteDialog").modal('hide');
+                return false;
+            });
+
+            $("#btnYesDelete").click(function () {
+                debugger;
+                window.location.href = '/Events/DeleteConfirmed/' + id;
+            });
+
+        });
+
+
+
+    </script>
+}

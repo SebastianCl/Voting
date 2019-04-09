@@ -52,6 +52,8 @@ else
         </tbody>
     </table>
 }
+
+
 <div id="deleteDialog" class="modal fade">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
@@ -60,7 +62,7 @@ else
                 <h4 class="modal-title">Delete</h4>
             </div>
             <div class="modal-body">
-                <p>Do you want to delete the city?</p>
+                <p>Do you want to delete the Event?</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" id="btnYesDelete">Delete</button>
@@ -71,28 +73,32 @@ else
 </div>
 
 
-
-
-
-
-
-
+@section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script type="text/javascript">
+
         $(document).ready(function () {
+
             var id = 0;
             $('a[id*=btnDelete]').click(function () {
                 debugger;
-                id = $(this).parent()[0].id;
+                id = $(this).parent()[0].id; //buscar el id del padre del elemento, su contenedor
                 $("#deleteDialog").modal('show');
-                return false;
+                return false;//cancelar accion del controlador
             });
+
             $("#btnNoDelete").click(function () {
+                debugger;
                 $("#deleteDialog").modal('hide');
                 return false;
             });
+
             $("#btnYesDelete").click(function () {
+                debugger;
                 window.location.href = '/Countries/DeleteCity/' + id;
             });
+
         });
+
     </script>
+}
