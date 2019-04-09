@@ -20,7 +20,7 @@
         [HttpGet]
         public IActionResult GetEvents()
         {
-            return this.Ok(this.eventRepository.GetEventsWithCandidates());
+            return this.Ok(this.eventRepository.GetEventsWithCandidatesAvailable());
         }
 
     }

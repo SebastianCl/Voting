@@ -1,5 +1,6 @@
 ﻿namespace Voting.Web.Data.Repositories
 {
+    using System;
     using System.Linq;
     using System.Threading.Tasks;
     using Entities;
@@ -55,6 +56,7 @@
             return @event.Id;
         }
 
+        //TODO: Fix cascade delete
         public async Task<int> DeleteEventAsync(Event @event)
         {            
             var candidates = @event.Candidates.Select(c => new Candidate
@@ -82,14 +84,15 @@
             return @event.Id;
         }
 
-        public IQueryable GetEventsWithCandidates()
+        public IQueryable GetEventsWithCandidatesAvailable()
         {
             return this.context.Events
             .Include(c => c.Candidates)
             .Include(u => u.User)
+            .Where(d => d.FinishDate > DateTime.Now)
             .OrderBy(e => e.FinishDate);
         }
-                
+
         public async Task<Candidate> GetCandidateAsync(int id)
         {
             return await this.context.Candidates.FindAsync(id);
@@ -103,6 +106,26 @@
             .Include(u => u.User)
             .FirstOrDefaultAsync();
         }
-        
+
+
+        public async Task AddVoteAsync(CandidateViewModel model)
+        {
+            var @event = await this.GetEventWithCandidatesAsync(model.Id);
+            if (@event == null)
+            {
+                return;
+            }
+            @event.Candidates.Add(new Candidate
+            {
+                Name = model.Name,
+                Proposal = model.Proposal,
+                ImageUrl = model.ImageUrl
+            });
+            this.context.Events.Update(@event);
+            await this.context.SaveChangesAsync();
+        }
+
+
+
     }
 }

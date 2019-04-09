@@ -59,6 +59,7 @@
             services.AddTransient<SeedDb>();
             services.AddScoped<IEventRepository, EventRepository>();
             services.AddScoped<ICountryRepository, CountryRepository>();
+            services.AddScoped<IVoteRepository, VoteRepository>();
             services.AddScoped<IUserHelper, UserHelper>();
 
             services.Configure<CookiePolicyOptions>(options =>

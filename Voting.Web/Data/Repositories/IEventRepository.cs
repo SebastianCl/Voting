@@ -6,8 +6,8 @@
     using Models;    
 
     public interface IEventRepository : IGenericRepository<Event>
-    {
-        IQueryable GetEventsWithCandidates();
+    {        
+        IQueryable GetEventsWithCandidatesAvailable();
 
         Task<Event> GetEventWithCandidatesAsync(int id);
 

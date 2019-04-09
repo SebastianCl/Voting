@@ -10,6 +10,7 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using Models;
+    
 
     [Authorize(Roles = "Admin")]
     public class EventsController : Controller
@@ -143,7 +144,7 @@
         // GET: Events
         public IActionResult Index()
         {
-            return View(this.eventRepository.GetEventsWithCandidates());
+            return View(this.eventRepository.GetEventsWithCandidatesAvailable());
         }
 
         // GET: Events/Details/5
