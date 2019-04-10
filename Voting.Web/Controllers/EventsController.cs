@@ -10,7 +10,6 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using Models;
-    
 
     [Authorize(Roles = "Admin")]
     public class EventsController : Controller
@@ -244,13 +243,14 @@
         }
 
         // POST: Events/Delete/5
-        //[HttpPost, ActionName("Delete")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var @event = await this.eventRepository.GetEventWithCandidatesAsync(id);
+            if (@event.Candidates.Count > 0)
+            {
+                return RedirectToAction(nameof(NotPermit));
+            }
             await this.eventRepository.DeleteAsync(@event);
-            //TODO: Fix cascade drop 
-            //await this.eventRepository.DeleteEventAsync(@event);
             return RedirectToAction(nameof(Index));
         }
 
@@ -277,6 +277,11 @@
         }
 
         public IActionResult EventNotFound()
+        {
+            return this.View();
+        }
+
+        public IActionResult NotPermit()
         {
             return this.View();
         }

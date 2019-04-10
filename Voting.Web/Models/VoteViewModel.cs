@@ -2,7 +2,7 @@
 {
     using Data.Entities;
 
-    public class VoteViewModel
+    public class VoteViewModel : Vote
     {
         
     }

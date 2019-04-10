@@ -12,6 +12,9 @@
         [Required]
         public Candidate Candidate { get; set; }
 
+        [Required]
+        public Event Event { get; set; }
+
 
     }
 }

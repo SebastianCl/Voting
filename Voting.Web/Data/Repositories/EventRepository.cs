@@ -55,35 +55,7 @@
             await this.context.SaveChangesAsync();
             return @event.Id;
         }
-
-        //TODO: Fix cascade delete
-        public async Task<int> DeleteEventAsync(Event @event)
-        {            
-            var candidates = @event.Candidates.Select(c => new Candidate
-            {
-                Id = c.Id,
-                Name = c.Name,
-                Proposal = c.Proposal,
-                ImageUrl = c.ImageUrl
-            }).ToList(); 
-
-            foreach (var item in candidates)
-            {
-                Candidate candidate = new Candidate
-                {
-                    Id = item.Id,
-                    Name = item.Name,
-                    Proposal = item.Proposal,
-                    ImageUrl = item.ImageUrl
-                };
-                this.context.Candidates.Remove(candidate);
-            }
-
-            this.context.Events.Remove(@event);
-            await this.context.SaveChangesAsync();
-            return @event.Id;
-        }
-
+                
         public IQueryable GetEventsWithCandidatesAvailable()
         {
             return this.context.Events
@@ -105,24 +77,6 @@
             .Where(c => c.Id == id)
             .Include(u => u.User)
             .FirstOrDefaultAsync();
-        }
-
-
-        public async Task AddVoteAsync(CandidateViewModel model)
-        {
-            var @event = await this.GetEventWithCandidatesAsync(model.Id);
-            if (@event == null)
-            {
-                return;
-            }
-            @event.Candidates.Add(new Candidate
-            {
-                Name = model.Name,
-                Proposal = model.Proposal,
-                ImageUrl = model.ImageUrl
-            });
-            this.context.Events.Update(@event);
-            await this.context.SaveChangesAsync();
         }
 
 

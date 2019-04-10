@@ -6,6 +6,8 @@
     using Helpers;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using Models;
+    using Voting.Web.Data.Entities;
 
     [Authorize(Roles = "Admin")]
     public class VoteController : Controller
@@ -42,5 +44,23 @@
 
             return View(@event);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> AddVote(VoteViewModel view)
+        {
+            if (this.ModelState.IsValid)
+            {
+                var vote = new Vote {
+                    Candidate= view.Candidate,
+                    Event = view.Event,
+                    User = view.User
+                        
+                } ;
+                await this.resultRepository.AddVoteAsync(vote);
+                return RedirectToAction(nameof(Index));
+            }
+            return View(view);
+        }
+
     }
 }

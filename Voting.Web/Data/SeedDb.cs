@@ -147,7 +147,7 @@
                 Candidates = candidates,
                 Description = "Description to " + name,
                 StartDate = DateTime.Now,
-                FinishDate = DateTime.Now,
+                FinishDate = DateTime.MaxValue,
                 User = user
 
             });
