@@ -86,10 +86,9 @@
         #endregion
 
         #region API
-        public IQueryable GetAllWithUsers()
+        public IQueryable GetEventWithCandidates()
         {
             return this.context.Events
-                .Include(u => u.User)
                 .Include(c => c.Candidates);
         }
 
@@ -97,8 +96,7 @@
         {
             return this.context.Events
             .Include(c => c.Candidates)
-            .Where(c => c.Id == id)
-            .Include(u => u.User);
+            .Where(c => c.Id == id);
         }
         #endregion
 

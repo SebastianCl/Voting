@@ -10,5 +10,8 @@
         Task<int> AddVoteAsync(Vote Vote);
 
         IQueryable GetVotes();
+
+        IQueryable GetVotesOfEvent(int id);
+
     }
 }

@@ -7,18 +7,13 @@
 
     public interface IEventRepository : IGenericRepository<Event>
     {
-        #region GET
-        IQueryable GetAllWithUsers();
+        #region PAGE        
 
-        IQueryable GetEventWithId(int id);
         IQueryable GetEventsWithCandidatesAvailable();
+
         Task<Event> GetEventWithCandidatesAsync(int id); 
+
         Task<Candidate> GetCandidateAsync(int id);
-
-        
-
-        #endregion
-
 
         Task AddCandidateAsync(CandidateViewModel model);
 
@@ -26,6 +21,16 @@
 
         Task<int> DeleteCandidateAsync(Candidate candidate);
 
+
+        #endregion
+
+        #region API
+        IQueryable GetEventWithCandidates();
+
+        IQueryable GetEventWithId(int id);
+        #endregion
+
+       
      
 
     }

@@ -30,19 +30,20 @@
                 await this.AddCountriesAndCitiesAsync();
             }
                         
-            await this.CheckUser("sebas@gmail.com", "Sebastian", "Loaiza", "Customer", "Male", "Student");
-            var user1 = await this.CheckUser("cardonaloaizasebastian112@gmail.com", "Sebastian", "Cardona", "Admin", "Male", "Coder");
-            var user2 = await this.CheckUser("sara@gmail.com", "Sara", "Cardona", "Customer", "Female", "Student");
+            await this.CheckUser("santiago@gmail.com", "Santiago", "Loaiza", "Customer", "Male", "Teacher");
+            await this.CheckUser("sara@gmail.com", "Sara", "Cardona", "Customer", "Female", "Student");
+            var user = await this.CheckUser("cardonaloaizasebastian112@gmail.com", "Sebastian", "Cardona", "Admin", "Male", "Coder");
+            
 
             // Add event
             if (!this.context.Events.Any())
             {                
                 await this.AddEventsAndCandidatesAsync("Best city of Colombia", 
-                    new string[] { "Medellín", "Bogotá", "Cali", "Barranquilla", "Bucaramanga", "Cartagena", "Pereira" }, 
-                    user1);
+                    new string[] { "Medellín", "Bogotá", "Cali", "Barranquilla", "Bucaramanga", "Cartagena", "Pereira" },
+                    user);
                 await this.AddEventsAndCandidatesAsync("Do you agree with Medellin's environmental policies?",
                     new string[] { "Yes","No" },
-                    user2);
+                    user);
             }
         }
 

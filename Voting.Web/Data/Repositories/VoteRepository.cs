@@ -28,13 +28,26 @@
             return @event.Id;
         }
 
-        public IQueryable  GetVotes()
+
+        #region API
+        public IQueryable GetVotes()
         {
             return this.context.Votes
-                .Include(u => u.User)
                 .Include(e => e.Event)
+                .Include(u => u.User)
                 .Include(c => c.Candidate);
         }
-               
+
+        public IQueryable GetVotesOfEvent(int id)
+        {
+            return this.context.Votes
+                .Include(e => e.Event)
+                .Include(u => u.User)
+                .Include(c => c.Candidate)
+                .Where(e => e.Event.Id == id);
+
+        }
+        #endregion
+
     }
 }
