@@ -7,7 +7,7 @@
     using Microsoft.AspNetCore.Mvc;
 
     [Route("api/[Controller]")]
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class EventsController : Controller
     {
         private readonly IEventRepository eventRepository;

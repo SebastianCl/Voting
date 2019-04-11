@@ -27,7 +27,7 @@
                     return null;
                 }
 
-                return $"https://voting.azurewebsites.net{this.ImageUrl.Substring(1)}";
+                return $"https://uvoting.azurewebsites.net{this.ImageUrl.Substring(1)}";
             }
         }        
     }

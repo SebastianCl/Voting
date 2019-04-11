@@ -26,7 +26,7 @@
         private async void LoadEvents()
         {
             var response = await this.apiService.GetListAsync<Event>(
-                "https://localhost:44373/",
+                "https://uvoting.azurewebsites.net/",
                 "/api",
                 "/Events");
 
