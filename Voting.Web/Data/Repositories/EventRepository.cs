@@ -16,6 +16,7 @@
             this.context = context;
         }
 
+        #region PAGE
         public async Task AddCandidateAsync(CandidateViewModel model)
         {
             var @event = await this.GetEventWithCandidatesAsync(model.Id);
@@ -23,7 +24,8 @@
             {
                 return;
             }
-            @event.Candidates.Add(new Candidate {
+            @event.Candidates.Add(new Candidate
+            {
                 Name = model.Name,
                 Proposal = model.Proposal,
                 ImageUrl = model.ImageUrl
@@ -55,7 +57,22 @@
             await this.context.SaveChangesAsync();
             return @event.Id;
         }
-                
+
+        public Task<Candidate> GetCandidateAsync(int id)
+        {
+            return this.context.Candidates.FindAsync(id);
+        }
+
+        public Task<Event> GetEventWithCandidatesAsync(int id)
+        {
+            return this.context.Events
+            .Include(c => c.Candidates)
+            .Where(c => c.Id == id)
+            .Include(u => u.User)
+            .FirstOrDefaultAsync();
+        }
+
+
         public IQueryable GetEventsWithCandidatesAvailable()
         {
             return this.context.Events
@@ -65,19 +82,27 @@
             .OrderBy(e => e.FinishDate);
         }
 
-        public async Task<Candidate> GetCandidateAsync(int id)
+
+        #endregion
+
+        #region API
+        public IQueryable GetAllWithUsers()
         {
-            return await this.context.Candidates.FindAsync(id);
+            return this.context.Events
+                .Include(u => u.User)
+                .Include(c => c.Candidates);
         }
 
-        public async Task<Event> GetEventWithCandidatesAsync(int id)
+        public IQueryable GetEventWithId(int id)
         {
-            return await this.context.Events
-            .Include(c => c.Candidates)            
+            return this.context.Events
+            .Include(c => c.Candidates)
             .Where(c => c.Id == id)
-            .Include(u => u.User)
-            .FirstOrDefaultAsync();
+            .Include(u => u.User);
         }
+        #endregion
+
+
 
 
 

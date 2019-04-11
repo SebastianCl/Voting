@@ -7,7 +7,7 @@
     using Microsoft.AspNetCore.Mvc;
 
     [Route("api/[Controller]")]
-    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class EventsController : Controller
     {
         private readonly IEventRepository eventRepository;
@@ -20,8 +20,16 @@
         [HttpGet]
         public IActionResult GetEvents()
         {
-            return this.Ok(this.eventRepository.GetAll());
+            return this.Ok(this.eventRepository.GetAllWithUsers());
         }
+
+        [HttpGet("{id}")]
+        public IActionResult GetEventWithId([FromRoute] int id)
+        {
+            return this.Ok(this.eventRepository.GetEventWithId(id));
+        }
+
+
 
 
 
