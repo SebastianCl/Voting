@@ -2,7 +2,7 @@
 {
     public class MainViewModel
     {
-        private static MainViewModel instance;
+        private static MainViewModel instance;//singleton(apuntador a la misma clase)
         public LoginViewModel Login { get; set; }
 
         public EventsViewModel Events { get; set; }

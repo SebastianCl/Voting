@@ -19,8 +19,8 @@
 
         public EventsViewModel()
         {
-            this.LoadEvents();
             this.apiService = new ApiService();
+            this.LoadEvents();
         }
 
         private async void LoadEvents()
