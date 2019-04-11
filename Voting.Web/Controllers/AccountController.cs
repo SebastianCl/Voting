@@ -1,30 +1,34 @@
 ﻿namespace Voting.Web.Controllers
 {
-    using System;
-    using System.IdentityModel.Tokens.Jwt;
-    using System.Linq;
-    using System.Security.Claims;
-    using System.Text;
-    using System.Threading.Tasks;
     using Data.Entities;
+    using Data.Repositories;
     using Helpers;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Configuration;
     using Microsoft.IdentityModel.Tokens;
     using Models;
+    using System;
+    using System.IdentityModel.Tokens.Jwt;
+    using System.Linq;
+    using System.Security.Claims;
+    using System.Text;
+    using System.Threading.Tasks;
 
     public class AccountController : Controller
     {
         private readonly IUserHelper userHelper;
         private readonly IConfiguration configuration;
+        private readonly ICountryRepository countryRepository;
 
         public AccountController(
             IUserHelper userHelper,
-            IConfiguration configuration)
+            IConfiguration configuration,
+            ICountryRepository countryRepository)
         {
             this.userHelper = userHelper;
             this.configuration = configuration;
+            this.countryRepository = countryRepository;
         }
 
         public IActionResult Login()
@@ -64,7 +68,12 @@
 
         public IActionResult Register()
         {
-            return this.View();
+            var model = new RegisterNewUserViewModel
+            {
+                Countries = this.countryRepository.GetComboCountries(),
+                Cities = this.countryRepository.GetComboCities(0)
+            };
+            return this.View(model);
         }
 
         [HttpPost]
@@ -75,6 +84,7 @@
                 var user = await this.userHelper.GetUserByEmailAsync(model.Username);
                 if (user == null)
                 {
+                    var city = await this.countryRepository.GetCityAsync(model.CityId);
                     user = new User
                     {
                         FirstName = model.FirstName,
@@ -84,6 +94,7 @@
                         Gender = model.Gender,
                         Birthdate = model.Birthdate,
                         CityId = model.CityId,
+                        City = city,
                         Email = model.Username,
                         UserName = model.Username
                     };
@@ -125,9 +136,22 @@
                 model.Occupation = user.Occupation;
                 model.Stratum = user.Stratum;
                 model.Gender = user.Gender;
-                model.CityId = user.CityId;
                 model.Birthdate = user.Birthdate;
+                var city = await this.countryRepository.GetCityAsync(user.CityId);
+                if (city != null)
+                {
+                    var country = await this.countryRepository.GetCountryAsync(city);
+                    if (country != null)
+                    {
+                        model.CountryId = country.Id;
+                        model.Cities = this.countryRepository.GetComboCities(country.Id);
+                        model.Countries = this.countryRepository.GetComboCountries();
+                        model.CityId = user.CityId;
+                    }
+                }
             }
+            model.Cities = this.countryRepository.GetComboCities(model.CountryId);
+            model.Countries = this.countryRepository.GetComboCountries();
             return this.View(model);
         }
 
@@ -139,14 +163,16 @@
                 var user = await this.userHelper.GetUserByEmailAsync(this.User.Identity.Name);
                 if (user != null)
                 {
-                    user.FirstName = model.FirstName;
-                    user.LastName = model.LastName;
-                    user.Occupation = model.Occupation;
-                    user.Stratum = model.Stratum;
-                    user.Gender = model.Gender;
+                    var city = await this.countryRepository.GetCityAsync(model.CityId);
+                    model.FirstName = user.FirstName;
+                    model.LastName = user.LastName;
+                    model.Occupation = user.Occupation;
+                    model.Stratum = user.Stratum;
+                    model.Gender = user.Gender;
+                    model.CityId = user.CityId;
+                    model.Birthdate = user.Birthdate;
                     user.CityId = model.CityId;
-                    user.Birthdate = model.Birthdate;
-
+                    user.City = city;
                     var respose = await this.userHelper.UpdateUserAsync(user);
                     if (respose.Succeeded)
                     {
@@ -163,7 +189,7 @@
                 }
             }
             return this.View(model);
-        }        public IActionResult ChangePassword()
+        }        public IActionResult ChangePassword()
         {
             return this.View();
         }
@@ -232,6 +258,10 @@
                 }
             }
             return this.BadRequest();
+        }        public async Task<JsonResult> GetCitiesAsync(int countryId)
+        {
+            var country = await this.countryRepository.GetCountryWithCitiesAsync(countryId);
+            return this.Json(country.Cities.OrderBy(c => c.Name));
         }
         public IActionResult NotAuthorized()
         {

@@ -25,9 +25,7 @@
             this.context.Votes.Update(Vote);
             await this.context.SaveChangesAsync();
             return @event.Id;
-        }
-
-        
+        }        
 
         public IQueryable GetEventsWithCandidates()
         {

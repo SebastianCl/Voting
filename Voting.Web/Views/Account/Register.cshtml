@@ -30,7 +30,7 @@
 
             <div class="form-group">
                 <label asp-for="Stratum">Stratum</label>
-                <input asp-for="Stratum" class="form-control" min="0"/>
+                <input asp-for="Stratum" class="form-control" min="0" />
                 <span asp-validation-for="Stratum" class="text-warning"></span>
             </div>
 
@@ -41,9 +41,15 @@
             </div>
 
             <div class="form-group">
-                <label asp-for="CityId">City</label>
-                <input asp-for="CityId" class="form-control" min="0"/>
-                <span asp-validation-for="CityId" class="text-warning"></span>
+                <label asp-for="CountryId" class="control-label"></label>
+                <select asp-for="CountryId" asp-items="Model.Countries" class="form-control"></select>
+                <span asp-validation-for="CountryId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CityId" class="control-label"></label>
+                <select asp-for="CityId" asp-items="Model.Cities" class="form-control"></select>
+                <span asp-validation-for="CityId" class="text-danger"></span>
             </div>
 
             <div class="form-group">
@@ -82,6 +88,43 @@
     </div>
 </div>
 
+
+
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $("#CountryId").change(function () {
+
+                $("#CityId").empty();
+
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetCitiesAsync")',
+                    dataType: 'json',
+                    data: { countryId: $("#CountryId").val() },
+                    success: function (cities) {
+                        debugger;
+                        $("#CityId").append('<option value="0">(Select a city...)</option>');
+                        $.each(cities, function (i, city) {
+                            $("#CityId").append('<option value="'
+                                + city.id + '">'
+                                + city.name + '</option>');
+                        });
+                    },
+                    error: function (ex) {
+                        alert('Failed to retrieve cities.' + ex);
+                    }
+
+                });
+                return false;
+            })
+
+
+        });
+    </script>
 }
+
+
+

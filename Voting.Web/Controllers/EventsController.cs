@@ -129,7 +129,6 @@
         {
             if (this.ModelState.IsValid)
             {
-                var path = string.Empty;
                 if (view.ImageFile != null && view.ImageFile.Length > 0)
                 {
                     view.ImageUrl = await this.PathImage(view);
