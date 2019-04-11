@@ -3,6 +3,7 @@
     using System.Linq;
     using System.Threading.Tasks;
     using Entities;
+    using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using Models;
 
@@ -25,29 +26,14 @@
             this.context.Votes.Update(Vote);
             await this.context.SaveChangesAsync();
             return @event.Id;
-        }        
-
-        public IQueryable GetEventsWithCandidates()
-        {
-            return this.context.Events
-            .Include(c => c.Candidates)
-            .Include(u => u.User)
-            .OrderBy(e => e.FinishDate);
         }
 
-        public IQueryable GetEventWithCandidatesAndVotes()
+        public IQueryable  GetVotes()
         {
             return this.context.Votes
+                .Include(u => u.User)
+                .Include(e => e.Event)
                 .Include(c => c.Candidate);
-        }
-
-        public async Task<Event> GetEventWithCandidatesAsync(int id)
-        {
-            return await this.context.Events
-            .Include(c => c.Candidates)
-            .Where(c => c.Id == id)
-            .Include(u => u.User)
-            .FirstOrDefaultAsync();
         }
                
     }

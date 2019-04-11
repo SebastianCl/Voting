@@ -12,20 +12,20 @@
     [Authorize(Roles = "Admin")]
     public class VoteController : Controller
     {
-        private readonly IVoteRepository resultRepository;
+        private readonly IVoteRepository votetRepository;
         private readonly IEventRepository eventRepository;
         private readonly IUserHelper userHelper;
 
-        public VoteController(IVoteRepository resultRepository, IEventRepository eventRepository, IUserHelper userHelper)
+        public VoteController(IVoteRepository votetRepository, IEventRepository eventRepository, IUserHelper userHelper)
         {
-            this.resultRepository = resultRepository;
+            this.votetRepository = votetRepository;
             this.eventRepository = eventRepository;
             this.userHelper = userHelper;
         }
 
         public IActionResult Index()
         {
-            return View(this.resultRepository.GetEventsWithCandidates());
+            return View(this.eventRepository.GetAll());
         }
 
         // GET: Events/Details/5
@@ -56,7 +56,7 @@
                     User = view.User
                         
                 } ;
-                await this.resultRepository.AddVoteAsync(vote);
+                await this.votetRepository.AddVoteAsync(vote);
                 return RedirectToAction(nameof(Index));
             }
             return View(view);

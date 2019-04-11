@@ -24,10 +24,10 @@
                 <input asp-for="Description" class="form-control" />
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
-            
+
             <div class="form-group">
                 <label asp-for="StartDate" class="control-label"></label>
-                <div class="input-group date" >
+                <div class="input-group date">
                     <input asp-for="StartDate" class="form-control" />
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
@@ -38,7 +38,7 @@
 
             <div class="form-group">
                 <label asp-for="FinishDate" class="control-label"></label>
-                <div class="input-group date" >
+                <div class="input-group date">
                     <input asp-for="FinishDate" class="form-control" />
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
@@ -56,7 +56,28 @@
 </div>
 
 
-@section Scripts {
 
+@section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('#FinishDate').change(function () {
+                var finishDate = $('#FinishDate').val();
+                var startDate = $('#StartDate').val();
+                
+
+                if (finishDate == startDate) {
+                    window.alert("Fecha igual");
+                }
+
+            });
+
+
+
+        });
+    </script>
 }
+
+
+

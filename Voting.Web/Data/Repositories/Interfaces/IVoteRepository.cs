@@ -3,11 +3,12 @@
     using System.Linq;
     using System.Threading.Tasks;
     using Entities;
+    using Microsoft.AspNetCore.Mvc;
 
     public interface IVoteRepository : IGenericRepository<Vote>
     {
-        IQueryable GetEventsWithCandidates();
-
         Task<int> AddVoteAsync(Vote Vote);
+
+        IQueryable GetVotes();
     }
 }
