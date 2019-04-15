@@ -182,13 +182,13 @@
                 if (user != null)
                 {
                     var city = await this.countryRepository.GetCityAsync(model.CityId);
-                    model.FirstName = user.FirstName;
-                    model.LastName = user.LastName;
-                    model.Occupation = user.Occupation;
-                    model.Stratum = user.Stratum;
-                    model.Gender = user.Gender;
-                    model.CityId = user.CityId;
-                    model.Birthdate = user.Birthdate;
+                    user.FirstName = model.FirstName;
+                    user.LastName = model.LastName;
+                    user.Occupation = model.Occupation;
+                    user.Stratum = model.Stratum;
+                    user.Gender = model.Gender;
+                    user.CityId = model.CityId;
+                    user.Birthdate = model.Birthdate;
                     user.CityId = model.CityId;
                     user.City = city;
                     var respose = await this.userHelper.UpdateUserAsync(user);

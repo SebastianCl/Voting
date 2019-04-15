@@ -30,7 +30,7 @@
             using (var client = new SmtpClient())
             {
                 client.Connect(smtp, int.Parse(port), false);
-                client.Authenticate(from, password);//bug
+                client.Authenticate(from, password);
                 client.Send(message);
                 client.Disconnect(true);
             }
