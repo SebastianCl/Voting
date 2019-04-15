@@ -47,6 +47,26 @@
                 .Where(e => e.Event.Id == id);
 
         }
+
+        public IQueryable GetVotesOfCandidate(int id)
+        {
+            return this.context.Votes
+                .Include(e => e.Event)
+                .Include(c  => c.Candidate)
+                .Where(c => c.Candidate.Id == id);
+        }
+
+        /*public async Task PostVote()
+        {
+            var vote = new Vote
+            {
+                E = new Event { Id = 1},
+                Candidate = 1,
+                User = "",
+            };
+            this.context.Votes.Update(vote);
+            await this.context.SaveChangesAsync();
+        }*/
         #endregion
 
     }

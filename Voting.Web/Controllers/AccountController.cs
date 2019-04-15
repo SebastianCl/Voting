@@ -1,5 +1,11 @@
 ﻿namespace Voting.Web.Controllers
 {
+    using System;
+    using System.IdentityModel.Tokens.Jwt;
+    using System.Linq;
+    using System.Security.Claims;
+    using System.Text;
+    using System.Threading.Tasks;
     using Data.Entities;
     using Data.Repositories;
     using Helpers;
@@ -8,27 +14,24 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.IdentityModel.Tokens;
     using Models;
-    using System;
-    using System.IdentityModel.Tokens.Jwt;
-    using System.Linq;
-    using System.Security.Claims;
-    using System.Text;
-    using System.Threading.Tasks;
 
     public class AccountController : Controller
     {
         private readonly IUserHelper userHelper;
         private readonly IConfiguration configuration;
         private readonly ICountryRepository countryRepository;
+        private readonly IMailHelper mailHelper;
 
         public AccountController(
             IUserHelper userHelper,
             IConfiguration configuration,
-            ICountryRepository countryRepository)
+            ICountryRepository countryRepository,
+            IMailHelper mailHelper)
         {
             this.userHelper = userHelper;
             this.configuration = configuration;
             this.countryRepository = countryRepository;
+            this.mailHelper = mailHelper;
         }
 
         public IActionResult Login()
@@ -89,14 +92,14 @@
                     {
                         FirstName = model.FirstName,
                         LastName = model.LastName,
+                        Email = model.Username,
+                        UserName = model.Username,
                         Occupation = model.Occupation,
-                        Stratum = model.Stratum,
                         Gender = model.Gender,
+                        Stratum = model.Stratum,
                         Birthdate = model.Birthdate,
                         CityId = model.CityId,
-                        City = city,
-                        Email = model.Username,
-                        UserName = model.Username
+                        City = city
                     };
                     var result = await this.userHelper.AddUserAsync(user, model.Password);
                     if (result != IdentityResult.Success)
@@ -104,26 +107,22 @@
                         this.ModelState.AddModelError(string.Empty, "The user couldn't be created.");
                         return this.View(model);
                     }
-                    var loginViewModel = new LoginViewModel
+                    var myToken = await this.userHelper.GenerateEmailConfirmationTokenAsync(user);
+                    var tokenLink = this.Url.Action("ConfirmEmail", "Account", new
                     {
-                        Username = model.Username,
-                        Password = model.Password,
-                        RememberMe = false
-                    };
-
-                    var result2 = await this.userHelper.LoginAsync(loginViewModel);
-                    if (result2.Succeeded)
-                    {
-                        return this.RedirectToAction("Index", "Home");
-                    }
-                    this.ModelState.AddModelError(string.Empty, "The user couldn't be login.");
+                        userid = user.Id,
+                        token = myToken
+                    }, protocol: HttpContext.Request.Scheme);
+                    this.mailHelper.SendMail(model.Username, 
+                        "UVoting Email confirmation", 
+                        $"<h1>uVoting Email Confirmation</h1>" + $"To allow the user, " + $"plase click in this link:</br></br><a href = \"{tokenLink}\">Confirm Email</a>");
+                    this.ViewBag.Message = "The instructions to allow your user has been sent to email.";
                     return this.View(model);
                 }
                 this.ModelState.AddModelError(string.Empty, "The username is already registered.");
             }
             return this.View(model);
-        }
-
+        }
 
         public async Task<IActionResult> ChangeUser()
         {
@@ -154,6 +153,25 @@
             model.Countries = this.countryRepository.GetComboCountries();
             return this.View(model);
         }
+
+        public async Task<IActionResult> ConfirmEmail(string userId, string token)
+        {
+            if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(token))
+            {
+                return this.NotFound();
+            }
+            var user = await this.userHelper.GetUserByIdAsync(userId);
+            if (user == null)
+            {
+                return this.NotFound();
+            }
+            var result = await this.userHelper.ConfirmEmailAsync(user, token);
+            if (!result.Succeeded)
+            {
+                return this.NotFound();
+            }
+            return View();
+        }
 
         [HttpPost]
         public async Task<IActionResult> ChangeUser(ChangeUserViewModel model)

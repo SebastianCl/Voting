@@ -28,5 +28,14 @@
 
         [JsonProperty("numberCandidates")]
         public int NumberCandidates { get; set; }
+
+        public string NumberCandidatesText
+        {
+            get
+            {
+               return $"Number of candidates: {Convert.ToString(this.NumberCandidates)}";
+            }
+        }
+
     }
 }

@@ -13,5 +13,9 @@
 
         IQueryable GetVotesOfEvent(int id);
 
+        //Task<IActionResult> PostVote();
+
+        //IQueryable GetVotesOfCandidate(int id);
+
     }
 }

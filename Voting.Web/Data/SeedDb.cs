@@ -88,8 +88,8 @@
             }
 
             await this.userHelper.AddUserToRoleAsync(user, role);
-            //var token = await this.userHelper.GenerateEmailConfirmationTokenAsync(user);
-            //await this.userHelper.ConfirmEmailAsync(user, token);
+            var token = await this.userHelper.GenerateEmailConfirmationTokenAsync(user);
+            await this.userHelper.ConfirmEmailAsync(user, token);
             return user;
         }
 
