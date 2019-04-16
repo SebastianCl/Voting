@@ -1,4 +1,6 @@
-﻿namespace Voting.UIForms.ViewModels
+﻿using Voting.Common.Models;
+
+namespace Voting.UIForms.ViewModels
 {
     public class MainViewModel
     {
@@ -6,6 +8,8 @@
         public LoginViewModel Login { get; set; }
 
         public EventsViewModel Events { get; set; }
+
+        public TokenResponse Token { get; set; }
 
         public MainViewModel()
         {

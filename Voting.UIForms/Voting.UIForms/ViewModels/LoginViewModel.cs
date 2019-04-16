@@ -3,10 +3,26 @@
     using System.Windows.Input;
     using GalaSoft.MvvmLight.Command;
     using Views;
+    using Voting.Common.Models;
+    using Voting.Common.Services;
     using Xamarin.Forms;
 
-    public class LoginViewModel
+    public class LoginViewModel: BaseViewModel
     {
+        private bool isRunning;
+        private bool isEnabled;
+        private readonly ApiService apiService;
+
+        public bool IsRunning
+        {
+            get => this.isRunning;
+            set => this.SetValue(ref this.isRunning, value);
+        }        public bool IsEnabled
+        {
+            get => this.isEnabled;
+            set => this.SetValue(ref this.isEnabled, value);
+        }
+
         public string Email { get; set; }
 
         public string Password { get; set; }
@@ -15,6 +31,8 @@
 
         public LoginViewModel()
         {
+            this.apiService = new ApiService();
+            this.IsEnabled = true;
             this.Email = "cardonaloaizasebastian112@gmail.com";
             this.Password = "123456";
         }
@@ -38,8 +56,35 @@
                 return;
             }
 
-            MainViewModel.GetInstance().Events = new EventsViewModel();
+            this.IsRunning = true;
+            this.IsEnabled = false;
+
+            var request = new TokenRequest
+            {
+                Password = this.Password,
+                Username = this.Email
+            };
+            var url = Application.Current.Resources["UrlAPI"].ToString();//como devuelve un objeto tipo object, convierto a string
+            var response = await this.apiService.GetTokenAsync(
+                url,
+                "/Account",
+                "/CreateToken",
+                request);
+
+            this.IsRunning = false;
+            this.IsEnabled = true;
+
+            if (!response.IsSuccess)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", "Email or password incorrect.", "Accept");
+                return;
+            }
+            var token = (TokenResponse)response.Result;//deserealizo el token
+            var mainViewModel = MainViewModel.GetInstance();
+            mainViewModel.Token = token;
+            mainViewModel.Events = new EventsViewModel();
             await Application.Current.MainPage.Navigation.PushAsync(new EventsPage());
+            
         }
     }
 }
