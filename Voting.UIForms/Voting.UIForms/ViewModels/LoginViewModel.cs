@@ -83,8 +83,9 @@
             var mainViewModel = MainViewModel.GetInstance();
             mainViewModel.Token = token;
             mainViewModel.Events = new EventsViewModel();
-            await Application.Current.MainPage.Navigation.PushAsync(new EventsPage());
-            
+            //await Application.Current.MainPage.Navigation.PushAsync(new EventsPage());
+            Application.Current.MainPage = new MasterPage();
+
         }
     }
 }
