@@ -37,10 +37,14 @@
         private async void LoadEvents()
         {
             this.IsRefreshing = true;
+
+            var url = Application.Current.Resources["UrlAPI"].ToString();
             var response = await this.apiService.GetListAsync<Event>(
-                "https://uvoting.azurewebsites.net/",
+                url,
                 "/api",
-                "/Events");            
+                "/Events",
+                "bearer",
+            MainViewModel.GetInstance().Token.Token);
 
             if (!response.IsSuccess)
             {
