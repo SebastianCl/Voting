@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Voting.UIForms.Views.AboutPage"
+             Title="About">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="uVoting is a voting site that allows you to make a vote for free and share it with other people to know your opinion.
+                            You can create a text vote, images, as your preferences and then publish it to vote."
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

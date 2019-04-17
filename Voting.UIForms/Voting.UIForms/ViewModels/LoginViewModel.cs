@@ -17,11 +17,14 @@
         {
             get => this.isRunning;
             set => this.SetValue(ref this.isRunning, value);
-        }        public bool IsEnabled
+        }
+
+        public bool IsEnabled
         {
             get => this.isEnabled;
             set => this.SetValue(ref this.isEnabled, value);
-        }
+        }
+
 
         public string Email { get; set; }
 
@@ -32,7 +35,8 @@
         public LoginViewModel()
         {
             this.apiService = new ApiService();
-            this.IsEnabled = true;
+            this.IsEnabled = true;
+
             this.Email = "cardonaloaizasebastian112@gmail.com";
             this.Password = "123456";
         }
