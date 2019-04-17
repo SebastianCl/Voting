@@ -25,21 +25,25 @@
                             <StackLayout
                                 Grid.Column="1"
                                 VerticalOptions="Center">
+                                
                                 <Label
                                 FontAttributes="Bold"
                                 FontSize="Medium"
                                 Text="{Binding Name}"
                                 TextColor="Black">
                                 </Label>
+                                
                                 <Label
                                 Text="{Binding Description}"
                                 TextColor="Black">
                                 </Label>
+                                
                                 <Label
                                     Text="{Binding NumberCandidatesText}"
                                     TextColor="Black">
                                 </Label>
-                                </StackLayout>
+                                
+                            </StackLayout>
                         </Grid>
                     </ViewCell>
                 </DataTemplate>

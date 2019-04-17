@@ -21,7 +21,7 @@ namespace Voting.Common.Models
         public string Gender { get; set; }
 
         [JsonProperty("birthdate")]
-        public DateTimeOffset Birthdate { get; set; }
+        public DateTime Birthdate { get; set; }
 
         [JsonProperty("cityId")]
         public long CityId { get; set; }

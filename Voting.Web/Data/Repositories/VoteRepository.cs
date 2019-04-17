@@ -30,11 +30,11 @@
 
 
         #region API
-        public IQueryable GetVotes()
+        public IQueryable GetVotesWithAll()
         {
             return this.context.Votes
+                .Include(u => u.User)                
                 .Include(e => e.Event)
-                .Include(u => u.User)
                 .Include(c => c.Candidate);
         }
 
@@ -56,17 +56,17 @@
                 .Where(c => c.Candidate.Id == id);
         }
 
-        /*public async Task PostVote()
+        public async Task PostVote()
         {
             var vote = new Vote
             {
-                E = new Event { Id = 1},
-                Candidate = 1,
-                User = "",
+                Event = new Event { Id = 1},
+                Candidate = new Candidate { Id = 1},
+                User = new User {Id = "" },
             };
             this.context.Votes.Update(vote);
             await this.context.SaveChangesAsync();
-        }*/
+        }
         #endregion
 
     }

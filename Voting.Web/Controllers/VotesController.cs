@@ -10,13 +10,13 @@
     using Voting.Web.Data.Entities;
 
     [Authorize(Roles = "Admin")]
-    public class VoteController : Controller
+    public class VotesController : Controller
     {
         private readonly IVoteRepository votetRepository;
         private readonly IEventRepository eventRepository;
         private readonly IUserHelper userHelper;
 
-        public VoteController(IVoteRepository votetRepository, IEventRepository eventRepository, IUserHelper userHelper)
+        public VotesController(IVoteRepository votetRepository, IEventRepository eventRepository, IUserHelper userHelper)
         {
             this.votetRepository = votetRepository;
             this.eventRepository = eventRepository;

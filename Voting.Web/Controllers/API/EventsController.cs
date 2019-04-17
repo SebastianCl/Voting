@@ -1,7 +1,6 @@
 ﻿namespace Voting.Web.Controllers.API
 {
     using Data;
-    using Data.Repositories;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
@@ -28,9 +27,6 @@
         {
             return this.Ok(this.eventRepository.GetEventWithId(id));
         }
-
-
-
 
 
     }

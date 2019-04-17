@@ -1,4 +1,4 @@
-﻿namespace Voting.Web.Data.Repositories
+﻿namespace Voting.Web.Data
 {
     using System.Linq;
     using System.Threading.Tasks;
@@ -9,7 +9,7 @@
     {
         Task<int> AddVoteAsync(Vote Vote);
 
-        IQueryable GetVotes();
+        IQueryable GetVotesWithAll();
 
         IQueryable GetVotesOfEvent(int id);
 
