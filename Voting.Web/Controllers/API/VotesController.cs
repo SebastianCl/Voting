@@ -1,8 +1,6 @@
 ﻿namespace Voting.Web.Controllers.API
 {
-    using System.Threading.Tasks;
     using Data;
-    using Data.Entities;
     using Helpers;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Authorization;
@@ -14,16 +12,13 @@
     {
         private readonly IVoteRepository voteRepository;
         private readonly IUserHelper userHelper;
-        private readonly IEventRepository eventRepository;
 
         public VotesController(
             IVoteRepository voteRepository,
-            IUserHelper userHelper,
-            IEventRepository eventRepository)
+            IUserHelper userHelper)
         {
             this.voteRepository = voteRepository;
             this.userHelper = userHelper;
-            this.eventRepository = eventRepository;
         }
 
         [HttpGet]
@@ -45,41 +40,32 @@
             return this.Ok(this.voteRepository.GetVotesOfCandidate(candidateId));
         }*/
 
-        [HttpPost]
+        /*[HttpPost]
         public async Task<IActionResult> PostVote([FromBody] Common.Models.Vote vote)
         {
             if (!ModelState.IsValid)
             {
                 return this.BadRequest(ModelState);
             }
-
             var user = await this.userHelper.GetUserByEmailAsync(vote.User.Email);
             if (user == null)
             {
                 return this.BadRequest("Invalid user");
             }
-
-            var @event = await this.eventRepository.GetByIdAsync(vote.Event.Id);
-            if (@event == null)
+            //TODO: Upload images
+            var entityEvent = new Vote
             {
-                return this.BadRequest("Invalid event");
-            }
-
-            var candidate = await this.eventRepository.GetCandidateAsync(vote.Candidate.Id);
-            if (candidate == null)
-            {
-                return this.BadRequest("Invalid candidate");
-            }
-
-            var entityVote = new Vote
-            {
-                User = user,
-                Event = @event,
-                Candidate = candidate
+                Event = vote.ev
+                LastPurchase = vote.LastPurchase,
+                LastSale = vote.LastSale,
+                Name = vote.Name,
+                Price = vote.Price,
+                Stock = vote.Stock,
+                User = user
             };
-            var newVote = await this.voteRepository.CreateAsync(entityVote);
-            return Ok(newVote);
-        }
+            var newProduct = await this.eventRepository.CreateAsync(entityVote);
+            return Ok(newProduct);
+        }*/
 
 
 
