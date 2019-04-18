@@ -4,15 +4,16 @@
 
     public class Vote
     {
+        [JsonProperty("id")]
         public int Id { get; set; }
 
         [JsonProperty("user")]
         public User User { get; set; }
 
-        [JsonProperty("candidates")]
-        public Candidate[] Candidate { get; set; }
+        [JsonProperty("candidate")]
+        public Candidate Candidate { get; set; }
 
         [JsonProperty("event")]
-        public Event[] Event { get; set; }
+        public Event Event { get; set; }
     }
 }
