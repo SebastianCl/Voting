@@ -27,12 +27,11 @@
             return this.Ok(this.voteRepository.GetVotesWithAll());
         }
 
-        //[Route("Event/{eventId}")]
-        [HttpGet("/{eventId}")]
+        /*[HttpGet("{eventId}")]
         public IActionResult GetVotesOfEvent([FromRoute] int eventId)
         {
             return this.Ok(this.voteRepository.GetVotesOfEvent(eventId));
-        }
+        }*/
 
         /*[HttpGet("{candidateId}")]
         public IActionResult GetVotesOfCandidate([FromRoute] int candidateId)
