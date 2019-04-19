@@ -28,3 +28,8 @@ select * from Votes WHERE EventId = 3
 select * from Events
 select * from Candidates
 select * from AspNetUsers
+
+
+UPDATE aspnetusers
+SET EMAILCONFIRMED = 1
+WHERE email = 'sebastiancardonaloaiza3435@gmail.com'

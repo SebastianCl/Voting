@@ -7,14 +7,14 @@
     using System.Text;
     using System.Threading.Tasks;
     using Models;
-    using Newtonsoft.Json;    
+    using Newtonsoft.Json;
 
     public class ApiService
     {
         #region GET
         public async Task<Response> GetListAsync<T>(
-            string urlBase, 
-            string servicePrefix, 
+            string urlBase,
+            string servicePrefix,
             string controller)
         {
             try
@@ -193,6 +193,7 @@
 
 
 
+        #region POST
         public async Task<Response> PostAsync<T>(
             string urlBase,
             string servicePrefix,
@@ -256,7 +257,7 @@
                 };
 
                 var url = $"{servicePrefix}{controller}";
-                var response = await client.PostAsync(url, content);
+                var response = await client.PostAsync(url, content);//error
                 var answer = await response.Content.ReadAsStringAsync();
                 var obj = JsonConvert.DeserializeObject<Response>(answer);
                 return obj;
@@ -301,6 +302,7 @@
                 };
             }
         }
+        #endregion
 
 
     }

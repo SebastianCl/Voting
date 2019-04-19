@@ -4,6 +4,7 @@
     using System.Windows.Input;
     using Common.Models;
     using GalaSoft.MvvmLight.Command;
+    using Voting.Common.Helpers;
     using Voting.UIForms.Views;
     using Xamarin.Forms;
 
@@ -24,6 +25,10 @@
                     await App.Navigator.PushAsync(new SetupPage());
                     break;
                 default:
+                    Settings.IsRemember = false;
+                    Settings.UserEmail = string.Empty;
+                    Settings.UserPassword = string.Empty;
+                    Settings.Token = string.Empty;
                     MainViewModel.GetInstance().Login = new LoginViewModel();
                     Application.Current.MainPage = new NavigationPage(new LoginPage());
                     break;

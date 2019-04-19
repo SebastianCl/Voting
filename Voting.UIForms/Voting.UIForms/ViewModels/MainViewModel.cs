@@ -8,13 +8,16 @@ namespace Voting.UIForms.ViewModels
     public class MainViewModel
     {
         private static MainViewModel instance;//singleton(apuntador a la misma clase)
+
         public LoginViewModel Login { get; set; }
 
         public EventsViewModel Events { get; set; }
 
         public TokenResponse Token { get; set; }
 
-        public ObservableCollection<MenuItemViewModel> Menus { get; set; }        public RegisterViewModel Register { get; set; }        
+        public ObservableCollection<MenuItemViewModel> Menus { get; set; }        public RegisterViewModel Register { get; set; }
+
+        public RememberPasswordViewModel RememberPassword { get; set; }        public string UserEmail { get; set; }        public string UserPassword { get; set; }
 
         public MainViewModel()
         {

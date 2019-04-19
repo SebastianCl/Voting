@@ -27,10 +27,10 @@ namespace Voting.Common.Models
         public int CityId { get; set; }
 
         [JsonProperty("city")]
-        public object City { get; set; }
+        public City City { get; set; }
 
         [JsonProperty("fullName")]
-        public string FullName { get; set; }
+        public string FullName { get { return $"{this.FirstName} {this.LastName}"; } }
 
         [JsonProperty("id")]
         public Guid Id { get; set; }

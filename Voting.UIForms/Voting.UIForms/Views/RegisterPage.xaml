@@ -122,29 +122,43 @@
                     	Placeholder="Enter your gender..."
                     	Text="{Binding Gender}">
                     </Entry>
-                    
+
                     <Label
                     	Grid.Column="0"
                     	Grid.Row="8"
+                    	Text="Birthdate"
+                    	VerticalOptions="Center">
+                    </Label>
+                    <DatePicker
+                        Grid.Column="1"
+                    	Grid.Row="8"
+                        x:Name="birthdate"
+                        Format="D"
+                        Date="{Binding Birthdate}">                        
+                    </DatePicker>
+
+                    <Label
+                    	Grid.Column="0"
+                    	Grid.Row="9"
                     	Text="Password"
                     	VerticalOptions="Center">
                     </Label>
                     <Entry
                     	Grid.Column="1"
-                    	Grid.Row="8"
+                    	Grid.Row="9"
                     	IsPassword="True"
                     	Placeholder="Enter your password..."
                     	Text="{Binding Password}">
                     </Entry>
                     <Label
                     	Grid.Column="0"
-                    	Grid.Row="9"
+                    	Grid.Row="10"
                     	Text="Password confirm"
                     	VerticalOptions="Center">
                     </Label>
                     <Entry
                     	Grid.Column="1"
-                    	Grid.Row="9"
+                    	Grid.Row="10"
                     	IsPassword="True"
                     	Placeholder="Enter your password confirm..."
                     	Text="{Binding Confirm}">
