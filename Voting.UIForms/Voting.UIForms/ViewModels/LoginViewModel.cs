@@ -32,6 +32,8 @@
 
         public ICommand LoginCommand => new RelayCommand(Login);
 
+        public ICommand RegisterCommand => new RelayCommand(this.Register);
+
         public LoginViewModel()
         {
             this.apiService = new ApiService();
@@ -40,6 +42,14 @@
             this.Email = "cardonaloaizasebastian112@gmail.com";
             this.Password = "123456";
         }
+
+        private async void Register()
+        {
+            MainViewModel.GetInstance().Register = new RegisterViewModel();
+            await Application.Current.MainPage.Navigation.PushAsync(new RegisterPage());
+        }
+
+       
         private async void Login()
         {
             if (string.IsNullOrEmpty(this.Email))

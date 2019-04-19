@@ -6,6 +6,7 @@
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Windows.Input;
+    using Voting.UIForms.Views;
     using Xamarin.Forms;
 
     public class EventsViewModel : BaseViewModel
@@ -20,7 +21,12 @@
             set => this.SetValue(ref this.isRefreshing, value);
         }
 
-        public ICommand RefreshCommand => new RelayCommand(this.LoadEvents);
+        public ICommand RefreshCommand => new RelayCommand(this.LoadEvents);        public ICommand SelectEventCommand => new RelayCommand(this.SelectEvent);
+
+        private async void SelectEvent()
+        {
+            await App.Navigator.PushAsync(new AboutPage());
+        }
 
         public ObservableCollection<Event> Events
         {

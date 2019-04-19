@@ -15,7 +15,7 @@ namespace Voting.Common.Models
         public string Occupation { get; set; }
 
         [JsonProperty("stratum")]
-        public long Stratum { get; set; }
+        public int Stratum { get; set; }
 
         [JsonProperty("gender")]
         public string Gender { get; set; }
@@ -24,7 +24,7 @@ namespace Voting.Common.Models
         public DateTime Birthdate { get; set; }
 
         [JsonProperty("cityId")]
-        public long CityId { get; set; }
+        public int CityId { get; set; }
 
         [JsonProperty("city")]
         public object City { get; set; }

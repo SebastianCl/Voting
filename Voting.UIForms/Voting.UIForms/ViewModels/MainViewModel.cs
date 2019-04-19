@@ -14,7 +14,7 @@ namespace Voting.UIForms.ViewModels
 
         public TokenResponse Token { get; set; }
 
-        public ObservableCollection<MenuItemViewModel> Menus { get; set; }
+        public ObservableCollection<MenuItemViewModel> Menus { get; set; }        public RegisterViewModel Register { get; set; }        
 
         public MainViewModel()
         {

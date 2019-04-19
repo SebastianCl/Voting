@@ -203,8 +203,8 @@
         {
             try
             {
-                var request = JsonConvert.SerializeObject(model);
-                var content = new StringContent(request, Encoding.UTF8, "application/json");
+                var request = JsonConvert.SerializeObject(model);//serializar body
+                var content = new StringContent(request, Encoding.UTF8, "application/json");//serializar body
                 var client = new HttpClient
                 {
                     BaseAddress = new Uri(urlBase)

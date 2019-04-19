@@ -18,6 +18,10 @@
                 <DataTemplate>
                     <ViewCell>
                         <Grid>
+                            
+                           
+
+                            
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="*"/>
@@ -42,8 +46,17 @@
                                     Text="{Binding NumberCandidatesText}"
                                     TextColor="Black">
                                 </Label>
-                                
-                            </StackLayout>
+
+                                <Button
+                                    BackgroundColor="Navy"
+                                    BorderRadius="23"
+                                    Command="{Binding SelectEventCommand}"
+                                    HeightRequest="46"
+                                    Text="About"
+                                    TextColor="White">
+                                </Button>
+
+                                </StackLayout>
                         </Grid>
                     </ViewCell>
                 </DataTemplate>

@@ -146,4 +146,7 @@
   <ItemGroup>
     <BundleResource Include="Resources\uvoting.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_action_add_box.png" />
+  </ItemGroup>
 </Project>

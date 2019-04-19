@@ -34,7 +34,7 @@
         {
             return this.Ok(this.eventRepository.GetEventWithId(id));
         }
-        /*
+        
         [HttpPost]
         public async Task<IActionResult> PostEvent([FromBody] Common.Models.Event @event)
         {
@@ -60,7 +60,7 @@
             var newEvent = await this.eventRepository.CreateAsync(entityEvent);
             return Ok(newEvent);
         }
-        */
+        
 
     }
 }
