@@ -64,5 +64,6 @@
         public static string Ok => Resource.Ok;
         public static string Setup => Resource.Setup;
         public static string CloseSession => Resource.CloseSession;
+        public static string SelectCandidate => Resource.SelectCandidate;
     }
 }

@@ -16,10 +16,21 @@ namespace Voting.Common.Models
         [JsonProperty("proposal")]
         public string Proposal { get; set; }
 
+        [JsonProperty("totalVotes")]
+        public int TotalVotes { get; set; }
+
         [JsonProperty("imageUrl")]
         public string ImageUrl { get; set; }
 
         [JsonProperty("imageFullPath")]
         public string ImageFullPath { get; set; }
+
+        public string NumberVotesText
+        {
+            get
+            {
+                return $"Total of votes: {Convert.ToString(this.TotalVotes)}";
+            }
+        }
     }
 }

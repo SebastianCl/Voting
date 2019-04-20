@@ -273,4 +273,7 @@
   <data name="Events" xml:space="preserve">
     <value>Eventi</value>
   </data>
+  <data name="SelectCandidate" xml:space="preserve">
+    <value>Vota per un candidato</value>
+  </data>
 </root>

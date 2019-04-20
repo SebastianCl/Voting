@@ -493,6 +493,15 @@ namespace Voting.UIForms.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Vote for a candidate.
+        /// </summary>
+        public static string SelectCandidate {
+            get {
+                return ResourceManager.GetString("SelectCandidate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Setup.
         /// </summary>
         public static string Setup {
