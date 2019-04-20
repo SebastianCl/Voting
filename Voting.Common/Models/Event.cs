@@ -19,10 +19,7 @@
 
         [JsonProperty("finishDate")]
         public DateTime FinishDate { get; set; }
-
-        [JsonProperty("user")]
-        public User User { get; set; }
-
+        
         [JsonProperty("candidates")]
         public Candidate[] Candidates { get; set; }
 

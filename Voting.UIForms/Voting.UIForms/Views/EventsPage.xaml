@@ -18,11 +18,10 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <Grid>
-                            
-                           
-
-                            
+                        <Grid>                            
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SelectEventCommand}"/>
+                            </Grid.GestureRecognizers>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="*"/>
@@ -47,15 +46,6 @@
                                     Text="{Binding NumberCandidatesText}"
                                     TextColor="Black">
                                 </Label>
-
-                                <Button
-                                    BackgroundColor="Navy"
-                                    BorderRadius="23"
-                                    Command="{Binding SelectEventCommand}"
-                                    HeightRequest="46"
-                                    Text="About"
-                                    TextColor="White">
-                                </Button>
 
                                 </StackLayout>
                         </Grid>

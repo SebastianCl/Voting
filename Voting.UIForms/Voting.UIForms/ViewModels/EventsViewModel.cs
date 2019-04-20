@@ -1,18 +1,20 @@
 ﻿namespace Voting.UIForms.ViewModels
 {
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Linq;
+    using System.Windows.Input;
     using Common.Models;
     using Common.Services;
     using GalaSoft.MvvmLight.Command;
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using System.Windows.Input;
-    using Voting.UIForms.Views;
+    using Views;
     using Xamarin.Forms;
 
     public class EventsViewModel : BaseViewModel
     {
         private readonly ApiService apiService;
-        private ObservableCollection<Event> events;
+        private ObservableCollection<EventItemViewModel> events;
+        private List<Event> myEvents;
         private bool isRefreshing;
 
         public bool IsRefreshing
@@ -28,7 +30,7 @@
             await App.Navigator.PushAsync(new AboutPage());
         }
 
-        public ObservableCollection<Event> Events
+        public ObservableCollection<EventItemViewModel> Events
         {
             get => this.events;
             set => this.SetValue(ref this.events, value);
@@ -62,9 +64,28 @@
                 return;
             }
 
-            var myEvents = (List<Event>)response.Result;
-            this.Events = new ObservableCollection<Event>(myEvents);
+            this.myEvents = (List<Event>)response.Result;
+            this.RefresEventsList();
             this.IsRefreshing = false;
         }
+
+        private void RefresEventsList()
+        {
+            this.Events = new ObservableCollection<EventItemViewModel>(
+                this.myEvents.Select(u => new EventItemViewModel
+            {
+                Id = u.Id,
+                Name = u.Name,
+                Description = u.Description,
+                StartDate = u.StartDate,
+                FinishDate = u.FinishDate,
+                Candidates = u.Candidates,
+                NumberCandidates = u.NumberCandidates
+            })
+            .OrderBy(u => u.Name)
+            .ToList());
+        }
+
+
     }
 }

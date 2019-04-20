@@ -18,7 +18,9 @@
 
         public ObservableCollection<MenuItemViewModel> Menus { get; set; }        public RegisterViewModel Register { get; set; }
 
-        public RememberPasswordViewModel RememberPassword { get; set; }        public string UserEmail { get; set; }        public string UserPassword { get; set; }
+        public RememberPasswordViewModel RememberPassword { get; set; }        public VoteViewModel Vote { get; set; }
+
+        public string UserEmail { get; set; }        public string UserPassword { get; set; }
 
         public MainViewModel()
         {
