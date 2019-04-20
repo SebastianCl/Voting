@@ -46,7 +46,7 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddVote(VoteViewModel view)
+        public async Task<IActionResult> AddVote(Vote view)
         {
             if (this.ModelState.IsValid)
             {

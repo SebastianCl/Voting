@@ -17,7 +17,10 @@
                 
         [Display(Name = "Image")]        
         public string ImageUrl { get; set; }
-        
+
+        [Display(Name = "# Votes")]
+        public int TotalVotes { get; set; }
+
         public string ImageFullPath
         {
             get

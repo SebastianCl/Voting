@@ -139,7 +139,8 @@
             var candidates = candidate.Select(c => new Candidate {
                 Name = c,
                 Proposal = $"Proposal to {c} ",
-                ImageUrl = $"~/images/Candidates/{c}.jpg" })
+                ImageUrl = $"~/images/Candidates/{c}.jpg",
+                TotalVotes = 0 })
                 .ToList();
 
             this.context.Events.Add(new Event

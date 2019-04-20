@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Voting+</title>
+    <title>@ViewData["Title"] - uVoting</title>
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
@@ -30,7 +30,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Voting+</a>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">uVoting</a>
             </div>
             <div class="navbar-collapse collapse">
 
@@ -43,9 +43,10 @@
                         @if (this.User.IsInRole("Admin"))
                         {
                             <li><a asp-area="" asp-controller="Events" asp-action="Index">Events</a></li>
-                            <li><a asp-area="" asp-controller="Votes" asp-action="Index">Votes</a></li>
                             <li><a asp-area="" asp-controller="Countries" asp-action="Index">Countries</a></li>
                         }
+
+                        <li><a asp-area="" asp-controller="Votes" asp-action="Index">Votes</a></li>
 
                     }
                 </ul>

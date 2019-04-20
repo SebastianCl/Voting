@@ -27,7 +27,7 @@
             await this.context.SaveChangesAsync();
             return @event.Id;
         }
-
+        
 
         #region API
         public IQueryable GetVotesWithAll()

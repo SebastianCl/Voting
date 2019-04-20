@@ -82,7 +82,6 @@
             .OrderBy(e => e.FinishDate);
         }
 
-
         #endregion
 
         #region API

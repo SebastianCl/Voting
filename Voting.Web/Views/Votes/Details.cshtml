@@ -51,7 +51,7 @@ else
                     @Html.DisplayNameFor(model => model.Candidates.FirstOrDefault().Name)
                 </th>
                 <th>
-                    # Votes
+                    @Html.DisplayNameFor(model => model.Candidates.FirstOrDefault().TotalVotes)
                 </th>
             </tr>
         </thead>
@@ -63,7 +63,7 @@ else
                         @Html.DisplayFor(modelItem => item.Name)
                     </td>
                     <td>
-                        0
+                        @Html.DisplayFor(modelItem => item.TotalVotes)
                     </td>
                     <td>
                         @if (!string.IsNullOrEmpty(item.ImageUrl))

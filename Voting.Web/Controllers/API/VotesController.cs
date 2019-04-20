@@ -70,6 +70,9 @@
                 return this.BadRequest("Invalid candidate");
             }
 
+            candidate.TotalVotes++;
+            await this.eventRepository.UpdateCandidateAsync(candidate);
+
             var entityVote = new Vote
             {
                 User = user,
