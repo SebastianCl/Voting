@@ -1,10 +1,11 @@
 ﻿namespace Voting.UIForms.ViewModels
 {
+    using System.Windows.Input;
     using Common.Helpers;
+    using Common.Models;
     using Common.Services;
     using GalaSoft.MvvmLight.Command;
-    using System.Windows.Input;
-    using Voting.Common.Models;
+    using Helpers;
     using Xamarin.Forms;
 
     public class RememberPasswordViewModel : BaseViewModel
@@ -37,18 +38,18 @@
             if (string.IsNullOrEmpty(this.Email))
             {
                 await Application.Current.MainPage.DisplayAlert(
-                    "Error",
-                    "You must enter an email.",
-                    "Accept");
+                    Languages.Error,
+                    Languages.EmailError,
+                    Languages.Accept);
                 return;
             }
 
             if (!RegexHelper.IsValidEmail(this.Email))
             {
                 await Application.Current.MainPage.DisplayAlert(
-                    "Error",
-                    "You must enter a valid email.",
-                    "Accept");
+                    Languages.Error,
+                    Languages.EmailFormatError,
+                    Languages.Accept);
                 return;
             }
 
@@ -72,15 +73,15 @@
             if (!response.IsSuccess)
             {
                 await Application.Current.MainPage.DisplayAlert(
-                    "Error",
+                    Languages.Error,
                     response.Message,
-                    "Accept");
+                    Languages.Accept);
                 return;
             }
 
             await Application.Current.MainPage.DisplayAlert(
-                "Ok",
-                response.Message,                "Accept");
+                Languages.Ok,
+                response.Message,                Languages.Accept);
             await Application.Current.MainPage.Navigation.PopAsync();
 
         }

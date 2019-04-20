@@ -1,13 +1,13 @@
 ﻿namespace Voting.Web.Controllers.API
 {
+    using System;
+    using System.Threading.Tasks;
     using Data;
+    using Data.Entities;
     using Helpers;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-    using System;
-    using System.Threading.Tasks;
-    using Voting.Web.Data.Entities;
 
     [Route("api/[controller]")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
@@ -33,13 +33,13 @@
             return this.Ok(this.voteRepository.GetVotesWithAll());
         }
 
-        
+
         [HttpGet("Event/{eventId}")]
         public IActionResult GetVotesOfEvent([FromRoute] int eventId)
         {
             return this.Ok(this.voteRepository.GetVotesOfEvent(eventId));
         }
-        
+
         [HttpGet("Candidate/{candidateId}")]
         public IActionResult GetVotesOfCandidate([FromRoute] int candidateId)
         {
@@ -58,7 +58,7 @@
             if (user == null)
             {
                 return this.BadRequest("Invalid user");
-            }            
+            }
 
             var @event = await this.eventRepository.GetByIdAsync(vote.Event.Id);
             if (@event == null)

@@ -1,11 +1,9 @@
 ﻿namespace Voting.UIForms.ViewModels
 {
-    using System;
     using System.Windows.Input;
-    using Common.Models;
+    using Common.Helpers;
     using GalaSoft.MvvmLight.Command;
-    using Voting.Common.Helpers;
-    using Voting.UIForms.Views;
+    using Views;
     using Xamarin.Forms;
 
     public class MenuItemViewModel : Common.Models.Menu

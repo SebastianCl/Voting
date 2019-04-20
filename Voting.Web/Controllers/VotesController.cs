@@ -2,14 +2,10 @@
 {
     using System.Threading.Tasks;
     using Data;
-    using Data.Repositories;
+    using Data.Entities;
     using Helpers;
-    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-    using Models;
-    using Voting.Web.Data.Entities;
 
-    [Authorize(Roles = "Admin")]
     public class VotesController : Controller
     {
         private readonly IVoteRepository votetRepository;
@@ -50,12 +46,13 @@
         {
             if (this.ModelState.IsValid)
             {
-                var vote = new Vote {
-                    Candidate= view.Candidate,
+                var vote = new Vote
+                {
+                    Candidate = view.Candidate,
                     Event = view.Event,
                     User = view.User
-                        
-                } ;
+
+                };
                 await this.votetRepository.AddVoteAsync(vote);
                 return RedirectToAction(nameof(Index));
             }

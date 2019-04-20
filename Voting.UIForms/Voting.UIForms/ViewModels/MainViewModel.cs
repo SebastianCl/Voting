@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using Voting.Common.Models;
-
-namespace Voting.UIForms.ViewModels
+﻿namespace Voting.UIForms.ViewModels
 {
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Linq;
+    using Common.Models;
+    using Helpers;
+
     public class MainViewModel
     {
         private static MainViewModel instance;//singleton(apuntador a la misma clase)
@@ -27,27 +28,27 @@ namespace Voting.UIForms.ViewModels
 
         private void LoadMenus()
         {
-            var menus = new List<Menu>{                
+            var menus = new List<Menu>{
 
                 new Menu
                 {
                     Icon = "ic_edit",
                     PageName = "SetupPage",
-                    Title = "Setup"
+                    Title = Languages.Setup
                 },
 
                 new Menu
                 {
                     Icon = "ic_info_outline",
                     PageName = "AboutPage",
-                    Title = "About"
+                    Title = Languages.About
                 },
 
                 new Menu
                 {
                     Icon = "ic_exit_to_app",
                     PageName = "LoginPage",
-                    Title = "Close session"
+                    Title = Languages.CloseSession
                 }
             };
 

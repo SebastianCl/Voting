@@ -1,9 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:i18n="clr-namespace:Voting.UIForms.Helpers"
              x:Class="Voting.UIForms.Views.EventsPage"
              BindingContext="{Binding Main, Source={StaticResource Locator}}"             
-             Title="Events">
+             Title="{i18n:Translate Events}">
     <ContentPage.Content>
         <StackLayout
             BindingContext="{Binding Events}"

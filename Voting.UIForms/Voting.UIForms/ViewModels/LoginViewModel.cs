@@ -1,15 +1,16 @@
 ﻿namespace Voting.UIForms.ViewModels
 {
     using System.Windows.Input;
+    using Common.Helpers;
+    using Common.Models;
+    using Common.Services;
     using GalaSoft.MvvmLight.Command;
+    using Helpers;
     using Newtonsoft.Json;
     using Views;
-    using Voting.Common.Helpers;
-    using Voting.Common.Models;
-    using Voting.Common.Services;
     using Xamarin.Forms;
 
-    public class LoginViewModel: BaseViewModel
+    public class LoginViewModel : BaseViewModel
     {
         private bool isRunning;
         private bool isEnabled;
@@ -32,7 +33,7 @@
 
         public string Password { get; set; }
 
-        public bool IsRemember { get; set;}
+        public bool IsRemember { get; set; }
 
         public ICommand LoginCommand => new RelayCommand(Login);
 
@@ -44,9 +45,6 @@
             this.apiService = new ApiService();
             this.IsEnabled = true;
             this.IsRemember = true;
-
-            this.Email = "cardonaloaizasebastian112@gmail.com";
-            this.Password = "123456";
         }
 
         private async void Register()
@@ -67,18 +65,18 @@
             if (string.IsNullOrEmpty(this.Email))
             {
                 await Application.Current.MainPage.DisplayAlert(
-                    "Error",
-                    "You must enter an email",
-                    "Accept");
+                    Languages.Error,
+                    Languages.EmailError,
+                    Languages.Accept);
                 return;
             }
 
             if (string.IsNullOrEmpty(this.Password))
             {
                 await Application.Current.MainPage.DisplayAlert(
-                    "Error",
-                    "You must enter an password",
-                    "Accept");
+                    Languages.Error,
+                    Languages.PasswordError,
+                    Languages.Accept);
                 return;
             }
 
@@ -102,7 +100,10 @@
 
             if (!response.IsSuccess)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", "Email or password incorrect.", "Accept");
+                await Application.Current.MainPage.DisplayAlert(
+                    Languages.Error,
+                    Languages.LoginError,
+                    Languages.Accept);
                 return;
             }
             var token = (TokenResponse)response.Result;//deserealizo el token

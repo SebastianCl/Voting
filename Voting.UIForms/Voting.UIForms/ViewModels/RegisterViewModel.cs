@@ -1,14 +1,15 @@
 ﻿namespace Voting.UIForms.ViewModels
 {
+    using Common.Helpers;
+    using Common.Models;
+    using Common.Services;
+    using GalaSoft.MvvmLight.Command;
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
     using System.Windows.Input;
-    using Common.Helpers;
-    using Common.Models;
-    using Common.Services;
-    using GalaSoft.MvvmLight.Command;
+    using Voting.UIForms.Helpers;
     using Xamarin.Forms;
 
     public class RegisterViewModel : BaseViewModel
@@ -70,7 +71,7 @@
 
         public RegisterViewModel()
         {
-            this.apiService = new ApiService();            this.IsEnabled = true;
+            this.apiService = new ApiService();            /*this.IsEnabled = true;
             this.FirstName = "Sebastian";
             this.LastName = "Cardona Loaiza";
             this.Email = "sebastiancardonaloaiza3435@gmail.com";
@@ -78,7 +79,7 @@
             this.Stratum = 2;
             this.Gender = "male";
             this.Password = "123456";
-            this.Confirm = "123456";
+            this.Confirm = "123456";*/
 
             this.LoadCountries();
         }
@@ -88,126 +89,126 @@
             if (string.IsNullOrEmpty(this.FirstName))
             {
                 await Application.Current.MainPage.DisplayAlert(
-                    "Error",
-                    "You must enter the first name.",
-                    "Accept");
+                    Languages.Error,
+                    Languages.FirstNameError,
+                    Languages.Accept);
                 return;
             }
 
             if (string.IsNullOrEmpty(this.LastName))
             {
                 await Application.Current.MainPage.DisplayAlert(
-                    "Error",
-                    "You must enter the last name.",
-                    "Accept");
+                    Languages.Error,
+                    Languages.LastNameError,
+                    Languages.Accept);
                 return;
             }
 
             if (string.IsNullOrEmpty(this.Email))
             {
                 await Application.Current.MainPage.DisplayAlert(
-                    "Error",
-                    "You must enter an email.",
-                    "Accept");
+                    Languages.Error,
+                    Languages.EmailError,
+                    Languages.Accept);
                 return;
             }
 
             if (!RegexHelper.IsValidEmail(this.Email))
             {
                 await Application.Current.MainPage.DisplayAlert(
-                    "Error",
-                    "You must enter a valid email.",
-                    "Accept");
+                    Languages.Error,
+                    Languages.EmailFormatError,
+                    Languages.Accept);
                 return;
             }
 
             if (this.Country == null)
             {
                 await Application.Current.MainPage.DisplayAlert(
-                    "Error",
-                    "You must select a country.",
-                    "Accept");
+                    Languages.Error,
+                    Languages.CountryError,
+                    Languages.Accept);
                 return;
             }
 
             if (this.City == null)
             {
                 await Application.Current.MainPage.DisplayAlert(
-                    "Error",
-                    "You must select a city.",
-                    "Accept");
+                    Languages.Error,
+                    Languages.CityError,
+                    Languages.Accept);
                 return;
             }
 
             if (string.IsNullOrEmpty(this.Occupation))
             {
                 await Application.Current.MainPage.DisplayAlert(
-                    "Error",
-                    "You must enter an occupation.",
-                    "Accept");
+                    Languages.Error,
+                    Languages.OccupationError,
+                    Languages.Accept);
                 return;
             }
 
             if (string.IsNullOrEmpty(this.Gender))
-            {
+            {;
                 await Application.Current.MainPage.DisplayAlert(
-                    "Error",
-                    "You must enter a gender.",
-                    "Accept");
+                    Languages.Error,
+                    Languages.GenderError,
+                    Languages.Accept);
                 return;
             }
 
             if (this.Stratum <= 0)
             {
                 await Application.Current.MainPage.DisplayAlert(
-                    "Error",
-                    "You must enter a stratum.",
-                    "Accept");
+                    Languages.Error,
+                    Languages.StratumError,
+                    Languages.Accept);
                 return;
             }
 
             if (this.Birthdate > DateTime.Now)
-            {
+            {;
                 await Application.Current.MainPage.DisplayAlert(
-                    "Error",
-                    "You must enter a valid date of birth",
-                    "Accept");
+                    Languages.Error,
+                    Languages.BirthdateError,
+                    Languages.Accept);
                 return;
             }
 
             if (string.IsNullOrEmpty(this.Password))
             {
                 await Application.Current.MainPage.DisplayAlert(
-                    "Error",
-                    "You must enter a password.",
-                    "Accept");
+                    Languages.Error,
+                    Languages.PasswordError,
+                    Languages.Accept);
                 return;
             }
 
             if (this.Password.Length < 6)
             {
                 await Application.Current.MainPage.DisplayAlert(
-                    "Error",
-                    "You password must be at mimimun 6 characters.",
-                    "Accept");
+                    Languages.Error,
+                    Languages.PasswordFormatError,
+                    Languages.Accept);
                 return;
             }
 
             if (string.IsNullOrEmpty(this.Confirm))
             {
                 await Application.Current.MainPage.DisplayAlert(
-                    "Error",
-                    "You must enter a password confirm.",
-                    "Accept");
+                    Languages.Error,
+                    Languages.PasswordConfirmError,
+                    Languages.Accept);
                 return;
             }
 
             if (!this.Password.Equals(this.Confirm))
             {
                 await Application.Current.MainPage.DisplayAlert(
-                    "Error",
-                    "The password and the confirm do not match.",
-                    "Accept");
+                    Languages.Error,
+                    Languages.PasswordMatch,
+                    Languages.Accept);
                 return;
             }
 
@@ -240,16 +241,16 @@
             if (!response.IsSuccess)
             {
                 await Application.Current.MainPage.DisplayAlert(
-                    "Error",
+                    Languages.Error,
                     response.Message,
-                    "Accept");
+                    Languages.Accept);
                 return;
             }
 
             await Application.Current.MainPage.DisplayAlert(
-                "Ok",
+                Languages.Error,
                 response.Message,
-                "Accept");
+                Languages.Accept);
             await Application.Current.MainPage.Navigation.PopAsync();
         }
 
@@ -268,9 +269,9 @@
             if (!response.IsSuccess)
             {
                 await Application.Current.MainPage.DisplayAlert(
-                    "Error",
+                    Languages.Error,
                     response.Message,
-                    "Accept");
+                    Languages.Accept);
                 return;
             }
             var myCountries = (List<Country>)response.Result;

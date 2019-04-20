@@ -1,9 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
          	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:i18n="clr-namespace:Voting.UIForms.Helpers"
          	x:Class="Voting.UIForms.Views.RegisterPage"
          	BindingContext="{Binding Main, Source={StaticResource Locator}}"
-         	Title="Register New User">
+         	Title="{i18n:Translate RegisterNewUser}">
     <ContentPage.Content>
         <ScrollView
         	BindingContext="{Binding Register}">
@@ -18,47 +19,47 @@
                     <Label
                     	Grid.Column="0"
                     	Grid.Row="0"
-                    	Text="First name"
+                    	Text="{i18n:Translate FirstName}"
                     	VerticalOptions="Center">
                     </Label>
                     <Entry
                     	Grid.Column="1"
                     	Grid.Row="0"
-                    	Placeholder="Enter your first name..."
+                    	Placeholder="{i18n:Translate FirstNamePlaceHolder}"
                     	Text="{Binding FirstName}">
                     </Entry>
                     
                     <Label
                     	Grid.Column="0"
                     	Grid.Row="1"
-                    	Text="Last name"
+                    	Text="{i18n:Translate LastName}"
                     	VerticalOptions="Center">
                     </Label>
                     <Entry
                     	Grid.Column="1"
                     	Grid.Row="1"
-                    	Placeholder="Enter your last name..."
+                    	Placeholder="{i18n:Translate LastNamePlaceHolder}"
                     	Text="{Binding LastName}">
                     </Entry>
                     
                     <Label
                     	Grid.Column="0"
                     	Grid.Row="2"
-                    	Text="Email"
+                    	Text="{i18n:Translate Email}"
                     	VerticalOptions="Center">
                     </Label>
                     <Entry
                     	Grid.Column="1"
                     	Grid.Row="2"
                     	Keyboard="Email"
-                    	Placeholder="Enter your email..."
+                    	Placeholder="{i18n:Translate EmailPlaceHolder}"
                     	Text="{Binding Email}">
                     </Entry>
                     
                     <Label
                     	Grid.Column="0"
                     	Grid.Row="3"
-                    	Text="Country"
+                    	Text="{i18n:Translate Country}"
                     	VerticalOptions="Center">
                     </Label>
                     <Picker
@@ -67,13 +68,13 @@
                     	ItemDisplayBinding="{Binding Name}"
                     	ItemsSource="{Binding Countries}"
                     	SelectedItem="{Binding Country}"
-                    	Title="Select a country...">
+                    	Title="{i18n:Translate CountryPlaceHolder}">
                     </Picker>
                     
                     <Label
                     	Grid.Column="0"
                     	Grid.Row="4"
-                    	Text="City"
+                    	Text="{i18n:Translate City}"
                     	VerticalOptions="Center">
                     </Label>
                     <Picker
@@ -82,51 +83,50 @@
                     	ItemDisplayBinding="{Binding Name}"
                     	ItemsSource="{Binding Cities}"
                     	SelectedItem="{Binding City}"
-                    	Title="Select a city...">
+                    	Title="{i18n:Translate CityPlaceHolder}">
                     </Picker>
                     <Label
                     	Grid.Column="0"
                     	Grid.Row="5"
-                    	Text="Occupation"
+                    	Text="{i18n:Translate Occupation}"
                     	VerticalOptions="Center">
                     </Label>
                     <Entry
                     	Grid.Column="1"
                     	Grid.Row="5"
-                    	Keyboard="Email"
-                    	Placeholder="Enter your occupation..."
+                        Placeholder="{i18n:Translate OccupationPlaceHolder}"
                     	Text="{Binding Occupation}">
                     </Entry>
                     
                     <Label
                     	Grid.Column="0"
                     	Grid.Row="6"
-                    	Text="Stratum"
+                    	Text="{i18n:Translate Stratum}"
                     	VerticalOptions="Center">
                     </Label>
                     <Entry
                     	Grid.Column="1"
                     	Grid.Row="6"
-                    	Placeholder="Enter your stratum..."
+                    	Placeholder="{i18n:Translate StratumPlaceHolder}"
                     	Text="{Binding Stratum}">
                     </Entry>
                     <Label
                     	Grid.Column="0"
                     	Grid.Row="7"
-                    	Text="Gender"
+                    	Text="{i18n:Translate Gender}"
                     	VerticalOptions="Center">
                     </Label>
                     <Entry
                     	Grid.Column="1"
                     	Grid.Row="7"
-                    	Placeholder="Enter your gender..."
+                    	Placeholder="{i18n:Translate GenderPlaceHolder}"
                     	Text="{Binding Gender}">
                     </Entry>
 
                     <Label
                     	Grid.Column="0"
                     	Grid.Row="8"
-                    	Text="Birthdate"
+                    	Text="{i18n:Translate Birthdate}"
                     	VerticalOptions="Center">
                     </Label>
                     <DatePicker
@@ -140,27 +140,27 @@
                     <Label
                     	Grid.Column="0"
                     	Grid.Row="9"
-                    	Text="Password"
+                    	Text="{i18n:Translate Password}"
                     	VerticalOptions="Center">
                     </Label>
                     <Entry
                     	Grid.Column="1"
                     	Grid.Row="9"
                     	IsPassword="True"
-                    	Placeholder="Enter your password..."
+                    	Placeholder="{i18n:Translate PasswordPlaceHolder}"
                     	Text="{Binding Password}">
                     </Entry>
                     <Label
                     	Grid.Column="0"
                     	Grid.Row="10"
-                    	Text="Password confirm"
+                    	Text="{i18n:Translate PasswordConfirm}"
                     	VerticalOptions="Center">
                     </Label>
                     <Entry
                     	Grid.Column="1"
                     	Grid.Row="10"
                     	IsPassword="True"
-                    	Placeholder="Enter your password confirm..."
+                    	Placeholder="{i18n:Translate PasswordConfirmPlaceHolder}"
                     	Text="{Binding Confirm}">
                     </Entry>
                     
@@ -170,14 +170,14 @@
                 	VerticalOptions="CenterAndExpand">
                 </ActivityIndicator>
                 <Button
-                	BackgroundColor="Navy"
+                	BackgroundColor="Gold"
                 	BorderRadius="23"
                 	Command="{Binding RegisterCommand}"
                 	HeightRequest="46"
                 	HorizontalOptions="FillAndExpand"
                 	IsEnabled="{Binding IsEnabled}"
-                	Text="Register New User"
-                	TextColor="White">
+                	Text="{i18n:Translate RegisterNewUser}"
+                	TextColor="Black">
                 </Button>
             </StackLayout>
         </ScrollView>
