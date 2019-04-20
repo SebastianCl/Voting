@@ -25,7 +25,7 @@
 
         public IActionResult Index()
         {
-            return View(this.eventRepository.GetAll());
+            return View(this.eventRepository.GetEventsWithCandidatesFinished());
         }
 
         // GET: Events/Details/5

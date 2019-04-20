@@ -15,14 +15,10 @@
     public class EventsController : Controller
     {
         private readonly IEventRepository eventRepository;
-        private readonly IUserHelper userHelper;
 
-        public EventsController(
-            IEventRepository eventRepository,
-            IUserHelper userHelper)
+        public EventsController(IEventRepository eventRepository)
         {
             this.eventRepository = eventRepository;
-            this.userHelper = userHelper;
         }
 
 
@@ -62,7 +58,6 @@
         {
             if (ModelState.IsValid)
             {
-                @event.User = await this.userHelper.GetUserByEmailAsync(this.User.Identity.Name);
                 await this.eventRepository.CreateAsync(@event);
                 return RedirectToAction(nameof(Index));
             }
@@ -92,8 +87,7 @@
             if (ModelState.IsValid)
             {
                 try
-                {
-                    @event.User = await this.userHelper.GetUserByEmailAsync(this.User.Identity.Name);
+                {                    
                     await this.eventRepository.UpdateAsync(@event);
                 }
                 catch (DbUpdateConcurrencyException)

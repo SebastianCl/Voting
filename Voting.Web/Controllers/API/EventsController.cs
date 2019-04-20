@@ -13,14 +13,10 @@
     public class EventsController : Controller
     {
         private readonly IEventRepository eventRepository;
-        private readonly IUserHelper userHelper;
 
-        public EventsController(
-            IEventRepository eventRepository,
-            IUserHelper userHelper)
+        public EventsController(IEventRepository eventRepository)
         {
             this.eventRepository = eventRepository;
-            this.userHelper = userHelper;
         }
 
         [HttpGet]
@@ -42,20 +38,13 @@
             {
                 return this.BadRequest(ModelState);
             }
-
-            var user = await this.userHelper.GetUserByEmailAsync(@event.User.Email);
-            if (user == null)
-            {
-                return this.BadRequest("Invalid user");
-            }
-
+            
             var entityEvent = new Event
             {
                 Name = @event.Name,
                 Description = @event.Description,
                 StartDate = @event.StartDate,
-                FinishDate = @event.FinishDate,
-                User = user
+                FinishDate = @event.FinishDate
             };
             var newEvent = await this.eventRepository.CreateAsync(entityEvent);
             return Ok(newEvent);

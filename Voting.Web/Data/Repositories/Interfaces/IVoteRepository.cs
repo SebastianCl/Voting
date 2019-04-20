@@ -13,6 +13,10 @@
 
         IQueryable GetVotesOfEvent(int id);
 
+        IQueryable GetVotesOfCandidate(int id);
+
+        IQueryable GetVotesOfUser(string idUser, int idEvent);
+
         //Task<IActionResult> PostVote();
 
         //IQueryable GetVotesOfCandidate(int id);

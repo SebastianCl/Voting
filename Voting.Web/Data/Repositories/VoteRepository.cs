@@ -40,12 +40,12 @@
 
         public IQueryable GetVotesOfEvent(int id)
         {
-            return this.context.Votes
+            var res = this.context.Votes
                 .Include(e => e.Event)
                 .Include(u => u.User)
                 .Include(c => c.Candidate)
                 .Where(e => e.Event.Id == id);
-
+            return res;
         }
 
         public IQueryable GetVotesOfCandidate(int id)
@@ -56,17 +56,16 @@
                 .Where(c => c.Candidate.Id == id);
         }
 
-        public async Task PostVote()
+        public IQueryable GetVotesOfUser(string idUser, int idEvent)
         {
-            var vote = new Vote
-            {
-                Event = new Event { Id = 1},
-                Candidate = new Candidate { Id = 1},
-                User = new User {Id = "" },
-            };
-            this.context.Votes.Update(vote);
-            await this.context.SaveChangesAsync();
+            var res = this.context.Votes
+                .Include(e => e.Event)
+                .Include(u => u.User)
+                .Where(e => e.Event.Id == idEvent)
+                .Where(u => u.User.Id == idUser);
+            return res;
         }
+        
         #endregion
 
     }

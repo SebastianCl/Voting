@@ -27,8 +27,6 @@
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime FinishDate { get; set; }
         
-        public User User { get; set; }
-
         public ICollection<Candidate> Candidates { get; set; }
 
         [Display(Name = "# Candidates")]

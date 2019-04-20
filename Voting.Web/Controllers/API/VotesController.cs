@@ -5,6 +5,7 @@
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using System;
     using System.Threading.Tasks;
     using Voting.Web.Data.Entities;
 
@@ -32,17 +33,18 @@
             return this.Ok(this.voteRepository.GetVotesWithAll());
         }
 
-        /*[HttpGet("{eventId}")]
+        
+        [HttpGet("Event/{eventId}")]
         public IActionResult GetVotesOfEvent([FromRoute] int eventId)
         {
             return this.Ok(this.voteRepository.GetVotesOfEvent(eventId));
-        }*/
-
-        /*[HttpGet("{candidateId}")]
+        }
+        
+        [HttpGet("Candidate/{candidateId}")]
         public IActionResult GetVotesOfCandidate([FromRoute] int candidateId)
         {
             return this.Ok(this.voteRepository.GetVotesOfCandidate(candidateId));
-        }*/
+        }
 
         [HttpPost]
         public async Task<IActionResult> PostVote([FromBody] Common.Models.Vote vote)
@@ -56,13 +58,23 @@
             if (user == null)
             {
                 return this.BadRequest("Invalid user");
-            }
+            }            
 
             var @event = await this.eventRepository.GetByIdAsync(vote.Event.Id);
             if (@event == null)
             {
                 return this.BadRequest("Invalid event");
             }
+            if (@event.FinishDate < DateTime.Now)
+            {
+                return this.BadRequest("Event closed");
+            }
+
+            /*var userVote = this.voteRepository.GetVotesOfUser(user.Id, @event.Id);
+            if (userVote != null)
+            {
+                return this.BadRequest("You already voted in this event");
+            }*/
 
             var candidate = await this.eventRepository.GetCandidateAsync(vote.Candidate.Id);
             if (candidate == null)

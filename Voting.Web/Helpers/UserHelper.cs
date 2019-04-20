@@ -72,7 +72,7 @@
                 {
                     Name = roleName
                 });
-            }
+            }
         }
 
         public async Task AddUserToRoleAsync(User user, string roleName)

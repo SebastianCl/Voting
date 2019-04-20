@@ -63,7 +63,6 @@
             services.AddScoped<IEventRepository, EventRepository>();
             services.AddScoped<ICountryRepository, CountryRepository>();
             services.AddScoped<IVoteRepository, VoteRepository>();
-            services.AddScoped<IResultRepository, ResultRepository>();
             services.AddScoped<IUserHelper, UserHelper>();
             services.AddScoped<IMailHelper, MailHelper>();
 

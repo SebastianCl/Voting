@@ -1,7 +1,6 @@
 ﻿namespace Voting.Web.Data
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
     using Entities;
@@ -39,11 +38,9 @@
             if (!this.context.Events.Any())
             {                
                 await this.AddEventsAndCandidatesAsync("Best city of Colombia", 
-                    new string[] { "Medellín", "Bogotá", "Cali", "Barranquilla", "Bucaramanga", "Cartagena", "Pereira" },
-                    user);
+                    new string[] { "Medellín", "Bogotá", "Cali", "Barranquilla", "Bucaramanga", "Cartagena", "Pereira" });
                 await this.AddEventsAndCandidatesAsync("Do you agree with Medellin's environmental policies?",
-                    new string[] { "Yes","No" },
-                    user);
+                    new string[] { "Yes","No" });
             }
         }
 
@@ -126,15 +123,15 @@
         }
 
 
-        private async Task AddEventsAndCandidatesAsync(string nameEvent, string[] candidates, User user)
+        private async Task AddEventsAndCandidatesAsync(string nameEvent, string[] candidates)
         {
 
-            this.AddEvent(nameEvent, candidates, user);
+            this.AddEvent(nameEvent, candidates);
             
             await this.context.SaveChangesAsync();
         }
 
-        private void AddEvent(string name, string[] candidate, User user)
+        private void AddEvent(string name, string[] candidate)
         {
             var candidates = candidate.Select(c => new Candidate {
                 Name = c,
@@ -149,9 +146,7 @@
                 Candidates = candidates,
                 Description = "Description to " + name,
                 StartDate = DateTime.Now,
-                FinishDate = DateTime.MaxValue,
-                User = user
-
+                FinishDate = DateTime.MaxValue
             });
         }
 

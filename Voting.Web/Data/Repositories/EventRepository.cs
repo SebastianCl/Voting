@@ -68,7 +68,6 @@
             return this.context.Events
             .Include(c => c.Candidates)
             .Where(c => c.Id == id)
-            .Include(u => u.User)
             .FirstOrDefaultAsync();
         }
 
@@ -77,8 +76,15 @@
         {
             return this.context.Events
             .Include(c => c.Candidates)
-            .Include(u => u.User)
             .Where(d => d.FinishDate > DateTime.Now)
+            .OrderBy(e => e.FinishDate);
+        }
+
+        public IQueryable GetEventsWithCandidatesFinished()
+        {
+            return this.context.Events
+            .Include(c => c.Candidates)
+            .Where(d => d.FinishDate < DateTime.Now)
             .OrderBy(e => e.FinishDate);
         }
 

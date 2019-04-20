@@ -11,6 +11,8 @@
 
         IQueryable GetEventsWithCandidatesAvailable();
 
+        IQueryable GetEventsWithCandidatesFinished();
+
         Task<Event> GetEventWithCandidatesAsync(int id); 
 
         Task<Candidate> GetCandidateAsync(int id);
