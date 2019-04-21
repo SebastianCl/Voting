@@ -276,4 +276,43 @@
   <data name="SelectCandidate" xml:space="preserve">
     <value>Vote em um candidato</value>
   </data>
+  <data name="ModifyPassword" xml:space="preserve">
+    <value>Mudar senha</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Guardar!</value>
+  </data>
+  <data name="ModifyUser" xml:space="preserve">
+    <value>Modificar usuário</value>
+  </data>
+  <data name="UserUpdated" xml:space="preserve">
+    <value>Usuário Atualizado!</value>
+  </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>Mudar senha!</value>
+  </data>
+  <data name="CurrentPassword" xml:space="preserve">
+    <value>Senha actual</value>
+  </data>
+  <data name="CurrentPasswordPlaceHolder" xml:space="preserve">
+    <value>Digite sua senha atual</value>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>Nova senha</value>
+  </data>
+  <data name="NewPasswordPlaceHolder" xml:space="preserve">
+    <value>Por favor, digite sua nova senha.</value>
+  </data>
+  <data name="ConfirmNewPassword" xml:space="preserve">
+    <value>Confirme a nova palavra-passe</value>
+  </data>
+  <data name="ConfirmNewPasswordPlaceHolder" xml:space="preserve">
+    <value>Digite a confirmação da nova senha!</value>
+  </data>
+  <data name="PasswordCurrentErrorNull" xml:space="preserve">
+    <value>Você deve digitar a senha atual!</value>
+  </data>
+  <data name="PasswordCurrentErrorMatch" xml:space="preserve">
+    <value>A palavra-passe atual está incorreta</value>
+  </data>
 </root>

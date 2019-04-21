@@ -276,4 +276,43 @@
   <data name="SelectCandidate" xml:space="preserve">
     <value>Stem op een kandidaat</value>
   </data>
+  <data name="ModifyPassword" xml:space="preserve">
+    <value>Pas wachtwoord aan</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Opslaan</value>
+  </data>
+  <data name="ModifyUser" xml:space="preserve">
+    <value>Gebruiker wijzigen</value>
+  </data>
+  <data name="UserUpdated" xml:space="preserve">
+    <value>Gebruiker bijgewerkt!</value>
+  </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>Wijzig Wachtwoord!</value>
+  </data>
+  <data name="CurrentPassword" xml:space="preserve">
+    <value>Huidig wachtwoord</value>
+  </data>
+  <data name="CurrentPasswordPlaceHolder" xml:space="preserve">
+    <value>voer je huidige wachtwoord in</value>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>Nieuw wachtwoord</value>
+  </data>
+  <data name="NewPasswordPlaceHolder" xml:space="preserve">
+    <value>Geef een nieuw wachtwoord op.</value>
+  </data>
+  <data name="ConfirmNewPassword" xml:space="preserve">
+    <value>Bevestig het nieuwe wachtwoord</value>
+  </data>
+  <data name="ConfirmNewPasswordPlaceHolder" xml:space="preserve">
+    <value>Voer het bevestigen van een nieuw wachtwoord in!</value>
+  </data>
+  <data name="PasswordCurrentErrorNull" xml:space="preserve">
+    <value>U moet het huidige wachtwoord invoeren!</value>
+  </data>
+  <data name="PasswordCurrentErrorMatch" xml:space="preserve">
+    <value>Wachtwoord is onjuist</value>
+  </data>
 </root>

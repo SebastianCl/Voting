@@ -19,14 +19,16 @@
                 case "AboutPage":
                     await App.Navigator.PushAsync(new AboutPage());
                     break;
-                case "SetupPage":
-                    await App.Navigator.PushAsync(new SetupPage());
+                case "ProfilePage":
+                    mainViewModel.Profile = new ProfileViewModel();
+                    await App.Navigator.PushAsync(new ProfilePage());
                     break;
                 default:
                     Settings.IsRemember = false;
                     Settings.UserEmail = string.Empty;
                     Settings.UserPassword = string.Empty;
                     Settings.Token = string.Empty;
+                    Settings.User = string.Empty;
                     MainViewModel.GetInstance().Login = new LoginViewModel();
                     Application.Current.MainPage = new NavigationPage(new LoginPage());
                     break;

@@ -18,7 +18,11 @@
 
         public ObservableCollection<MenuItemViewModel> Menus { get; set; }        public RegisterViewModel Register { get; set; }
 
-        public RememberPasswordViewModel RememberPassword { get; set; }        public VoteViewModel Vote { get; set; }
+        public RememberPasswordViewModel RememberPassword { get; set; }        public ChangePasswordViewModel ChangePassword { get; set; }        public VoteViewModel Vote { get; set; }
+
+        public ProfileViewModel Profile { get; set; }
+
+        public User User { get; set; }
 
         public string UserEmail { get; set; }        public string UserPassword { get; set; }
 
@@ -35,7 +39,7 @@
                 new Menu
                 {
                     Icon = "ic_edit",
-                    PageName = "SetupPage",
+                    PageName = "ProfilePage",
                     Title = Languages.Setup
                 },
 

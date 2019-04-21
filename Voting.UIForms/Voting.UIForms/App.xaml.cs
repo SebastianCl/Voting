@@ -1,11 +1,11 @@
 ﻿namespace Voting.UIForms
 {
-    using Newtonsoft.Json;
     using System;
+    using Common.Helpers;
+    using Common.Models;
+    using Newtonsoft.Json;
+    using ViewModels;
     using Views;
-    using Voting.Common.Helpers;
-    using Voting.Common.Models;
-    using Voting.UIForms.ViewModels;
     using Xamarin.Forms;
 
     public partial class App : Application
@@ -19,10 +19,12 @@
             if (Settings.IsRemember)
             {
                 var token = JsonConvert.DeserializeObject<TokenResponse>(Settings.Token);
+                var user = JsonConvert.DeserializeObject<User>(Settings.User);
                 if (token.Expiration > DateTime.Now)
                 {
                     var mainviewModel = MainViewModel.GetInstance();
                     mainviewModel.Token = token;
+                    mainviewModel.User = user;
                     mainviewModel.UserEmail = Settings.UserEmail;
                     mainviewModel.UserPassword = Settings.UserPassword;
                     mainviewModel.Events = new EventsViewModel();

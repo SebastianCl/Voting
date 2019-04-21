@@ -65,5 +65,18 @@
         public static string Setup => Resource.Setup;
         public static string CloseSession => Resource.CloseSession;
         public static string SelectCandidate => Resource.SelectCandidate;
+        public static string ModifyPassword => Resource.ModifyPassword;
+        public static string ModifyUser => Resource.ModifyUser;
+        public static string Save => Resource.Save;
+        public static string UserUpdated => Resource.UserUpdated;
+        public static string ChangePassword => Resource.ChangePassword;
+        public static string CurrentPassword => Resource.CurrentPassword;
+        public static string CurrentPasswordPlaceHolder => Resource.CurrentPasswordPlaceHolder;
+        public static string NewPassword => Resource.NewPassword;
+        public static string NewPasswordPlaceHolder => Resource.NewPasswordPlaceHolder;
+        public static string ConfirmNewPassword => Resource.ConfirmNewPassword;
+        public static string ConfirmNewPasswordPlaceHolder => Resource.ConfirmNewPasswordPlaceHolder;
+        public static string PasswordCurrentErrorNull => Resource.PasswordCurrentErrorNull;
+        public static string PasswordCurrentErrorMatch => Resource.PasswordCurrentErrorMatch;
     }
 }

@@ -10,27 +10,26 @@
     using Common.Services;
     using GalaSoft.MvvmLight.Command;
     using Helpers;
+    using Newtonsoft.Json;
+    using Views;
     using Xamarin.Forms;
 
-    public class RegisterViewModel : BaseViewModel
+    public class ProfileViewModel : BaseViewModel
     {
+        private readonly ApiService apiService;
         private bool isRunning;
         private bool isEnabled;
         private ObservableCollection<Country> countries;
         private Country country;
         private ObservableCollection<City> cities;
         private City city;
-        private readonly ApiService apiService;
+        private User user;
+        private List<Country> myCountries;
 
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Email { get; set; }
-        public string Occupation { get; set; }
-        public int Stratum { get; set; }
-        public string Gender { get; set; }
-        public string Password { get; set; }
-        public string Confirm { get; set; }
-        public DateTime Birthdate { get; set; }
+        public ICommand SaveCommand => new RelayCommand(this.Save);
+
+        public ICommand ModifyPasswordCommand => new RelayCommand(this.ModifyPassword);
+
 
         public Country Country
         {
@@ -45,6 +44,11 @@
         {
             get => this.city;
             set => this.SetValue(ref this.city, value);
+        }
+        public User User
+        {
+            get => this.user;
+            set => this.SetValue(ref this.user, value);
         }
         public ObservableCollection<Country> Countries
         {
@@ -67,26 +71,55 @@
             set => this.SetValue(ref this.isEnabled, value);
         }
 
-        public ICommand RegisterCommand => new RelayCommand(this.Register);
-
-        public RegisterViewModel()
+        public ProfileViewModel()
         {
-            this.apiService = new ApiService();            /*this.IsEnabled = true;
-            this.FirstName = "Sebastian";
-            this.LastName = "Cardona Loaiza";
-            this.Email = "sebastiancardonaloaiza3435@gmail.com";
-            this.Occupation = "Tester";
-            this.Stratum = 2;
-            this.Gender = "male";
-            this.Password = "123456";
-            this.Confirm = "123456";*/
-
+            this.apiService = new ApiService();
+            this.User = MainViewModel.GetInstance().User;
+            this.IsEnabled = true;
             this.LoadCountries();
         }
 
-        private async void Register()
+        private async void LoadCountries()
         {
-            if (string.IsNullOrEmpty(this.FirstName))
+            this.IsRunning = true;
+            this.IsEnabled = false;
+            var url = Application.Current.Resources["UrlAPI"].ToString();
+            var response = await this.apiService.GetListAsync<Country>(
+                url,
+                "/api",
+                "/Countries");
+            this.IsRunning = false;
+            this.IsEnabled = true;
+            if (!response.IsSuccess)
+            {
+                await Application.Current.MainPage.DisplayAlert(
+                Languages.Error,
+                response.Message,
+                Languages.Accept);
+                return;
+            }
+            this.myCountries = (List<Country>)response.Result;
+            this.Countries = new ObservableCollection<Country>(myCountries);
+            this.SetCountryAndCity();
+        }
+        private void SetCountryAndCity()
+        {
+            foreach (var country in this.myCountries)
+            {
+                var city = country.Cities.Where(c => c.Id == this.User.CityId).FirstOrDefault();
+                if (city != null)
+                {
+                    this.Country = country;
+                    this.City = city;
+                    return;
+                }
+            }
+        }
+
+
+        private async void Save()
+        {
+            if (string.IsNullOrEmpty(this.User.FirstName))
             {
                 await Application.Current.MainPage.DisplayAlert(
                     Languages.Error,
@@ -95,7 +128,7 @@
                 return;
             }
 
-            if (string.IsNullOrEmpty(this.LastName))
+            if (string.IsNullOrEmpty(this.User.LastName))
             {
                 await Application.Current.MainPage.DisplayAlert(
                     Languages.Error,
@@ -104,7 +137,7 @@
                 return;
             }
 
-            if (string.IsNullOrEmpty(this.Email))
+            if (string.IsNullOrEmpty(this.User.Email))
             {
                 await Application.Current.MainPage.DisplayAlert(
                     Languages.Error,
@@ -113,7 +146,7 @@
                 return;
             }
 
-            if (!RegexHelper.IsValidEmail(this.Email))
+            if (!RegexHelper.IsValidEmail(this.User.Email))
             {
                 await Application.Current.MainPage.DisplayAlert(
                     Languages.Error,
@@ -140,7 +173,7 @@
                 return;
             }
 
-            if (string.IsNullOrEmpty(this.Occupation))
+            if (string.IsNullOrEmpty(this.User.Occupation))
             {
                 await Application.Current.MainPage.DisplayAlert(
                     Languages.Error,
@@ -149,7 +182,7 @@
                 return;
             }
 
-            if (string.IsNullOrEmpty(this.Gender))
+            if (string.IsNullOrEmpty(this.User.Gender))
             {
                 ;
                 await Application.Current.MainPage.DisplayAlert(
@@ -159,7 +192,7 @@
                 return;
             }
 
-            if (this.Stratum <= 0)
+            if (this.User.Stratum <= 0)
             {
                 await Application.Current.MainPage.DisplayAlert(
                     Languages.Error,
@@ -168,7 +201,7 @@
                 return;
             }
 
-            if (this.Birthdate > DateTime.Now)
+            if (this.User.Birthdate > DateTime.Now)
             {
                 await Application.Current.MainPage.DisplayAlert(
                     Languages.Error,
@@ -176,65 +209,17 @@
                     Languages.Accept);
                 return;
             }
-
-            if (string.IsNullOrEmpty(this.Password))
-            {
-                await Application.Current.MainPage.DisplayAlert(
-                    Languages.Error,
-                    Languages.PasswordError,
-                    Languages.Accept);
-                return;
-            }
-
-            if (this.Password.Length < 6)
-            {
-                await Application.Current.MainPage.DisplayAlert(
-                    Languages.Error,
-                    Languages.PasswordFormatError,
-                    Languages.Accept);
-                return;
-            }
-
-            if (string.IsNullOrEmpty(this.Confirm))
-            {
-                await Application.Current.MainPage.DisplayAlert(
-                    Languages.Error,
-                    Languages.PasswordConfirmError,
-                    Languages.Accept);
-                return;
-            }
-
-            if (!this.Password.Equals(this.Confirm))
-            {
-                await Application.Current.MainPage.DisplayAlert(
-                    Languages.Error,
-                    Languages.PasswordMatch,
-                    Languages.Accept);
-                return;
-            }
-
             this.IsRunning = true;
             this.IsEnabled = false;
-
-            var request = new NewUserRequest
-            {
-                Occupation = this.Occupation,
-                Gender = this.Gender,
-                Birthdate = this.Birthdate,
-                Stratum = this.Stratum,
-                CityId = this.City.Id,
-                Email = this.Email,
-                FirstName = this.FirstName,
-                LastName = this.LastName,
-                Password = this.Password
-            };
-
             var url = Application.Current.Resources["UrlAPI"].ToString();
-            var response = await this.apiService.RegisterUserAsync(
+
+            var response = await this.apiService.PutAsync(
                 url,
                 "/api",
                 "/Account",
-                request);
+                this.User,
+                "bearer",
+                MainViewModel.GetInstance().Token.Token);
 
             this.IsRunning = false;
             this.IsEnabled = true;
@@ -247,37 +232,22 @@
                     Languages.Accept);
                 return;
             }
+
+            MainViewModel.GetInstance().User = this.User;
+            Settings.User = JsonConvert.SerializeObject(this.User);
 
             await Application.Current.MainPage.DisplayAlert(
-                Languages.Error,
-                response.Message,
+                Languages.Ok,
+                Languages.UserUpdated,
                 Languages.Accept);
-            await Application.Current.MainPage.Navigation.PopAsync();
+            await App.Navigator.PopAsync();
         }
 
-
-        private async void LoadCountries()
+        private async void ModifyPassword()
         {
-            this.IsRunning = true;
-            this.IsEnabled = false;
-            var url = Application.Current.Resources["UrlAPI"].ToString();
-            var response = await this.apiService.GetListAsync<Country>(
-                url,
-                "/api",
-                "/Countries");
-            this.IsRunning = false;
-            this.IsEnabled = true;
-            if (!response.IsSuccess)
-            {
-                await Application.Current.MainPage.DisplayAlert(
-                    Languages.Error,
-                    response.Message,
-                    Languages.Accept);
-                return;
-            }
-            var myCountries = (List<Country>)response.Result;
-            this.Countries = new ObservableCollection<Country>(myCountries);
-        }
-    }
+            MainViewModel.GetInstance().ChangePassword = new ChangePasswordViewModel();
+            await App.Navigator.PushAsync(new ChangePasswordPage());
+        }
 
+    }
 }

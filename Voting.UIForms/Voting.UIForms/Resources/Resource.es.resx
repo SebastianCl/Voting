@@ -124,7 +124,7 @@
     <value>Debes ingresar un correo electrónico.</value>
   </data>
   <data name="Error" xml:space="preserve">
-    <value>¡Error!</value>
+    <value>Error</value>
   </data>
   <data name="PasswordError" xml:space="preserve">
     <value>Debes ingresar una contraseña</value>
@@ -241,7 +241,7 @@
     <value>La contraseña debe tener al menos 6 caracteres.</value>
   </data>
   <data name="PasswordConfirmError" xml:space="preserve">
-    <value>Debes ingresar una contraseña</value>
+    <value>Debes ingresar la confirmación de contraseña</value>
   </data>
   <data name="PasswordMatch" xml:space="preserve">
     <value>La contraseña y la confirmación no coinciden.</value>
@@ -275,5 +275,44 @@
   </data>
   <data name="SelectCandidate" xml:space="preserve">
     <value>Vota por un candidato</value>
+  </data>
+  <data name="ModifyPassword" xml:space="preserve">
+    <value>Modificar contraseña</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Guardar</value>
+  </data>
+  <data name="ModifyUser" xml:space="preserve">
+    <value>Modificar usuario</value>
+  </data>
+  <data name="UserUpdated" xml:space="preserve">
+    <value>Usuario actualizado</value>
+  </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>Cambiar contraseña</value>
+  </data>
+  <data name="CurrentPassword" xml:space="preserve">
+    <value>Contraseña actual</value>
+  </data>
+  <data name="CurrentPasswordPlaceHolder" xml:space="preserve">
+    <value>Ingrese su contraseña actual</value>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>Nueva contraseña</value>
+  </data>
+  <data name="NewPasswordPlaceHolder" xml:space="preserve">
+    <value>Ingrese la nueva contraseña.</value>
+  </data>
+  <data name="ConfirmNewPassword" xml:space="preserve">
+    <value>Confirmar nueva contraseña</value>
+  </data>
+  <data name="ConfirmNewPasswordPlaceHolder" xml:space="preserve">
+    <value>Ingrese la confirmación de la nueva contraseña</value>
+  </data>
+  <data name="PasswordCurrentErrorNull" xml:space="preserve">
+    <value>Debes ingresar la contraseña actual</value>
+  </data>
+  <data name="PasswordCurrentErrorMatch" xml:space="preserve">
+    <value>La contraseña actual es incorrecta</value>
   </data>
 </root>
