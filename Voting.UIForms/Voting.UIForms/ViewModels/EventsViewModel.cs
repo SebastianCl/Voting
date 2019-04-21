@@ -7,6 +7,7 @@
     using Common.Models;
     using Common.Services;
     using GalaSoft.MvvmLight.Command;
+    using Helpers;
     using Views;
     using Xamarin.Forms;
 
@@ -23,12 +24,7 @@
             set => this.SetValue(ref this.isRefreshing, value);
         }
 
-        public ICommand RefreshCommand => new RelayCommand(this.LoadEvents);        public ICommand SelectEventCommand => new RelayCommand(this.SelectEvent);
-
-        private async void SelectEvent()
-        {
-            await App.Navigator.PushAsync(new AboutPage());
-        }
+        public ICommand RefreshCommand => new RelayCommand(this.LoadEvents);
 
         public ObservableCollection<EventItemViewModel> Events
         {
@@ -57,9 +53,9 @@
             if (!response.IsSuccess)
             {
                 await Application.Current.MainPage.DisplayAlert(
-                    "Error",
+                    Languages.Error,
                     response.Message,
-                    "Accept");
+                    Languages.Accept);
                 this.IsRefreshing = false;
                 return;
             }
@@ -73,15 +69,15 @@
         {
             this.Events = new ObservableCollection<EventItemViewModel>(
                 this.myEvents.Select(u => new EventItemViewModel
-            {
-                Id = u.Id,
-                Name = u.Name,
-                Description = u.Description,
-                StartDate = u.StartDate,
-                FinishDate = u.FinishDate,
-                Candidates = u.Candidates,
-                NumberCandidates = u.NumberCandidates
-            })
+                {
+                    Id = u.Id,
+                    Name = u.Name,
+                    Description = u.Description,
+                    StartDate = u.StartDate,
+                    FinishDate = u.FinishDate,
+                    Candidates = u.Candidates,
+                    NumberCandidates = u.NumberCandidates
+                })
             .OrderBy(u => u.Name)
             .ToList());
         }

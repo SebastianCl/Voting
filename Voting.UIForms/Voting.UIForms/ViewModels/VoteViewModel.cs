@@ -5,39 +5,48 @@
     using Common.Models;
     using Common.Services;
     using GalaSoft.MvvmLight.Command;
+    using Xamarin.Forms;
 
     public class VoteViewModel : BaseViewModel
     {
-        private bool isRunning;
-        private bool isEnabled;
+        private bool IsRefreshing;
         private readonly ApiService apiService;
 
         public Event Event { get; set; }
 
         public ICommand RefreshCommand => new RelayCommand(this.LoadCandidates);
 
+        public ICommand SelectCandidateCommand => new RelayCommand(this.SelectCandidate);
+
         public bool IsRunning
         {
-            get => this.isRunning;
-            set => this.SetValue(ref this.isRunning, value);
+            get => this.IsRefreshing;
+            set => this.SetValue(ref this.IsRefreshing, value);
         }
-
-        public bool IsEnabled
-        {
-            get => this.isEnabled;
-            set => this.SetValue(ref this.isEnabled, value);
-        }
+                
 
         public VoteViewModel(Event @event)
         {
             this.Event = @event;
             this.apiService = new ApiService();
-            this.IsEnabled = true;
         }
 
-        private void LoadCandidates()
+
+        private async void SelectCandidate()
         {
-            throw new NotImplementedException();
+            await Application.Current.MainPage.DisplayAlert(
+                    "Titulo",
+                    "Hola",
+                    "Aceptar");
+        }
+
+
+        private async void LoadCandidates()
+        {
+            await Application.Current.MainPage.DisplayAlert(
+                    "Titulo",
+                    "Hola",
+                    "Aceptar");
         }
 
 

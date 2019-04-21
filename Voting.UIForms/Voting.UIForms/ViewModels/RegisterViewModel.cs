@@ -168,7 +168,7 @@
             }
 
             if (this.Birthdate > DateTime.Now)
-            {;
+            {
                 await Application.Current.MainPage.DisplayAlert(
                     Languages.Error,
                     Languages.BirthdateError,
