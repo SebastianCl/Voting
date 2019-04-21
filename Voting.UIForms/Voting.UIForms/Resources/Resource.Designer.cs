@@ -97,7 +97,7 @@ namespace Voting.UIForms.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You must enter a valid date of birth.
+        ///   Looks up a localized string similar to You must enter a valid date of birth date.
         /// </summary>
         public static string BirthdateError {
             get {

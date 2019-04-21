@@ -87,6 +87,14 @@
                 var user = await this.userHelper.GetUserByEmailAsync(model.Username);
                 if (user == null)
                 {
+                    if (model.Birthdate > DateTime.Now)
+                    {
+                        this.ModelState.AddModelError(string.Empty, "The Birthdate is not valid");
+                        model.Countries = this.countryRepository.GetComboCountries();
+                        model.Cities = this.countryRepository.GetComboCities(0);
+                        return this.View(model);
+                    }
+
                     var city = await this.countryRepository.GetCityAsync(model.CityId);
                     user = new User
                     {
@@ -101,26 +109,34 @@
                         CityId = model.CityId,
                         City = city
                     };
+
                     var result = await this.userHelper.AddUserAsync(user, model.Password);
                     if (result != IdentityResult.Success)
                     {
                         this.ModelState.AddModelError(string.Empty, "The user couldn't be created.");
+                        model.Countries = this.countryRepository.GetComboCountries();
+                        model.Cities = this.countryRepository.GetComboCities(0);
                         return this.View(model);
                     }
                     var myToken = await this.userHelper.GenerateEmailConfirmationTokenAsync(user);
+
                     var tokenLink = this.Url.Action("ConfirmEmail", "Account", new
                     {
                         userid = user.Id,
                         token = myToken
                     }, protocol: HttpContext.Request.Scheme);
+
                     this.mailHelper.SendMail(model.Username, 
                         "UVoting Email confirmation", 
                         $"<h1>uVoting Email Confirmation</h1>" + $"To allow the user, " + $"plase click in this link:</br></br><a href = \"{tokenLink}\">Confirm Email</a>");
                     this.ViewBag.Message = "The instructions to allow your user has been sent to email.";
+
                     return this.View(model);
                 }
                 this.ModelState.AddModelError(string.Empty, "The username is already registered.");
             }
+            model.Countries = this.countryRepository.GetComboCountries();
+            model.Cities = this.countryRepository.GetComboCities(0);
             return this.View(model);
         }
 

@@ -235,7 +235,7 @@
     <value>You must enter a stratum</value>
   </data>
   <data name="BirthdateError" xml:space="preserve">
-    <value>You must enter a valid date of birth</value>
+    <value>You must enter a valid date of birth date</value>
   </data>
   <data name="PasswordFormatError" xml:space="preserve">
     <value>You password must be at minimum 6 characters.</value>

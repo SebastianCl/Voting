@@ -87,6 +87,7 @@
             this.mailHelper.SendMail(request.Email, "uVoting Email confirmation", $"<h1>uVoting Email Confirmation</h1>" +
             $"To allow the user, " +
             $"plase click in this link:</br></br><a href = \"{tokenLink}\">Confirm Email</a>");
+
             return Ok(new Response
             {
                 IsSuccess = true,

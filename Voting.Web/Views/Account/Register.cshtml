@@ -6,38 +6,43 @@
 <h2>Register New User</h2>
 <br />
 <div class="row">
-    <div class="col-md-4 offset-md-4">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly"></div>
+    
+    <form method="post">
+        <div asp-validation-summary="ModelOnly"></div>
+
+        <div class="col-md-4 offset-md-4">
 
             <div class="form-group">
                 <label asp-for="FirstName">First Name</label>
                 <input asp-for="FirstName" class="form-control" />
-                <span asp-validation-for="FirstName" class="text-warning"></span>
+                <span asp-validation-for="FirstName" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label asp-for="LastName">Last Name</label>
                 <input asp-for="LastName" class="form-control" />
-                <span asp-validation-for="LastName" class="text-warning"></span>
+                <span asp-validation-for="LastName" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label asp-for="Occupation">Occupation</label>
                 <input asp-for="Occupation" class="form-control" />
-                <span asp-validation-for="Occupation" class="text-warning"></span>
+                <span asp-validation-for="Occupation" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label asp-for="Stratum">Stratum</label>
                 <input asp-for="Stratum" class="form-control" min="0" />
-                <span asp-validation-for="Stratum" class="text-warning"></span>
+                <span asp-validation-for="Stratum" class="text-danger"></span>
             </div>
+        </div>
+
+        <div class="col-md-4 offset-md-4">
 
             <div class="form-group">
                 <label asp-for="Gender">Gender</label>
                 <input asp-for="Gender" class="form-control" />
-                <span asp-validation-for="Gender" class="text-warning"></span>
+                <span asp-validation-for="Gender" class="text-danger"></span>
             </div>
 
             <div class="form-group">
@@ -55,37 +60,40 @@
             <div class="form-group">
                 <label asp-for="Birthdate" class="control-label"></label>
                 <input asp-for="Birthdate" class="form-control" />
-                <span asp-validation-for="Birthdate" class="text-warning"></span>
+                <span asp-validation-for="Birthdate" class="text-danger"></span>
+                <label id="lblMensaje" class="text-danger"></label>
             </div>
 
+        </div>
+
+        <div class="col-md-4 offset-md-4">
             <div class="form-group">
                 <label asp-for="Username">Username</label>
                 <input asp-for="Username" class="form-control" />
-                <span asp-validation-for="Username" class="text-warning"></span>
+                <span asp-validation-for="Username" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label asp-for="Password">Password</label>
                 <input asp-for="Password" type="password" class="form-control" />
-                <span asp-validation-for="Password" class="text-warning"></span>
+                <span asp-validation-for="Password" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label asp-for="Confirm">Confirm</label>
                 <input asp-for="Confirm" type="password" class="form-control" />
-                <span asp-validation-for="Confirm" class="text-warning"></span>
+                <span asp-validation-for="Confirm" class="text-danger"></span>
             </div>
 
+            <br />
             <div class="form-group">
-                <button type="submit" class="btn btn-primary"><i class="fa fa-user-plus"></i> Register User</button>
+                <button id="btnRegister" type="submit" class="btn btn-primary btn-block"><i class="fa fa-user-plus"></i> Register User</button>
             </div>
 
-        </form>
-    </div>
+        </div>        
 
-    <div class="col-md-8 offset-md-8">
-        <img src="~/images/register.png" alt="Register" class="img-responsive" style="width:600px;height:500px;max-width: 100%; " />
-    </div>
+    </form>    
+
 </div>
 
 <div class="text-success">
@@ -99,6 +107,8 @@
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script type="text/javascript">
         $(document).ready(function () {
+
+            $('#btnRegister').attr("disabled",true);
 
             $("#CountryId").change(function () {
 
@@ -126,13 +136,19 @@
                 return false;
             });
 
+
             $('#Birthdate').change(function () {
-                var birthdate = $('#Birthdate').val();
-                var today = Date.now();
+                var birthdate = new Date($('#Birthdate').val());
+                var today = new Date();                
 
-
-
-
+                if (birthdate > today) {
+                    $('#lblMensaje').html('The birth date cannot be longer than the current date');
+                    $('#btnRegister').attr("disabled", true);
+                }
+                else {
+                    $('#lblMensaje').html('');
+                    $('#btnRegister').attr("disabled", false);
+                }
             });
 
 

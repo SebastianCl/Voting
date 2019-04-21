@@ -71,16 +71,7 @@
 
         public RegisterViewModel()
         {
-            this.apiService = new ApiService();            /*this.IsEnabled = true;
-            this.FirstName = "Sebastian";
-            this.LastName = "Cardona Loaiza";
-            this.Email = "sebastiancardonaloaiza3435@gmail.com";
-            this.Occupation = "Tester";
-            this.Stratum = 2;
-            this.Gender = "male";
-            this.Password = "123456";
-            this.Confirm = "123456";*/
-
+            this.apiService = new ApiService();
             this.LoadCountries();
         }
 

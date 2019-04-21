@@ -39,6 +39,9 @@
                 <span asp-validation-for="FinishDate" class="text-danger"></span>
             </div>
 
+            <label id="lblMensaje" class="text-danger"></label>
+            <br />
+
             <div class="form-group">
                 <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>
                 <a asp-action="Index" class="btn btn-success"><i class="fa fa-chevron-left"></i> Back to List</a>
@@ -48,7 +51,54 @@
     </div>
 </div>
 
-
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('#btnCreate').attr("disabled", true);
+
+            $('#StartDate').change(function () {
+
+                var startDate = new Date($('#StartDate').val());
+                var today = new Date();
+
+                if (startDate < today) {
+                    $('#btnCreate').attr("disabled", true);
+                    $('#lblMensaje').html('The initial date can not be less than the current date');
+                }
+                else {
+                    $('#lblMensaje').html('');
+                }
+            });
+
+
+            $('#FinishDate').change(function () {
+
+                var finishDate = $('#FinishDate').val();
+                var startDate = $('#StartDate').val();
+
+                if (finishDate == startDate) {
+                    $('#lblMensaje').html('The start date and the end date should not match');
+                    $('#btnCreate').attr("disabled", true);
+                    return;
+                }
+
+                if (finishDate < startDate) {
+                    $('#lblMensaje').html('The end date can not be less than the start date');
+                    $('#btnCreate').attr("disabled", true);
+                    return;
+                }
+
+                if (finishDate > startDate) {
+                    $('#lblMensaje').html('');
+                    $('#btnCreate').attr("disabled", false);
+                    return;
+                }
+
+            });
+
+        });
+    </script>
 }
+
