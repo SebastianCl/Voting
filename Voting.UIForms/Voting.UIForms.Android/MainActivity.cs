@@ -9,7 +9,12 @@ using Android.OS;
 
 namespace Voting.UIForms.Droid
 {
-    [Activity(Label = "Voting.UIForms", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(
+        Label = "Voting.UIForms", 
+        Icon = "@mipmap/ic_launcher", 
+        Theme = "@style/MainTheme",
+        MainLauncher = false, 
+        ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)
