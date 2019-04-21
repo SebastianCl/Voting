@@ -297,10 +297,12 @@
                     return this.View(model);
                 }
                 var myToken = await this.userHelper.GeneratePasswordResetTokenAsync(user);
+
                 var link = this.Url.Action(
-                "ResetPassword",
-                "Account",
-                new { token = myToken }, protocol: HttpContext.Request.Scheme);
+                    "ResetPassword",
+                    "Account",
+                    new { token = myToken }, protocol: HttpContext.Request.Scheme);
+
                 this.mailHelper.SendMail(model.Email, "uVoting Password Reset", $"<h1>uVoting Password Reset</h1>" +
                 $"To reset the password click in this link:</br></br>" +
                 $"<a href = \"{link}\">Reset Password</a>");

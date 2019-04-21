@@ -33,3 +33,7 @@ select * from AspNetUsers
 UPDATE aspnetusers
 SET EMAILCONFIRMED = 1
 WHERE email = 'sebastiancardonaloaiza3435@gmail.com'
+
+DELETE FROM AspNetUsers 
+    WHERE email = 'sebastian.cardona@gruponetw.com'
+ 
