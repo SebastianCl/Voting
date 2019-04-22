@@ -33,7 +33,6 @@
             return this.Ok(this.voteRepository.GetVotesWithAll());
         }
 
-
         [HttpGet("Event/{eventId}")]
         public IActionResult GetVotesOfEvent([FromRoute] int eventId)
         {
@@ -46,6 +45,19 @@
             return this.Ok(this.voteRepository.GetVotesOfCandidate(candidateId));
         }
 
+        [HttpGet("User")]
+        public IActionResult GetVoteOfUser([FromBody] Common.Models.VoteSearch voteSearch)
+        {
+            return this.Ok(this.voteRepository.GetVotesOfUser(voteSearch.Email));
+        }
+
+        [HttpGet("User/Event")]
+        public IActionResult GetVoteOfUserInEvent([FromBody] Common.Models.VoteSearch voteSearch)
+        {
+            return this.Ok(this.voteRepository.GetVotesOfUserInEvent(voteSearch.Email, voteSearch.Event));
+        }
+
+        
         [HttpPost]
         public async Task<IActionResult> PostVote([FromBody] Common.Models.Vote vote)
         {
@@ -61,6 +73,7 @@
             }
 
             var @event = await this.eventRepository.GetByIdAsync(vote.Event.Id);
+
             if (@event == null)
             {
                 return this.BadRequest("Invalid event");
@@ -76,11 +89,12 @@
                 return this.BadRequest("The voting event has closed");
             }
 
-            /*var userVote = this.voteRepository.GetVotesOfUser(user.Id, @event.Id);
-            if (userVote != null)
+            /*var userVote = this.voteRepository.GetVotesOfUserInEvent(user.Id, @event.Id);
+            if (!userVote.Any())
             {
                 return this.BadRequest("You already voted in this event");
             }*/
+
 
             var candidate = await this.eventRepository.GetCandidateAsync(vote.Candidate.Id);
             if (candidate == null)
@@ -102,6 +116,9 @@
         }
 
 
+
+
+       
 
 
     }

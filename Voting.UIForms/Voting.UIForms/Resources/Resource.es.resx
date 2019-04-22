@@ -318,4 +318,10 @@
   <data name="Profile" xml:space="preserve">
     <value>Perfil</value>
   </data>
+  <data name="FinishDate" xml:space="preserve">
+    <value>Fecha de finalización</value>
+  </data>
+  <data name="NumberOfCandidates" xml:space="preserve">
+    <value>Número de candidatos</value>
+  </data>
 </root>

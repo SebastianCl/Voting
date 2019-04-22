@@ -277,6 +277,15 @@ namespace Voting.UIForms.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Finish date.
+        /// </summary>
+        public static string FinishDate {
+            get {
+                return ResourceManager.GetString("FinishDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to First name.
         /// </summary>
         public static string FirstName {
@@ -435,6 +444,15 @@ namespace Voting.UIForms.Resources {
         public static string NewUser {
             get {
                 return ResourceManager.GetString("NewUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Number of candidates.
+        /// </summary>
+        public static string NumberOfCandidates {
+            get {
+                return ResourceManager.GetString("NumberOfCandidates", resourceCulture);
             }
         }
         

@@ -48,7 +48,7 @@
                 "/api",
                 "/Events",
                 "bearer",
-            MainViewModel.GetInstance().Token.Token);
+                MainViewModel.GetInstance().Token.Token);
 
             if (!response.IsSuccess)
             {

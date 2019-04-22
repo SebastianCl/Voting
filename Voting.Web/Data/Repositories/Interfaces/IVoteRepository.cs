@@ -15,7 +15,9 @@
 
         IQueryable GetVotesOfCandidate(int id);
 
-        IQueryable GetVotesOfUser(string idUser, int idEvent);
+        IQueryable GetVotesOfUser(string email);
+
+        IQueryable GetVotesOfUserInEvent(string email, int idEvent);
 
         //Task<IActionResult> PostVote();
 

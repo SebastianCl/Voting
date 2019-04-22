@@ -18,7 +18,9 @@
 
         public async Task<int> AddVoteAsync(Vote Vote)
         {
-            var @event = await this.context.Events.Where(c => c.Candidates.Any(ca => ca.Id == Vote.Id)).FirstOrDefaultAsync();
+            var @event = await this.context.Events
+                .Where(c => c.Candidates.Any(ca => ca.Id == Vote.Id))
+                .FirstOrDefaultAsync();
             if (@event == null)
             {
                 return 0;
@@ -53,17 +55,28 @@
             return this.context.Votes
                 .Include(e => e.Event)
                 .Include(c  => c.Candidate)
+                .Include(u => u.User)
                 .Where(c => c.Candidate.Id == id);
         }
 
-        public IQueryable GetVotesOfUser(string idUser, int idEvent)
+        public IQueryable GetVotesOfUser(string email)
         {
-            var res = this.context.Votes
+            return this.context.Votes
                 .Include(e => e.Event)
-                .Include(u => u.User)
+                .Include(c => c.Candidate)
+                .Where(v => v.User.Email == email);
+             
+        }
+
+        public IQueryable GetVotesOfUserInEvent(string email, int idEvent)
+        {
+            return this.context.Votes
+                .Include(e => e.Event)
+                .Include(c => c.Candidate)
                 .Where(e => e.Event.Id == idEvent)
-                .Where(u => u.User.Id == idUser);
-            return res;
+                .Where(v => v.User.Email == email);
+            
+            
         }
         
         #endregion

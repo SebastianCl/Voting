@@ -34,6 +34,12 @@ UPDATE aspnetusers
 SET EMAILCONFIRMED = 1
 WHERE email = 'sebastiancardonaloaiza3435@gmail.com'
 
-DELETE FROM AspNetUsers 
-    WHERE email = 'sebastian.cardona@gruponetw.com'
+DELETE FROM Votes 
+    WHERE UserId = '50387f8c-9d5b-460a-b620-625be6a69f7c'
  
+
+select * from votes
+
+SELECT *
+FROM AspNetUsers
+WHERE id = '50387f8c-9d5b-460a-b620-625be6a69f7c'

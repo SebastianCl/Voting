@@ -46,6 +46,11 @@
                                     Text="{Binding NumberCandidatesText}"
                                     TextColor="Black">
                                 </Label>
+                                
+                                <Label
+                                    Text="{Binding FinishDateText}"
+                                    TextColor="Red">
+                                </Label>
 
                                 </StackLayout>
                         </Grid>

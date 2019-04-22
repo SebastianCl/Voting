@@ -1,13 +1,32 @@
 ﻿namespace Voting.UIForms.ViewModels
 {
+    using System;
     using System.Windows.Input;
     using Common.Models;
     using GalaSoft.MvvmLight.Command;
     using Views;
+    using Voting.UIForms.Helpers;
 
     public class EventItemViewModel : Event
     {
         public ICommand SelectEventCommand => new RelayCommand(this.SelectEvent);
+
+        public string FinishDateText
+        {
+            get
+            {
+                return $"{Languages.FinishDate}: {this.FinishDate}";
+            }
+        }
+
+        public string NumberCandidatesText
+        {
+            get
+            {
+                return $"{Languages.NumberOfCandidates}: {Convert.ToString(this.NumberCandidates)}";
+            }
+        }
+
 
         private async void SelectEvent()
         {
