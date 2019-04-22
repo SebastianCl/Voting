@@ -65,9 +65,15 @@
             {
                 return this.BadRequest("Invalid event");
             }
+
+            if (@event.StartDate > DateTime.Now)
+            {
+                return this.BadRequest("The voting event has not started yet");
+            }
+
             if (@event.FinishDate < DateTime.Now)
             {
-                return this.BadRequest("Event closed");
+                return this.BadRequest("The voting event has closed");
             }
 
             /*var userVote = this.voteRepository.GetVotesOfUser(user.Id, @event.Id);

@@ -23,12 +23,12 @@
                                 <TapGestureRecognizer Command="{Binding SelectEventCommand}"/>
                             </Grid.GestureRecognizers>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <StackLayout
-                                Grid.Column="1"
-                                VerticalOptions="Center">
+                                Grid.Column="0"
+                                VerticalOptions="Center"
+                                BackgroundColor="Azure">
                                 
                                 <Label
                                 FontAttributes="Bold"

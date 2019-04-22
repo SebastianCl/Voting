@@ -315,4 +315,7 @@
   <data name="PasswordCurrentErrorMatch" xml:space="preserve">
     <value>The current password is incorrect</value>
   </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Profile</value>
+  </data>
 </root>

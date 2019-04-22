@@ -40,7 +40,7 @@
                 {
                     Icon = "ic_edit",
                     PageName = "ProfilePage",
-                    Title = Languages.Setup
+                    Title = Languages.Profile
                 },
 
                 new Menu

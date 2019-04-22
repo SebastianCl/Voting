@@ -65,7 +65,7 @@
 
                 if (startDate < today) {
                     $('#btnCreate').attr("disabled", true);
-                    $('#lblMensaje').html('The initial date can not be less than the current date');
+                    $('#lblMensaje').html('The Start Date can not be less than the current date');
                 }
                 else {
                     $('#lblMensaje').html('');
@@ -79,13 +79,13 @@
                 var startDate = $('#StartDate').val();
 
                 if (finishDate == startDate) {
-                    $('#lblMensaje').html('The start date and the end date should not match');
+                    $('#lblMensaje').html('The Start Date and the Finish Date should not match');
                     $('#btnCreate').attr("disabled", true);
                     return;
                 }
 
                 if (finishDate < startDate) {
-                    $('#lblMensaje').html('The end date can not be less than the start date');
+                    $('#lblMensaje').html('The Finish Date can not be less than the Start Date');
                     $('#btnCreate').attr("disabled", true);
                     return;
                 }

@@ -62,7 +62,7 @@
         public static string PasswordRecover => Resource.PasswordRecover;
         public static string EmailRecover => Resource.EmailRecover;
         public static string Ok => Resource.Ok;
-        public static string Setup => Resource.Setup;
+        public static string Profile => Resource.Profile;
         public static string CloseSession => Resource.CloseSession;
         public static string SelectCandidate => Resource.SelectCandidate;
         public static string ModifyPassword => Resource.ModifyPassword;
