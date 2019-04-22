@@ -1,10 +1,10 @@
 ﻿namespace Voting.UIForms.Helpers
 {
-    using Interfaces;
     using System;
     using System.Globalization;
     using System.Reflection;
     using System.Resources;
+    using Interfaces;
     using Xamarin.Forms;
     using Xamarin.Forms.Xaml;
 

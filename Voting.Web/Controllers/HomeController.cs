@@ -13,7 +13,7 @@
 
         public IActionResult About()
         {
-            ViewData["Message"] = "Voting+";
+            ViewData["Message"] = "uVoting";
 
             return View();
         }

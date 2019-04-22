@@ -138,38 +138,7 @@
             model.Countries = this.countryRepository.GetComboCountries();
             model.Cities = this.countryRepository.GetComboCities(0);
             return this.View(model);
-        }
-
-        public async Task<IActionResult> ChangeUser()
-        {
-            var user = await this.userHelper.GetUserByEmailAsync(this.User.Identity.Name);
-            var model = new ChangeUserViewModel();
-            if (user != null)
-            {
-                model.FirstName = user.FirstName;
-                model.LastName = user.LastName;
-                model.Occupation = user.Occupation;
-                model.Stratum = user.Stratum;
-                model.Gender = user.Gender;
-                model.Birthdate = user.Birthdate;
-                var city = await this.countryRepository.GetCityAsync(user.CityId);
-                if (city != null)
-                {
-                    var country = await this.countryRepository.GetCountryAsync(city);
-                    if (country != null)
-                    {
-                        model.CountryId = country.Id;
-                        model.Cities = this.countryRepository.GetComboCities(country.Id);
-                        model.Countries = this.countryRepository.GetComboCountries();
-                        model.CityId = user.CityId;
-                    }
-                }
-            }
-            model.Cities = this.countryRepository.GetComboCities(model.CountryId);
-            model.Countries = this.countryRepository.GetComboCountries();
-            return this.View(model);
-        }
-
+        }                       
         public async Task<IActionResult> ConfirmEmail(string userId, string token)
         {
             if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(token))
@@ -188,6 +157,39 @@
             }
             return View();
         }
+        public async Task<IActionResult> ChangeUser()
+        {
+            var user = await this.userHelper.GetUserByEmailAsync(this.User.Identity.Name);
+            var model = new ChangeUserViewModel();
+
+            if (user != null)
+            {
+                model.FirstName = user.FirstName;
+                model.LastName = user.LastName;
+                model.Occupation = user.Occupation;
+                model.Stratum = user.Stratum;
+                model.Gender = user.Gender;
+                model.Birthdate = user.Birthdate;
+
+                var city = await this.countryRepository.GetCityAsync(user.CityId);
+                if (city != null)
+                {
+                    var country = await this.countryRepository.GetCountryAsync(city);
+                    if (country != null)
+                    {
+                        model.CountryId = country.Id;
+                        model.Cities = this.countryRepository.GetComboCities(country.Id);
+                        model.Countries = this.countryRepository.GetComboCountries();
+                        model.CityId = user.CityId;
+                    }
+                }
+
+            }
+            model.Cities = this.countryRepository.GetComboCities(model.CountryId);
+            model.Countries = this.countryRepository.GetComboCountries();
+            return this.View(model);
+        }
+
 
         [HttpPost]
         public async Task<IActionResult> ChangeUser(ChangeUserViewModel model)
@@ -207,21 +209,26 @@
                     user.Birthdate = model.Birthdate;
                     user.CityId = model.CityId;
                     user.City = city;
+
                     var respose = await this.userHelper.UpdateUserAsync(user);
                     if (respose.Succeeded)
                     {
                         this.ViewBag.UserMessage = "User updated!";
+                        model.Cities = this.countryRepository.GetComboCities(model.CountryId);
+                        model.Countries = this.countryRepository.GetComboCountries();
                     }
                     else
                     {
-                        this.ModelState.AddModelError(string.Empty, respose.Errors.FirstOrDefault().Description);
+                        this.ModelState.AddModelError(
+                            string.Empty, 
+                            respose.Errors.FirstOrDefault().Description);
                     }
                 }
                 else
                 {
                     this.ModelState.AddModelError(string.Empty, "User no found.");
                 }
-            }
+            }            
             return this.View(model);
         }        public IActionResult ChangePassword()
         {
