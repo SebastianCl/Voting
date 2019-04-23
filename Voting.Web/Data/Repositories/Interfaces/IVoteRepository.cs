@@ -3,7 +3,6 @@
     using System.Linq;
     using System.Threading.Tasks;
     using Entities;
-    using Microsoft.AspNetCore.Mvc;
 
     public interface IVoteRepository : IGenericRepository<Vote>
     {
@@ -19,9 +18,7 @@
 
         IQueryable GetVotesOfUserInEvent(string email, int idEvent);
 
-        //Task<IActionResult> PostVote();
-
-        //IQueryable GetVotesOfCandidate(int id);
+        int GetNumberVotes(string email, int idEvent);
 
     }
 }

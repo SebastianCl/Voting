@@ -8,6 +8,7 @@
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using Newtonsoft.Json;
 
     [Route("api/[controller]")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
@@ -45,34 +46,44 @@
             return this.Ok(this.voteRepository.GetVotesOfCandidate(candidateId));
         }
 
+        #region USER
         [HttpGet("User")]
-        public IActionResult GetVoteOfUser([FromBody] Common.Models.VoteSearch voteSearch)
+        public IActionResult GetVoteOfUser([FromBody] Common.Models.NewVote voteSearch)
         {
             return this.Ok(this.voteRepository.GetVotesOfUser(voteSearch.Email));
         }
 
         [HttpGet("User/Event")]
-        public IActionResult GetVoteOfUserInEvent([FromBody] Common.Models.VoteSearch voteSearch)
+        public IActionResult GetVoteOfUserInEvent([FromBody] Common.Models.NewVote voteSearch)
         {
             return this.Ok(this.voteRepository.GetVotesOfUserInEvent(voteSearch.Email, voteSearch.Event));
         }
 
-        
+
+        [HttpGet("ValidateVote")]
+        public IActionResult GetVoteCount([FromBody] Common.Models.NewVote voteSearch)
+        {
+            return this.Ok(this.voteRepository.GetNumberVotes(voteSearch.Email, voteSearch.Event));
+        }
+        #endregion
+
+
+
         [HttpPost]
-        public async Task<IActionResult> PostVote([FromBody] Common.Models.Vote vote)
+        public async Task<IActionResult> PostVote([FromBody] Common.Models.NewVote vote)
         {
             if (!ModelState.IsValid)
             {
                 return this.BadRequest(ModelState);
             }
 
-            var user = await this.userHelper.GetUserByEmailAsync(vote.User.Email);
+            var user = await this.userHelper.GetUserByEmailAsync(vote.Email);
             if (user == null)
             {
                 return this.BadRequest("Invalid user");
             }
 
-            var @event = await this.eventRepository.GetByIdAsync(vote.Event.Id);
+            var @event = await this.eventRepository.GetByIdAsync(vote.Event);
 
             if (@event == null)
             {
@@ -89,14 +100,13 @@
                 return this.BadRequest("The voting event has closed");
             }
 
-            /*var userVote = this.voteRepository.GetVotesOfUserInEvent(user.Id, @event.Id);
-            if (!userVote.Any())
+            int userVote = this.voteRepository.GetNumberVotes(user.Email, @event.Id);
+            if (userVote > 0)
             {
                 return this.BadRequest("You already voted in this event");
-            }*/
+            }
 
-
-            var candidate = await this.eventRepository.GetCandidateAsync(vote.Candidate.Id);
+            var candidate = await this.eventRepository.GetCandidateAsync(vote.Candidate);
             if (candidate == null)
             {
                 return this.BadRequest("Invalid candidate");
@@ -111,14 +121,10 @@
                 Event = @event,
                 Candidate = candidate
             };
-            var newVote = await this.voteRepository.CreateAsync(entityVote);
-            return Ok(newVote);
+
+            await this.voteRepository.CreateAsync(entityVote);
+            return Ok($"Registered vote. The candidate \"{entityVote.Candidate.Name}\" has {candidate.TotalVotes} votes");
         }
-
-
-
-
-       
 
 
     }

@@ -2,7 +2,7 @@
 {
     using Newtonsoft.Json;
 
-    public class VoteSearch
+    public class NewVote
     {
         [JsonProperty("email")]
         public string Email { get; set; }
