@@ -7,7 +7,7 @@
     using Common.Models;
     using GalaSoft.MvvmLight.Command;
     using Helpers;
-    using Voting.UIForms.Views;
+    using Views;
 
     public class MainViewModel
     {
@@ -25,7 +25,7 @@
 
         public ProfileViewModel Profile { get; set; }
         
-        public ResultViewModel Result { get; set; }
+        public ResultsViewModel Results { get; set; }
 
         public User User { get; set; }
 
@@ -84,8 +84,8 @@
         public ICommand ResultsCommand { get { return new RelayCommand(this.GoResults); } }
         private async void GoResults()
         {
-            this.Result = new ResultViewModel();
-            await App.Navigator.PushAsync(new ResultPage());
+            this.Results = new ResultsViewModel();
+            await App.Navigator.PushAsync(new ResultsPage());
         }
 
 

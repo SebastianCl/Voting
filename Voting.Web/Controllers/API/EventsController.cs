@@ -3,7 +3,6 @@
     using System.Threading.Tasks;
     using Data;
     using Data.Entities;
-    using Helpers;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
@@ -22,7 +21,7 @@
         [HttpGet]
         public IActionResult GetEvents()
         {
-            return this.Ok(this.eventRepository.GetEventWithCandidates());
+            return this.Ok(this.eventRepository.GetEventsWithCandidatesAvailable());
         }
 
         [HttpGet("{id}")]
@@ -30,7 +29,14 @@
         {
             return this.Ok(this.eventRepository.GetEventWithId(id));
         }
-        
+
+        [HttpGet("Results")]
+        public IActionResult GeResults()
+        {
+            return this.Ok(this.eventRepository.GetEventsWithCandidatesFinished());
+        }
+
+
         [HttpPost]
         public async Task<IActionResult> PostEvent([FromBody] Common.Models.Event @event)
         {

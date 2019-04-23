@@ -4,8 +4,8 @@
     using System.Windows.Input;
     using Common.Models;
     using GalaSoft.MvvmLight.Command;
+    using Helpers;
     using Views;
-    using Voting.UIForms.Helpers;
 
     public class EventItemViewModel : Event
     {

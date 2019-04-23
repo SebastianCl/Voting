@@ -324,4 +324,10 @@
   <data name="NumberOfCandidates" xml:space="preserve">
     <value>Número de candidatos</value>
   </data>
+  <data name="Results" xml:space="preserve">
+    <value>Resultados</value>
+  </data>
+  <data name="Winner" xml:space="preserve">
+    <value>¡Ganador!</value>
+  </data>
 </root>

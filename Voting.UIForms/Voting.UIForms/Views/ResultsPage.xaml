@@ -2,15 +2,15 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:i18n="clr-namespace:Voting.UIForms.Helpers"
-             x:Class="Voting.UIForms.Views.EventsPage"
+             x:Class="Voting.UIForms.Views.ResultsPage"
              BindingContext="{Binding Main, Source={StaticResource Locator}}"             
-             Title="{i18n:Translate Events}">
+             Title="{i18n:Translate Results}">
     <ContentPage.ToolbarItems>
         <ToolbarItem Icon="ic_assessment" Command="{Binding ResultsCommand}"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout
-            BindingContext="{Binding Events}"
+            BindingContext="{Binding Results}"
             Padding="5">
             <ListView
             IsPullToRefreshEnabled="True"
@@ -18,48 +18,48 @@
             HasUnevenRows="True"
             ItemsSource="{Binding Events}"
             RefreshCommand="{Binding RefreshCommand}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <Grid>                            
-                            <Grid.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding SelectEventCommand}"/>
-                            </Grid.GestureRecognizers>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <StackLayout
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SelectEventCommand}"/>
+                                </Grid.GestureRecognizers>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <StackLayout
                                 Grid.Column="0"
                                 VerticalOptions="Center"
                                 BackgroundColor="Azure">
-                                
-                                <Label
+
+                                    <Label
                                 FontAttributes="Bold"
                                 FontSize="Medium"
                                 Text="{Binding Name}"
                                 TextColor="Black">
-                                </Label>
-                                
-                                <Label
+                                    </Label>
+
+                                    <Label
                                 Text="{Binding Description}"
                                 TextColor="Black">
-                                </Label>
-                                
-                                <Label
+                                    </Label>
+
+                                    <Label
                                     Text="{Binding NumberCandidatesText}"
                                     TextColor="Black">
-                                </Label>
-                                
-                                <Label
+                                    </Label>
+
+                                    <Label
                                     Text="{Binding FinishDateText}"
-                                    TextColor="Blue">
-                                </Label>
+                                    TextColor="Red">
+                                    </Label>
 
                                 </StackLayout>
-                        </Grid>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
             </ListView>
         </StackLayout>
     </ContentPage.Content>

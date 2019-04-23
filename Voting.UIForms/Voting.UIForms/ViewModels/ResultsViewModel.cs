@@ -10,7 +10,7 @@
     using Helpers;
     using Xamarin.Forms;
 
-    public class EventsViewModel : BaseViewModel
+    public class ResultsViewModel : BaseViewModel
     {
         private readonly ApiService apiService;
         private ObservableCollection<EventItemViewModel> events;
@@ -23,7 +23,7 @@
             set => this.SetValue(ref this.isRefreshing, value);
         }
 
-        public ICommand RefreshCommand => new RelayCommand(this.LoadEvents);
+        public ICommand RefreshCommand => new RelayCommand(this.LoadResults);
 
         public ObservableCollection<EventItemViewModel> Events
         {
@@ -31,13 +31,13 @@
             set => this.SetValue(ref this.events, value);
         }
 
-        public EventsViewModel()
+        public ResultsViewModel()
         {
             this.apiService = new ApiService();
-            this.LoadEvents();
+            this.LoadResults();
         }
 
-        private async void LoadEvents()
+        private async void LoadResults()
         {
             this.IsRefreshing = true;
 
@@ -45,7 +45,7 @@
             var response = await this.apiService.GetListAsync<Event>(
                 url,
                 "/api",
-                "/Events",
+                "/Events/Results",
                 "bearer",
                 MainViewModel.GetInstance().Token.Token);
 
@@ -60,11 +60,11 @@
             }
 
             this.myEvents = (List<Event>)response.Result;
-            this.RefresEventsList();
+            this.RefresResultsList();
             this.IsRefreshing = false;
         }
 
-        private void RefresEventsList()
+        private void RefresResultsList()
         {
             this.Events = new ObservableCollection<EventItemViewModel>(
                 this.myEvents.Select(u => new EventItemViewModel

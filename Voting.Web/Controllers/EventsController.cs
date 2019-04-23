@@ -139,20 +139,38 @@
 
 
         #region CANDIDATE
-        public async Task<IActionResult> DeleteCandidate(int? id)
+
+
+        public async Task<IActionResult> AddCandidate(int? id)
         {
             if (id == null)
             {
                 return new NotFoundViewResult("EventNotFound");
             }
-            var candidate = await this.eventRepository.GetCandidateAsync(id.Value);
-            if (candidate == null)
+            var @event = await this.eventRepository.GetByIdAsync(id.Value);
+            if (@event == null)
             {
                 return new NotFoundViewResult("EventNotFound");
             }
-            var eventId = await this.eventRepository.DeleteCandidateAsync(candidate);
-            return this.RedirectToAction($"Details/{eventId}");
+            var model = new CandidateViewModel { EventId = @event.Id };
+
+            return View(model);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> AddCandidate(CandidateViewModel view)
+        {
+            if (this.ModelState.IsValid)
+            {
+                if (view.ImageFile != null && view.ImageFile.Length > 0)
+                {
+                    view.ImageUrl = await this.PathImage(view);
+                }
+                await this.eventRepository.AddCandidateAsync(view);
+                return RedirectToAction(nameof(Index));
+            }
+            return View(view);
+        }        
 
         public async Task<IActionResult> EditCandidate(int? id)
         {
@@ -169,6 +187,7 @@
             return View(view);
 
         }
+
         [HttpPost]
         public async Task<IActionResult> EditCandidate(CandidateViewModel view)
         {
@@ -201,36 +220,23 @@
             return View(view);
         }
 
-        public async Task<IActionResult> AddCandidate(int? id)
+        public async Task<IActionResult> DeleteCandidate(int? id)
         {
             if (id == null)
             {
                 return new NotFoundViewResult("EventNotFound");
             }
-            var @event = await this.eventRepository.GetByIdAsync(id.Value);
-            if (@event == null)
+            var candidate = await this.eventRepository.GetCandidateAsync(id.Value);
+            if (candidate == null)
             {
                 return new NotFoundViewResult("EventNotFound");
             }
-            var model = new CandidateViewModel { EventId = @event.Id };
-
-            return View(model);
+            var eventId = await this.eventRepository.DeleteCandidateAsync(candidate);
+            return this.RedirectToAction($"Details/{eventId}");
         }
 
-        [HttpPost]
-        public async Task<IActionResult> AddCandidate(CandidateViewModel view)
-        {
-            if (this.ModelState.IsValid)
-            {
-                if (view.ImageFile != null && view.ImageFile.Length > 0)
-                {
-                    view.ImageUrl = await this.PathImage(view);
-                }
-                await this.eventRepository.AddCandidateAsync(view);
-                return RedirectToAction(nameof(Index));
-            }
-            return View(view);
-        }
+
+
         private CandidateViewModel ToCandidateViewModel(Candidate candidate)
         {
             return new CandidateViewModel
@@ -252,8 +258,6 @@
                 ImageUrl = path
             };
         }
-
-
 
         private async Task<string> PathImage(CandidateViewModel view)
         {

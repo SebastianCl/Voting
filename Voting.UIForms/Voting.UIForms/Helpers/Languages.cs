@@ -80,5 +80,7 @@
         public static string PasswordCurrentErrorMatch => Resource.PasswordCurrentErrorMatch;
         public static string FinishDate => Resource.FinishDate;
         public static string NumberOfCandidates => Resource.NumberOfCandidates;
+        public static string Results => Resource.Results;
+        public static string Winner => Resource.Winner;
     }
 }
