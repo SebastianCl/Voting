@@ -328,6 +328,9 @@
     <value>Resultaten</value>
   </data>
   <data name="Winner" xml:space="preserve">
-    <value>¡Winnaar!</value>
+    <value>Winnaar</value>
+  </data>
+  <data name="StartDate" xml:space="preserve">
+    <value>Start van de verhuur</value>
   </data>
 </root>

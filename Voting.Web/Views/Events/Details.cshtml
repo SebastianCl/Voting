@@ -121,20 +121,17 @@ else
 
             var id = 0;
             $('a[id*=btnDelete]').click(function () {
-                debugger;
                 id = $(this).parent()[0].id; //buscar el id del padre del elemento, su contenedor
                 $("#deleteDialog").modal('show');
                 return false;//cancelar accion del controlador
             });
 
             $("#btnNoDelete").click(function () {
-                debugger;
                 $("#deleteDialog").modal('hide');
                 return false;
             });
 
             $("#btnYesDelete").click(function () {
-                debugger;
                 window.location.href = '/Events/DeleteCandidate/' + id;
             });
 

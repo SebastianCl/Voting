@@ -120,7 +120,6 @@
                     dataType: 'json',
                     data: { countryId: $("#CountryId").val() },
                     success: function (cities) {
-                        debugger;
                         $("#CityId").append('<option value="0">(Select a city...)</option>');
                         $.each(cities, function (i, city) {
                             $("#CityId").append('<option value="'

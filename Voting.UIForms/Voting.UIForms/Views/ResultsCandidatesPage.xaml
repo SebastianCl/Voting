@@ -2,12 +2,12 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:i18n="clr-namespace:Voting.UIForms.Helpers"
-             x:Class="Voting.UIForms.Views.CandidatePage"
+             x:Class="Voting.UIForms.Views.ResultsCandidatesPage"
              BindingContext="{Binding Main, Source={StaticResource Locator}}"             
              Title="{i18n:Translate SelectCandidate}">
     <ContentPage.Content>
         <StackLayout
-            BindingContext="{Binding Candidate}"
+            BindingContext="{Binding ResultsCandidates}"
             Padding="5">
 
             <StackLayout
@@ -32,12 +32,21 @@
                 </Label>
 
                 <Label
+                    Text="{Binding Event.StartDateText}"
+                    TextColor="Black">
+                </Label>
+
+                <Label
                     Text="{Binding Event.FinishDateText}"
-                    TextColor="Blue">
+                    TextColor="Black">
+                </Label>
+                <Label
+                    Text="{Binding Winner}"
+                    TextColor="Red">
                 </Label>
 
             </StackLayout>
-            
+
             <ListView
                     HasUnevenRows="True"                      
                     ItemsSource="{Binding Event.Candidates}">
@@ -73,7 +82,7 @@
                                     </Label>
                                     <Label
                                         Text="{Binding NumberVotesText}"
-                                        TextColor="Red">
+                                        TextColor="Black">
                                     </Label>
                                 </StackLayout>
 

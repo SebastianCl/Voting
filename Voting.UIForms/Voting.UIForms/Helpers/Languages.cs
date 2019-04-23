@@ -78,6 +78,7 @@
         public static string ConfirmNewPasswordPlaceHolder => Resource.ConfirmNewPasswordPlaceHolder;
         public static string PasswordCurrentErrorNull => Resource.PasswordCurrentErrorNull;
         public static string PasswordCurrentErrorMatch => Resource.PasswordCurrentErrorMatch;
+        public static string StartDate => Resource.StartDate;
         public static string FinishDate => Resource.FinishDate;
         public static string NumberOfCandidates => Resource.NumberOfCandidates;
         public static string Results => Resource.Results;

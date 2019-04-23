@@ -23,7 +23,7 @@
                         <ViewCell>
                             <Grid>
                                 <Grid.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding SelectEventCommand}"/>
+                                    <TapGestureRecognizer Command="{Binding SelectResultCommand}"/>
                                 </Grid.GestureRecognizers>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>

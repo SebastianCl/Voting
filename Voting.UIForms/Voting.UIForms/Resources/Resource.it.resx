@@ -328,6 +328,9 @@
     <value>Risultati</value>
   </data>
   <data name="Winner" xml:space="preserve">
-    <value>¡Vincitore!</value>
+    <value>Vincitore</value>
+  </data>
+  <data name="StartDate" xml:space="preserve">
+    <value>Data di inizio</value>
   </data>
 </root>

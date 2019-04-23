@@ -27,6 +27,8 @@
         
         public ResultsViewModel Results { get; set; }
 
+        public ResultsCandidatesViewModel ResultsCandidates { get; set; }
+
         public User User { get; set; }
 
         public string UserEmail { get; set; }        public string UserPassword { get; set; }
@@ -82,6 +84,7 @@
         }
 
         public ICommand ResultsCommand { get { return new RelayCommand(this.GoResults); } }
+
         private async void GoResults()
         {
             this.Results = new ResultsViewModel();

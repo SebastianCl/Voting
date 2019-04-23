@@ -16,6 +16,7 @@
         private ObservableCollection<EventItemViewModel> events;
         private List<Event> myEvents;
         private bool isRefreshing;
+        public string Winner { get; set; }
 
         public bool IsRefreshing
         {

@@ -655,6 +655,15 @@ namespace Voting.UIForms.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Start date.
+        /// </summary>
+        public static string StartDate {
+            get {
+                return ResourceManager.GetString("StartDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Stratum.
         /// </summary>
         public static string Stratum {
