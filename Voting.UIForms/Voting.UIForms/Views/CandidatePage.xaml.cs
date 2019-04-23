@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace Voting.UIForms.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class VotePage : ContentPage
+    public partial class CandidatePage : ContentPage
     {
-        public VotePage()
+        public CandidatePage()
         {
             InitializeComponent();
         }

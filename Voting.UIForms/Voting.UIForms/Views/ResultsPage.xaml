@@ -33,12 +33,12 @@
                                 VerticalOptions="Center"
                                 BackgroundColor="Azure">
 
-                                    <Label
-                                FontAttributes="Bold"
-                                FontSize="Medium"
-                                Text="{Binding Name}"
-                                TextColor="Black">
-                                    </Label>
+                                <Label
+                                    FontAttributes="Bold"
+                                    FontSize="Medium"
+                                    Text="{Binding Name}"
+                                    TextColor="Black">
+                                </Label>
 
                                     <Label
                                 Text="{Binding Description}"
@@ -56,6 +56,7 @@
                                     </Label>
 
                                 </StackLayout>
+
                             </Grid>
                         </ViewCell>
                     </DataTemplate>

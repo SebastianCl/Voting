@@ -9,6 +9,12 @@
 
     public class EventItemViewModel : Event
     {
+        public string Winner {
+            get
+            {
+                return "Winner";
+            }
+        }
         public ICommand SelectEventCommand => new RelayCommand(this.SelectEvent);
 
         public string FinishDateText
@@ -30,8 +36,8 @@
 
         private async void SelectEvent()
         {
-            MainViewModel.GetInstance().Vote = new VoteViewModel((Event)this);
-            await App.Navigator.PushAsync(new VotePage());
+            MainViewModel.GetInstance().Candidate = new CandidateViewModel((Event)this);
+            await App.Navigator.PushAsync(new CandidatePage());
         }
     }
 

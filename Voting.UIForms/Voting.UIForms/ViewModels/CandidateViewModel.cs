@@ -1,13 +1,12 @@
 ﻿namespace Voting.UIForms.ViewModels
 {
-    using System;
     using System.Windows.Input;
     using Common.Models;
     using Common.Services;
     using GalaSoft.MvvmLight.Command;
     using Xamarin.Forms;
 
-    public class VoteViewModel : BaseViewModel
+    public class CandidateViewModel : BaseViewModel
     {
         private bool IsRefreshing;
         private readonly ApiService apiService;
@@ -23,9 +22,9 @@
             get => this.IsRefreshing;
             set => this.SetValue(ref this.IsRefreshing, value);
         }
-                
 
-        public VoteViewModel(Event @event)
+
+        public CandidateViewModel(Event @event)
         {
             this.Event = @event;
             this.apiService = new ApiService();
