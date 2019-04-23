@@ -3,8 +3,11 @@
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
+    using System.Windows.Input;
     using Common.Models;
+    using GalaSoft.MvvmLight.Command;
     using Helpers;
+    using Voting.UIForms.Views;
 
     public class MainViewModel
     {
@@ -21,6 +24,8 @@
         public RememberPasswordViewModel RememberPassword { get; set; }        public ChangePasswordViewModel ChangePassword { get; set; }        public VoteViewModel Vote { get; set; }
 
         public ProfileViewModel Profile { get; set; }
+        
+        public ResultViewModel Result { get; set; }
 
         public User User { get; set; }
 
@@ -75,6 +80,14 @@
             }
             return instance;
         }
+
+        public ICommand ResultsCommand { get { return new RelayCommand(this.GoResults); } }
+        private async void GoResults()
+        {
+            this.Result = new ResultViewModel();
+            await App.Navigator.PushAsync(new ResultPage());
+        }
+
 
     }
 }

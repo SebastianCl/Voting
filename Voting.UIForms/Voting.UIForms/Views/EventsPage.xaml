@@ -5,6 +5,9 @@
              x:Class="Voting.UIForms.Views.EventsPage"
              BindingContext="{Binding Main, Source={StaticResource Locator}}"             
              Title="{i18n:Translate Events}">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Icon="ic_assessment" Command="{Binding ResultsCommand}"/>
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout
             BindingContext="{Binding Events}"
