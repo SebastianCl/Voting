@@ -333,4 +333,16 @@
   <data name="StartDate" xml:space="preserve">
     <value>Data di inizio</value>
   </data>
+  <data name="VotingHistory" xml:space="preserve">
+    <value>Cronologia delle votazioni</value>
+  </data>
+  <data name="Male" xml:space="preserve">
+    <value>Uomo</value>
+  </data>
+  <data name="Female" xml:space="preserve">
+    <value>Donna</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Altre!</value>
+  </data>
 </root>

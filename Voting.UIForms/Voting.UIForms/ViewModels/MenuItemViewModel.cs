@@ -23,6 +23,10 @@
                     mainViewModel.Profile = new ProfileViewModel();
                     await App.Navigator.PushAsync(new ProfilePage());
                     break;
+                case "PreviousVotesPage":
+                    mainViewModel.PreviousVotes = new PreviousVotesViewModel();
+                    await App.Navigator.PushAsync(new PreviousVotesPage());
+                    break;
                 default:
                     Settings.IsRemember = false;
                     Settings.UserEmail = string.Empty;

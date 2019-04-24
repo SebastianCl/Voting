@@ -20,7 +20,7 @@
         private Country country;
         private ObservableCollection<City> cities;
         private City city;
-        private readonly ApiService apiService;
+        private readonly ApiService apiService;        private string[] genders;
 
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -32,6 +32,11 @@
         public string Confirm { get; set; }
         public DateTime Birthdate { get; set; }
 
+        public string[] Genders
+        {
+            get => this.genders;
+            set => this.SetValue(ref this.genders, value);
+        }
         public Country Country
         {
             get => this.country;
@@ -73,6 +78,7 @@
         {
             this.apiService = new ApiService();
             this.LoadCountries();
+            this.LoadGenders();
         }
 
         private async void Register()
@@ -268,6 +274,9 @@
             }
             var myCountries = (List<Country>)response.Result;
             this.Countries = new ObservableCollection<Country>(myCountries);
+        }        private void LoadGenders()
+        {
+            this.genders = new string[] { Languages.Male, Languages.Female, Languages.Other };
         }
     }
 

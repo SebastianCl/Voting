@@ -1,13 +1,13 @@
 ﻿namespace Voting.Common.Services
 {
+    using Models;
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     using System.Net.Http;
     using System.Net.Http.Headers;
     using System.Text;
     using System.Threading.Tasks;
-    using Models;
-    using Newtonsoft.Json;
 
     public class ApiService
     {
@@ -144,6 +144,54 @@
             }
         }
 
+        public async Task<Response> GetPreviousVotesAsync(
+            string urlBase,
+            string servicePrefix,
+            string controller,
+            string email,
+            string tokenType,
+            string accessToken)
+        {
+            try
+            {
+                var request = JsonConvert.SerializeObject(new NewVote { Email = email });
+                var content = new StringContent(request, Encoding.UTF8, "application/json");
+                var client = new HttpClient
+                {
+                    BaseAddress = new Uri(urlBase)
+                };
+
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(tokenType, accessToken);
+                var url = $"{servicePrefix}{controller}";
+                var response = await client.PostAsync(url, content);
+                var answer = await response.Content.ReadAsStringAsync();
+                if (!response.IsSuccessStatusCode)
+                {
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Message = answer,
+                    };
+                }
+
+                var user = JsonConvert.DeserializeObject<Vote>(answer);
+                return new Response
+                {
+                    IsSuccess = true,
+                    Result = user,
+                };
+            }
+            catch (Exception ex)
+            {
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = ex.Message,
+                };
+            }
+        }
+
+
         public async Task<Response> GetUserByEmailAsync(
             string urlBase,
             string servicePrefix,
@@ -190,6 +238,9 @@
                 };
             }
         }
+
+
+
         #endregion
 
 

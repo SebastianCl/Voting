@@ -104,25 +104,36 @@
                     	Text="{i18n:Translate Stratum}"
                     	VerticalOptions="Center">
                     </Label>
-                    <Entry
-                    	Grid.Column="1"
+                    <Picker 
+                        Grid.Column="1"
                     	Grid.Row="6"
-                      Keyboard="Telephone"
-                    	Placeholder="{i18n:Translate StratumPlaceHolder}"
-                    	Text="{Binding Stratum}">
-                    </Entry>
+                        x:Name="Stratum"
+                        Title ="{i18n:Translate StratumPlaceHolder}"
+                        SelectedIndex="{Binding Stratum}" HorizontalOptions="FillAndExpand">
+                        <Picker.Items>
+                            <x:String></x:String>
+                            <x:String>1</x:String>
+                            <x:String>2</x:String>
+                            <x:String>3</x:String>
+                            <x:String>4</x:String>
+                            <x:String>5</x:String>
+                            <x:String>6</x:String>
+                        </Picker.Items>
+                    </Picker>
                     <Label
                     	Grid.Column="0"
                     	Grid.Row="7"
                     	Text="{i18n:Translate Gender}"
                     	VerticalOptions="Center">
                     </Label>
-                    <Entry
-                    	Grid.Column="1"
+                    <Picker 
+                        Grid.Column="1"
                     	Grid.Row="7"
-                    	Placeholder="{i18n:Translate GenderPlaceHolder}"
-                    	Text="{Binding Gender}">
-                    </Entry>
+                        x:Name="Gender" 
+                    	ItemsSource="{Binding Genders}"
+                        Title ="{i18n:Translate GenderPlaceHolder}"
+                        SelectedIndex="{Binding Gender}" HorizontalOptions="FillAndExpand">
+                    </Picker>
 
                     <Label
                     	Grid.Column="0"

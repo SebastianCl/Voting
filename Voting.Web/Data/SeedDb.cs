@@ -31,7 +31,7 @@
                         
             await this.CheckUser("santiago@gmail.com", "Santiago", "Loaiza", "Customer", "Male", "Teacher");
             await this.CheckUser("sara@gmail.com", "Sara", "Cardona", "Customer", "Female", "Student");
-            var user = await this.CheckUser("cardonaloaizasebastian112@gmail.com", "Sebastian", "Cardona", "Admin", "Male", "Coder");
+            await this.CheckUser("cardonaloaizasebastian112@gmail.com", "Sebastian", "Cardona", "Admin", "Male", "Coder");
             
 
             // Add event
@@ -41,6 +41,14 @@
                     new string[] { "Medellín", "Bogotá", "Cali", "Barranquilla", "Bucaramanga", "Cartagena", "Pereira" });
                 await this.AddEventsAndCandidatesAsync("Do you agree with Medellin's environmental policies?",
                     new string[] { "Yes","No" });
+                await this.AddEventsAndCandidatesAsync("What is your favorite color?",
+                    new string[] { "Red","Blue","Green","Violet","Yellow" });
+                await this.AddEventsAndCandidatesAsync("What is the best programming language?",
+                    new string[] { "Java", "Sharp", "JavaScript","PHP","Phyton" });
+                await this.AddEventsAndCandidatesAsync("Do you like to coding?",
+                    new string[] { "Yes","No" });
+                await this.AddEventsAndCandidatesAsync("What is the best frute?",
+                    new string[] { "Apple", "Grape", "Orange", "Tangerine" });
             }
         }
 
@@ -135,7 +143,7 @@
         {
             var candidates = candidate.Select(c => new Candidate {
                 Name = c,
-                Proposal = $"Proposal to {c} ",
+                Proposal = $"Proposal of the candidate {c}",
                 ImageUrl = $"~/images/Candidates/{c}.jpg",
                 TotalVotes = 0 })
                 .ToList();
@@ -149,6 +157,7 @@
                 FinishDate = DateTime.MaxValue
             });
         }
+
 
 
         

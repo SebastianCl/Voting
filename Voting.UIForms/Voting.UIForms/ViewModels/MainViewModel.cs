@@ -26,8 +26,8 @@
         public ProfileViewModel Profile { get; set; }
         
         public ResultsViewModel Results { get; set; }
-
         public ResultsCandidatesViewModel ResultsCandidates { get; set; }
+        public PreviousVotesViewModel PreviousVotes { get; set; }
 
         public User User { get; set; }
 
@@ -48,6 +48,13 @@
                     Icon = "ic_edit",
                     PageName = "ProfilePage",
                     Title = Languages.Profile
+                },
+
+                new Menu
+                {
+                    Icon = "ic_history",
+                    PageName = "PreviousVotesPage",
+                    Title = Languages.VotingHistory
                 },
 
                 new Menu

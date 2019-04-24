@@ -46,7 +46,7 @@
         }
 
         #region USER
-        [HttpGet("User")]
+        [HttpPost("User")]
         public IActionResult GetVoteOfUser([FromBody] Common.Models.NewVote voteSearch)
         {
             return this.Ok(this.voteRepository.GetVotesOfUser(voteSearch.Email));

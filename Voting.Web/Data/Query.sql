@@ -1,7 +1,7 @@
 ﻿use Shop
 
 select * from Products
-select * from Cities
+select * from candidates
 
 
 select * from AspNetUsers

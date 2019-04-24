@@ -333,4 +333,16 @@
   <data name="StartDate" xml:space="preserve">
     <value>Start van de verhuur</value>
   </data>
+  <data name="VotingHistory" xml:space="preserve">
+    <value>Stemgeschiedenis</value>
+  </data>
+  <data name="Male" xml:space="preserve">
+    <value>man</value>
+  </data>
+  <data name="Female" xml:space="preserve">
+    <value>Vrouwelijk</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Overige</value>
+  </data>
 </root>

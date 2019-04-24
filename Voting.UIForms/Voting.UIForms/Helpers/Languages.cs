@@ -83,5 +83,9 @@
         public static string NumberOfCandidates => Resource.NumberOfCandidates;
         public static string Results => Resource.Results;
         public static string Winner => Resource.Winner;
+        public static string VotingHistory => Resource.VotingHistory;
+        public static string Male => Resource.Male;
+        public static string Female => Resource.Female;
+        public static string Other => Resource.Other;
     }
 }
