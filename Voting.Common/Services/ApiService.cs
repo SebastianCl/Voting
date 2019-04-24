@@ -174,11 +174,11 @@
                     };
                 }
 
-                var user = JsonConvert.DeserializeObject<Vote>(answer);
+                List<Vote> votes = JsonConvert.DeserializeObject<List<Vote>>(answer);                
                 return new Response
                 {
                     IsSuccess = true,
-                    Result = user,
+                    Result = votes,
                 };
             }
             catch (Exception ex)

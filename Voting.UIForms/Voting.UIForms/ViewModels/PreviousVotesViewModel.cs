@@ -1,5 +1,6 @@
 ﻿namespace Voting.UIForms.ViewModels
 {
+    using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
@@ -16,6 +17,7 @@
         private readonly ApiService apiService;
         private ObservableCollection<EventItemViewModel> events;
         private List<Event> myEvents;
+        private List<Vote> myVotes;
         private bool isRefreshing;
         public string Winner { get; set; }
 
@@ -62,23 +64,37 @@
                 return;
             }
 
-            this.myEvents = (List<Event>)response.Result;
+            this.myVotes = (List<Vote>)response.Result;
+            
+
+            //this.myEvents = (List<Event>)response.Result;
+            if (this.myVotes == null)
+            {
+                await Application.Current.MainPage.DisplayAlert(
+                    Languages.Error,
+                    Languages.Error,
+                    Languages.Accept);
+                this.IsRefreshing = false;
+                return;
+            }
             this.RefresEventsList();
             this.IsRefreshing = false;
         }
 
+        
         private void RefresEventsList()
         {
+            //TODO: Fix previous vote
             this.Events = new ObservableCollection<EventItemViewModel>(
-                this.myEvents.Select(u => new EventItemViewModel
+                this.myVotes.Select(u => new EventItemViewModel
                 {
                     Id = u.Id,
-                    Name = u.Name,
-                    Description = u.Description,
-                    StartDate = u.StartDate,
-                    FinishDate = u.FinishDate,
-                    Candidates = u.Candidates,
-                    NumberCandidates = u.NumberCandidates
+                    Name = u.Event.Name,
+                    Description = u.Event.Description,
+                    StartDate = u.Event.StartDate,
+                    FinishDate = u.Event.FinishDate,
+                    Candidates = u.Event.Candidates,
+                    NumberCandidates = u.Event.NumberCandidates
                 })
             .OrderBy(u => u.Name)
             .ToList());
