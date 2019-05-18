@@ -246,7 +246,7 @@
             }
 
             await Application.Current.MainPage.DisplayAlert(
-                Languages.Error,
+                Languages.Ok,
                 response.Message,
                 Languages.Accept);
             await Application.Current.MainPage.Navigation.PopAsync();
@@ -276,7 +276,10 @@
             this.Countries = new ObservableCollection<Country>(myCountries);
         }        private void LoadGenders()
         {
-            this.genders = new string[] { Languages.Male, Languages.Female, Languages.Other };
+            this.genders = new string[] {
+                Languages.Male,
+                Languages.Female,
+                Languages.Other };
         }
     }
 

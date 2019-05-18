@@ -4,7 +4,7 @@
              xmlns:i18n="clr-namespace:Voting.UIForms.Helpers"
              x:Class="Voting.UIForms.Views.ResultsCandidatesPage"
              BindingContext="{Binding Main, Source={StaticResource Locator}}"             
-             Title="{i18n:Translate SelectCandidate}">
+             Title="{i18n:Translate Results}">
     <ContentPage.Content>
         <StackLayout
             BindingContext="{Binding ResultsCandidates}"

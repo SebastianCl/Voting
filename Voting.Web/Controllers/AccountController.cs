@@ -303,13 +303,13 @@
         {
             var country = await this.countryRepository.GetCountryWithCitiesAsync(countryId);
             return this.Json(country.Cities.OrderBy(c => c.Name));
-        }        public IActionResult RecoverPassword()
+        }        public IActionResult RememberPassword()
         {
             return this.View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> RecoverPassword(RecoverPasswordViewModel model)
+        public async Task<IActionResult> RememberPassword(RecoverPasswordViewModel model)
         {
             if (this.ModelState.IsValid)
             {

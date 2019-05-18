@@ -14,7 +14,7 @@
         protected override void OnAppearing()//cuando la pagina ya esta disponible para cargar en memoria
         {
             base.OnAppearing();
-            App.Navigator = this.Navigator;//luego de estar logueamos a traves de la
+            App.Navigator = this.Navigator;
             //aplication.current.mainpage para login
             //navigator luego de estar logueado 
             App.Master = this;
