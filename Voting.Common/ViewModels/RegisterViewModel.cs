@@ -9,6 +9,7 @@
     using MvvmCross.Navigation;
     using MvvmCross.ViewModels;
     using Services;
+    using Voting.Common.Helpers;
 
     public class RegisterViewModel : MvxViewModel
     {
@@ -27,7 +28,7 @@
         private string confirmPassword;
         private string gender;
         private string occupation;
-        private string stratum;
+        private int stratum;
         private DateTime birthdate;
 
         public RegisterViewModel(
@@ -92,7 +93,7 @@
             set => this.SetProperty(ref this.occupation, value);
         }
 
-        public string Stratum
+        public int Stratum
         {
             get => this.stratum;
             set => this.SetProperty(ref this.stratum, value);
@@ -140,7 +141,7 @@
         private async void LoadCountries()
         {
             var response = await this.apiService.GetListAsync<Country>(
-                "https://shopzulu.azurewebsites.net",
+                "https://uvoting.azurewebsites.net",
                 "/api",
                 "/Countries");
 
@@ -155,7 +156,90 @@
 
         private async void RegisterUser()
         {
-            // TODO: Make the local validations
+            if (string.IsNullOrEmpty(this.FirstName))
+            {
+                this.dialogService.Alert("Error", "Debe ingresar el nombre", "Aceptar");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(this.LastName))
+            {
+                this.dialogService.Alert("Error", "Debe ingresar el apellido", "Aceptar");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(this.Email))
+            {
+                this.dialogService.Alert("Error", "Debe ingresar el email", "Aceptar");
+                return;
+            }
+
+            if (!RegexHelper.IsValidEmail(this.Email))
+            {
+                this.dialogService.Alert("Error", "Debe ingresar un email valido", "Aceptar");
+                return;
+            }
+
+            if (this.Countries == null)
+            {
+                this.dialogService.Alert("Error", "Debe ingresar el pais", "Aceptar");
+                return;
+            }
+            
+            if (this.Cities == null)
+            {
+               this.dialogService.Alert("Error", "Debe ingresar la ciudad", "Aceptar");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(this.Occupation))
+            {
+                this.dialogService.Alert("Error", "Debe ingresar la ocupación", "Aceptar");
+                return;
+            }
+
+            if (this.Stratum <= 0)
+            {
+                this.dialogService.Alert("Error", "Debe ingresar un estrato valido", "Aceptar");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(this.Gender))
+            {
+                this.dialogService.Alert("Error", "Debe ingresar el genero", "Aceptar");
+                return;
+            }
+
+            if (this.Birthdate > DateTime.Now || this.Birthdate == null)
+            {
+                this.dialogService.Alert("Error", "Debe ingresar la fecha de nacimiento", "Aceptar");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(this.Password))
+            {
+                this.dialogService.Alert("Error", "Debe ingresar una contraseña", "Aceptar");
+                return;
+            }
+
+            if (this.Password.Length < 6)
+            {
+                this.dialogService.Alert("Error", "La contraseña debe tener almenos 6 caracteres", "Aceptar");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(this.ConfirmPassword))
+            {
+                this.dialogService.Alert("Error", "Debe verificar la contraseña", "Aceptar");
+                return;
+            }
+
+            if (!this.Password.Equals(this.ConfirmPassword))
+            {
+                this.dialogService.Alert("Error", "Las contraseñas no coinciden ", "Aceptar");
+                return;
+            }
+
             var request = new NewUserRequest
             {   
                 FirstName = this.FirstName,
@@ -163,19 +247,28 @@
                 CityId = this.SelectedCity.Id,
                 Email = this.Email,
                 Password = this.Password,
-                Gender = "",
-                Occupation = "",
-                Stratum = 0,
-                Birthdate = DateTime.Now,
-
+                Gender = this.Gender,
+                Occupation = this.Occupation,
+                Stratum = this.Stratum,
+                Birthdate = this.Birthdate
             };
 
+
             var response = await this.apiService.RegisterUserAsync(
-                "https://shopzulu.azurewebsites.net",
+                "https://uvoting.azurewebsites.net",
                 "/api",
                 "/Account",
                 request);
 
+            if (!response.IsSuccess)
+            {
+                this.dialogService.Alert(
+                    "Error",
+                    response.Message,
+                    "Accept");
+                return;
+            }
+            
             this.dialogService.Alert("Ok", "The user was created succesfully, you must " +
                 "confirm your user by the email sent to you and then you could login with " +
                 "the email and password entered.", "Accept");

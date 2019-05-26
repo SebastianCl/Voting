@@ -66,6 +66,7 @@
     <Compile Include="Setup.cs" />
     <Compile Include="Views\EventsView.cs" />
     <Compile Include="Views\LoginView.cs" />
+    <Compile Include="Views\RegisterView.cs" />
     <Compile Include="Views\SplashView.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -102,6 +103,9 @@
     </PackageReference>
     <PackageReference Include="MvvmCross.Plugin.Visibility">
       <Version>6.2.3</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Android.Support.Constraint.Layout">
+      <Version>1.1.2</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Android.Support.Design" Version="28.0.0.1" />
     <PackageReference Include="Xamarin.Android.Support.Core.Utils" Version="28.0.0.1" />
@@ -149,7 +153,7 @@
     <AndroidResource Include="Resources\values\SplashStyle.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\Icon.png" />
+    <AndroidResource Include="Resources\drawable\uvoting.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\EventRow.axml">
@@ -158,6 +162,20 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\EventsPage.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\danger_button.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\primary_button.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\secondary_button.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\RegisterPage.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
