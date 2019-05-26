@@ -9,7 +9,7 @@
     using Models;
     using Newtonsoft.Json;
 
-    public class ApiService
+    public class ApiService : IApiService
     {
 
         #region GET
@@ -174,7 +174,7 @@
                     };
                 }
 
-                List<Vote> votes = JsonConvert.DeserializeObject<List<Vote>>(answer);                
+                List<Vote> votes = JsonConvert.DeserializeObject<List<Vote>>(answer);
                 return new Response
                 {
                     IsSuccess = true,
