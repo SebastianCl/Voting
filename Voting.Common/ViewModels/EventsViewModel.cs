@@ -1,6 +1,7 @@
 ﻿namespace Voting.Common.ViewModels
 {
     using System.Collections.Generic;
+    using System.Linq;
     using Helpers;
     using Interfaces;
     using Models;
@@ -46,6 +47,7 @@
             }
 
             this.Events = (List<Event>)response.Result;
+            this.Events = this.events.OrderBy(e => e.FinishDate).ToList();
         }
     }
 

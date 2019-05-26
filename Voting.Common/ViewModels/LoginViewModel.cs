@@ -30,7 +30,7 @@
             this.dialogService = dialogService;
             this.navigationService = navigationService;
 
-            this.Email = "jzuluaga55@gmail.com";
+            this.Email = "cardonaloaizasebastian112@gmail.com";
             this.Password = "123456";
             this.IsLoading = false;
         }
@@ -115,8 +115,8 @@
             Settings.UserEmail = this.Email;
             Settings.Token = JsonConvert.SerializeObject(token);
             this.IsLoading = false;
-            //await this.navigationService.Navigate<EventsViewModel>();
-            this.dialogService.Alert("ok","done","Aceptar");
+            await this.navigationService.Navigate<EventsViewModel>();
+            
         }
     }
 }
