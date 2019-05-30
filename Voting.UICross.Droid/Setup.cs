@@ -1,13 +1,13 @@
 ﻿namespace Voting.UICross.Droid
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Reflection;
     using Common;
     using Common.Interfaces;
     using MvvmCross;
     using MvvmCross.Platforms.Android.Core;
     using Services;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Reflection;
 
     public class Setup : MvxAndroidSetup<App>
     {
