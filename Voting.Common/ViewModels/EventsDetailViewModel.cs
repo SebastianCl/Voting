@@ -17,7 +17,8 @@
         private readonly IMvxNavigationService navigationService;
         private Event @event;
         private bool isLoading;
-        
+        private MvxCommand<Candidate> itemClickCommand;
+
         public EventsDetailViewModel(
             IApiService apiService,
             IDialogService dialogService,
@@ -27,6 +28,48 @@
             this.dialogService = dialogService;
             this.navigationService = navigationService;
             this.IsLoading = false;
+        }
+
+        public ICommand ItemClickCommand
+        {
+            get
+            {
+                this.itemClickCommand = new MvxCommand<Candidate>(this.OnItemClickCommand);
+                return itemClickCommand;
+            }
+        }
+               
+
+        private async void OnItemClickCommand(Candidate candidate)
+        {
+            var request = new NewVote
+            {
+                Email = Settings.UserEmail,
+                Candidate = candidate.Id,
+                Event = Event.Id
+            };
+
+            var token = JsonConvert.DeserializeObject<TokenResponse>(Settings.Token);
+            var response = await this.apiService.RegisterVoteAsync(
+                "https://uvoting.azurewebsites.net",
+                "/api",
+                "/Votes",
+                request,
+                "bearer",
+                token.Token);
+
+            if (!response.IsSuccess)
+            {
+                this.dialogService.Alert(
+                    "Information",
+                    response.Message,
+                    "Accept");
+                return;
+            }
+
+            this.dialogService.Alert("Ok", 
+                "Your vote for " + candidate.Name + " was saved", 
+                "Accept");
         }
 
         public bool IsLoading

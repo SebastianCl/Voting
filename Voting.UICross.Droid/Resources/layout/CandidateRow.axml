@@ -25,7 +25,12 @@
         	android:layout_width="fill_parent"
         	android:layout_height="wrap_content"
         	android:textSize="20dp"
-        	local:MvxBind="Text Proposal" />
+        	local:MvxBind="Text Proposal" />        
+    	<TextView
+        	android:layout_width="fill_parent"
+        	android:layout_height="wrap_content"
+        	android:textSize="15dp"
+        	local:MvxBind="Text NumberVotesText" />
 	</LinearLayout>
 </LinearLayout>
 

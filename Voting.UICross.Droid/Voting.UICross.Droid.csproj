@@ -64,6 +64,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\DialogService.cs" />
     <Compile Include="Setup.cs" />
+    <Compile Include="Views\EditProfileView.cs" />
     <Compile Include="Views\EventDetailView.cs" />
     <Compile Include="Views\EventsView.cs" />
     <Compile Include="Views\LoginView.cs" />
@@ -193,6 +194,11 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\CandidateRow.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\EditProfilePage.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

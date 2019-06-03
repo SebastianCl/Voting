@@ -23,5 +23,7 @@
 
         Task<Response> RegisterUserAsync(string urlBase, string servicePrefix, string controller, NewUserRequest newUserRequest);
 
+        Task<Response> RegisterVoteAsync(string urlBase,string servicePrefix, string controller, NewVote newVoteRequest, string tokenType, string accessToken);
+
     }
 }

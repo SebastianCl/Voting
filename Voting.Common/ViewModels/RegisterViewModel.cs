@@ -3,13 +3,13 @@
     using System;
     using System.Collections.Generic;
     using System.Windows.Input;
+    using Helpers;
     using Interfaces;
     using Models;
     using MvvmCross.Commands;
     using MvvmCross.Navigation;
     using MvvmCross.ViewModels;
     using Services;
-    using Voting.Common.Helpers;
 
     public class RegisterViewModel : MvxViewModel
     {
@@ -185,10 +185,10 @@
                 this.dialogService.Alert("Error", "Debe ingresar el pais", "Aceptar");
                 return;
             }
-            
+
             if (this.Cities == null)
             {
-               this.dialogService.Alert("Error", "Debe ingresar la ciudad", "Aceptar");
+                this.dialogService.Alert("Error", "Debe ingresar la ciudad", "Aceptar");
                 return;
             }
 
@@ -241,7 +241,7 @@
             }
 
             var request = new NewUserRequest
-            {   
+            {
                 FirstName = this.FirstName,
                 LastName = this.LastName,
                 CityId = this.SelectedCity.Id,
@@ -268,7 +268,7 @@
                     "Accept");
                 return;
             }
-            
+
             this.dialogService.Alert("Ok", "The user was created succesfully, you must " +
                 "confirm your user by the email sent to you and then you could login with " +
                 "the email and password entered.", "Accept");

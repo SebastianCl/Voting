@@ -2,8 +2,8 @@
 {
     using System;
     using System.Threading.Tasks;
+    using Common.Models;
     using Data;
-    using Data.Entities;
     using Helpers;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Authorization;
@@ -79,42 +79,66 @@
             var user = await this.userHelper.GetUserByEmailAsync(vote.Email);
             if (user == null)
             {
-                return this.BadRequest("Invalid user");
+                return this.BadRequest(new Response
+                {
+                    IsSuccess = false,
+                    Message = "Invalid user"
+                });
             }
 
             var @event = await this.eventRepository.GetByIdAsync(vote.Event);
 
             if (@event == null)
             {
-                return this.BadRequest("Invalid event");
+                return this.BadRequest(new Response
+                {
+                    IsSuccess = false,
+                    Message = "Invalid event"
+                });
             }
 
             if (@event.StartDate > DateTime.Now)
             {
-                return this.BadRequest("The voting event has not started yet");
+                return this.BadRequest(new Response
+                {
+                    IsSuccess = false,
+                    Message = "The voting event has not started yet"
+                });
             }
 
             if (@event.FinishDate < DateTime.Now)
             {
-                return this.BadRequest("The voting event has closed");
+                return this.BadRequest(new Response
+                {
+                    IsSuccess = false,
+                    Message = "The voting event has closed"
+                });
             }
 
             int userVote = this.voteRepository.GetNumberVotes(user.Email, @event.Id);
             if (userVote > 0)
             {
-                return this.BadRequest("You already voted in this event");
+                return this.BadRequest(new Response
+                {
+                    IsSuccess = false,
+                    Message = "You already voted in this event"
+                });
             }
 
             var candidate = await this.eventRepository.GetCandidateAsync(vote.Candidate);
             if (candidate == null)
             {
-                return this.BadRequest("Invalid candidate");
+                return this.BadRequest(new Response
+                {
+                    IsSuccess = false,
+                    Message = "Invalid candidate"
+                });
             }
 
             candidate.TotalVotes++;
             await this.eventRepository.UpdateCandidateAsync(candidate);
 
-            var entityVote = new Vote
+            var entityVote = new Data.Entities.Vote
             {
                 User = user,
                 Event = @event,
@@ -122,7 +146,11 @@
             };
 
             await this.voteRepository.CreateAsync(entityVote);
-            return Ok($"Registered vote. The candidate \"{entityVote.Candidate.Name}\" has {candidate.TotalVotes} votes");
+            return Ok(new Response
+            {
+                IsSuccess = true,
+                Message = $"Registered vote. The candidate \"{entityVote.Candidate.Name}\" has {candidate.TotalVotes} votes"
+            });
         }
 
 
