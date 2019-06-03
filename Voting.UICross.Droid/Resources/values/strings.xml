@@ -1,4 +1,8 @@
 <resources>
-    <string name="app_name">uVoting</string>
-    <string name="action_settings">Settings</string>
+  <string name="app_name">uVoting</string>
+  <string name="action_settings">Settings</string>
+  <string name="register">Register New User</string>
+  <string name="events">Events</string>
+  <string name="event_details">Event Details</string>  
 </resources>
+

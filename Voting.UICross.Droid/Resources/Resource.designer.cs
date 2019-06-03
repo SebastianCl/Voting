@@ -7061,14 +7061,14 @@ namespace Voting.UICross.Droid
 			// aapt resource value: 0x7f0900bd
 			public const int loginButton = 2131296445;
 			
-			// aapt resource value: 0x7f0900d3
-			public const int masked = 2131296467;
+			// aapt resource value: 0x7f0900d4
+			public const int masked = 2131296468;
 			
 			// aapt resource value: 0x7f0900c4
 			public const int media_actions = 2131296452;
 			
-			// aapt resource value: 0x7f0900d1
-			public const int message = 2131296465;
+			// aapt resource value: 0x7f0900d2
+			public const int message = 2131296466;
 			
 			// aapt resource value: 0x7f090033
 			public const int middle = 2131296307;
@@ -7319,6 +7319,9 @@ namespace Voting.UICross.Droid
 			// aapt resource value: 0x7f0900a9
 			public const int title_textView = 2131296425;
 			
+			// aapt resource value: 0x7f0900d1
+			public const int toolbar = 2131296465;
+			
 			// aapt resource value: 0x7f090040
 			public const int top = 2131296320;
 			
@@ -7355,8 +7358,8 @@ namespace Voting.UICross.Droid
 			// aapt resource value: 0x7f090016
 			public const int view_offset_helper = 2131296278;
 			
-			// aapt resource value: 0x7f0900d2
-			public const int visible = 2131296466;
+			// aapt resource value: 0x7f0900d3
+			public const int visible = 2131296467;
 			
 			// aapt resource value: 0x7f09003e
 			public const int withText = 2131296318;
@@ -7625,7 +7628,10 @@ namespace Voting.UICross.Droid
 			public const int support_simple_spinner_dropdown_item = 2130968642;
 			
 			// aapt resource value: 0x7f040043
-			public const int tooltip = 2130968643;
+			public const int Toolbar = 2130968643;
+			
+			// aapt resource value: 0x7f040044
+			public const int tooltip = 2130968644;
 			
 			static Layout()
 			{
@@ -7764,6 +7770,12 @@ namespace Voting.UICross.Droid
 			// aapt resource value: 0x7f0a0020
 			public const int character_counter_pattern = 2131361824;
 			
+			// aapt resource value: 0x7f0a002d
+			public const int event_details = 2131361837;
+			
+			// aapt resource value: 0x7f0a002c
+			public const int events = 2131361836;
+			
 			// aapt resource value: 0x7f0a0027
 			public const int fab_scroll_shrink_grow_autohide_behavior = 2131361831;
 			
@@ -7781,6 +7793,9 @@ namespace Voting.UICross.Droid
 			
 			// aapt resource value: 0x7f0a0025
 			public const int path_password_strike_through = 2131361829;
+			
+			// aapt resource value: 0x7f0a002b
+			public const int register = 2131361835;
 			
 			// aapt resource value: 0x7f0a0011
 			public const int search_menu_title = 2131361809;

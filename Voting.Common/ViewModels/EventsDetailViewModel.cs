@@ -17,7 +17,7 @@
         private readonly IMvxNavigationService navigationService;
         private Event @event;
         private bool isLoading;
-        private MvxCommand<Candidate> itemClickCommand;
+        private MvxCommand<Candidate> candidateClickCommand;
 
         public EventsDetailViewModel(
             IApiService apiService,
@@ -30,17 +30,28 @@
             this.IsLoading = false;
         }
 
-        public ICommand ItemClickCommand
+        public ICommand CandidateClickCommand
         {
             get
             {
-                this.itemClickCommand = new MvxCommand<Candidate>(this.OnItemClickCommand);
-                return itemClickCommand;
+                this.candidateClickCommand = new MvxCommand<Candidate>(this.OnCandidateClickCommand);
+                return candidateClickCommand;
             }
         }
                
 
-        private async void OnItemClickCommand(Candidate candidate)
+        private void OnCandidateClickCommand(Candidate candidate)
+        {
+            this.dialogService.Confirm(
+                "Confirm vote",
+                $"You are sure to vote for '{candidate.Name}' ",
+                "Yes",
+                "No",
+                () => { this.VoteToCandidate(candidate); },
+                null);
+        }
+
+        private async void VoteToCandidate(Candidate candidate)
         {
             var request = new NewVote
             {
@@ -67,8 +78,9 @@
                 return;
             }
 
-            this.dialogService.Alert("Ok", 
-                "Your vote for " + candidate.Name + " was saved", 
+            this.dialogService.Alert(
+                "Ok",
+                "Your vote for " + candidate.Name + " was saved",
                 "Accept");
         }
 
