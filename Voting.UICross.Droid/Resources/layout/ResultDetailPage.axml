@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:local="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:paddingLeft="15dp"
+	android:paddingRight="15dp"
+	android:paddingTop="15dp">
+
+    
+	<LinearLayout
+    	android:paddingTop="10dp"
+    	android:paddingLeft="10dp"
+    	android:paddingRight="10dp"
+    	android:orientation="vertical"
+    	android:minWidth="25px"
+    	android:minHeight="25px"
+    	android:layout_width="match_parent"
+    	android:layout_height="wrap_content">
+
+        <TextView
+            android:text="Result"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:background="#007E97"
+            android:textColor="#ffff"
+            />
+
+    	
+    	<TextView
+        	android:text="Name"
+        	android:textAppearance="?android:attr/textAppearanceLarge"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:minWidth="25px"
+        	android:minHeight="25px"            
+        	local:MvxBind="Text Event.Name" />
+
+    	<TextView
+        	android:text="Description"
+        	android:textAppearance="?android:attr/textAppearanceLarge"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:minWidth="25px"
+        	android:minHeight="25px"
+            local:MvxBind="Text Event.Description" />
+
+        <TextView
+        	android:text="Start Date"
+        	android:textAppearance="?android:attr/textAppearanceLarge"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:minWidth="15px"
+        	android:minHeight="15px"
+            local:MvxBind="Text Event.StartDate" />
+
+    	<TextView
+        	android:text="Finish Date"
+        	android:textAppearance="?android:attr/textAppearanceLarge"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:minWidth="15px"
+        	android:minHeight="15px"
+            local:MvxBind="Text Event.FinishDate" />
+        
+    	<TextView
+        	android:text="Winner"
+        	android:textAppearance="?android:attr/textAppearanceLarge"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:minWidth="15px"
+        	android:minHeight="15px"
+            local:MvxBind="Text Winner" />
+
+    	<MvxListView
+    	    android:layout_width="fill_parent"
+    	    android:layout_height="fill_parent"
+            local:MvxItemTemplate="@layout/candidaterow"/>
+    	    
+	</LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

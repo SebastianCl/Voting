@@ -1,7 +1,6 @@
 ﻿namespace Voting.UIForms.ViewModels
 {
     using Common.Models;
-    using Common.Services;
     using Helpers;
 
     public class ResultsCandidatesViewModel : BaseViewModel

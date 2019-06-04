@@ -12,16 +12,15 @@
     using Newtonsoft.Json;
     using Services;
 
-    public class EventsViewModel : MvxViewModel
+    public class ResultsViewModel : MvxViewModel
     {
         private List<Event> events;
         private readonly IApiService apiService;
         private readonly IDialogService dialogService;
         private readonly IMvxNavigationService navigationService;
         private MvxCommand<Event> itemClickCommand;
-        private MvxCommand resultsCommand;
 
-        public EventsViewModel(
+        public ResultsViewModel(
             IApiService apiService,
             IDialogService dialogService,
             IMvxNavigationService navigationService)
@@ -39,22 +38,8 @@
                 return itemClickCommand;
             }
         }
-
-        public ICommand ResultsCommand
-        {
-            get
-            {
-                this.resultsCommand = new MvxCommand(this.GoToResultsCommand);
-                return resultsCommand;
-            }
-        }
-
-        private async void GoToResultsCommand()
-        {
-            await this.navigationService.Navigate<ResultsViewModel>();
-        }
-
-
+               
+        
         public List<Event> Events
         {
             get => this.events;
@@ -69,7 +54,7 @@
 
         private async void OnItemClickCommand(Event @event)
         {
-            await this.navigationService.Navigate<EventsDetailViewModel,
+            await this.navigationService.Navigate<ResultsDetailViewModel,
                 NavigationArgs>(new NavigationArgs { Event = @event });
         }
 
@@ -80,7 +65,7 @@
             var response = await this.apiService.GetListAsync<Event>(
                 "https://uvoting.azurewebsites.net",
                 "/api",
-                "/Events",
+                "/Events/Results",
                 "bearer",
                 token.Token);
 

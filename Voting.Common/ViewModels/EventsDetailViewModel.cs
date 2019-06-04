@@ -6,7 +6,6 @@
     using Interfaces;
     using Models;
     using MvvmCross.Commands;
-    using MvvmCross.Navigation;
     using MvvmCross.ViewModels;
     using Newtonsoft.Json;
 
@@ -14,19 +13,16 @@
     {
         private readonly IApiService apiService;
         private readonly IDialogService dialogService;
-        private readonly IMvxNavigationService navigationService;
         private Event @event;
         private bool isLoading;
         private MvxCommand<Candidate> candidateClickCommand;
 
         public EventsDetailViewModel(
             IApiService apiService,
-            IDialogService dialogService,
-            IMvxNavigationService navigationService)
+            IDialogService dialogService)
         {
             this.apiService = apiService;
             this.dialogService = dialogService;
-            this.navigationService = navigationService;
             this.IsLoading = false;
         }
 
@@ -38,7 +34,7 @@
                 return candidateClickCommand;
             }
         }
-               
+
 
         private void OnCandidateClickCommand(Candidate candidate)
         {
@@ -96,7 +92,7 @@
             set => this.SetProperty(ref this.@event, value);
         }
 
-       
+
         public override void Prepare(NavigationArgs parameter)
         {
             this.@event = parameter.Event;
