@@ -6941,9 +6941,6 @@ namespace Voting.UICross.Droid
 			// aapt resource value: 0x7f090022
 			public const int disableHome = 2131296290;
 			
-			// aapt resource value: 0x7f0900b6
-			public const int editProfileButton = 2131296438;
-			
 			// aapt resource value: 0x7f0900b9
 			public const int editTextEmail = 2131296441;
 			
@@ -7138,6 +7135,9 @@ namespace Voting.UICross.Droid
 			
 			// aapt resource value: 0x7f090084
 			public const int radio = 2131296388;
+			
+			// aapt resource value: 0x7f0900b6
+			public const int resultsButton = 2131296438;
 			
 			// aapt resource value: 0x7f09004c
 			public const int right = 2131296332;

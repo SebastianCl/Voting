@@ -16,7 +16,7 @@
         android:textColor="#ffff"
         />
     <Button
-        	android:id="@+id/editProfileButton"
+        	android:id="@+id/resultsButton"
         	android:text="See Results"
         	android:layout_width="150dp"
         	android:layout_height="wrap_content"

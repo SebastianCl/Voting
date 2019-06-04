@@ -1,5 +1,6 @@
 ﻿namespace Voting.Common.ViewModels
 {
+    using Services;
     using System.Collections.Generic;
     using System.Linq;
     using System.Windows.Input;
@@ -10,7 +11,6 @@
     using MvvmCross.Navigation;
     using MvvmCross.ViewModels;
     using Newtonsoft.Json;
-    using Services;
 
     public class EventsViewModel : MvxViewModel
     {
@@ -20,6 +20,7 @@
         private readonly IMvxNavigationService navigationService;
         private MvxCommand<Event> itemClickCommand;
         private MvxCommand resultsCommand;
+        private MvxCommand editProfileCommand;
 
         public EventsViewModel(
             IApiService apiService,
@@ -49,11 +50,14 @@
             }
         }
 
-        private async void GoToResultsCommand()
+        public ICommand EditProfileCommand
         {
-            await this.navigationService.Navigate<ResultsViewModel>();
+            get
+            {
+                this.editProfileCommand = new MvxCommand(this.GoToEditProfileCommand);
+                return editProfileCommand;
+            }
         }
-
 
         public List<Event> Events
         {
@@ -66,6 +70,17 @@
             base.ViewAppeared();
             this.LoadEventss();
         }
+
+        private async void GoToResultsCommand()
+        {
+            await this.navigationService.Navigate<ResultsViewModel>();
+        }
+
+        private async void GoToEditProfileCommand()
+        {
+            await this.navigationService.Navigate<EditProfileViewModel>();
+        }
+
 
         private async void OnItemClickCommand(Event @event)
         {
@@ -93,5 +108,6 @@
             this.Events = (List<Event>)response.Result;
             this.Events = this.Events.OrderBy(e => e.FinishDate).ToList();
         }
+
     }
 }

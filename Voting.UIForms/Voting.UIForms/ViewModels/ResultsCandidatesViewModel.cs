@@ -9,7 +9,6 @@
 
         public string Winner { get; set; }
 
-
         public ResultsCandidatesViewModel(Event @event)
         {
             this.Event = @event;
